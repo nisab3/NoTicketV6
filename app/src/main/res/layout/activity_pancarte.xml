@@ -17,6 +17,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -78,11 +83,15 @@
 
             </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
             <Button
                 android:id="@+id/boutHeure1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:tag="bh1"
                 android:text="@string/text_bout_heure1" />
 
@@ -99,6 +108,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_bout_heure3"
                 android:visibility="gone" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
 
             <Button
                 android:id="@+id/boutJour1"
@@ -119,6 +133,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_bout_jour3"
                 android:visibility="gone" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
 
             <Button
                 android:id="@+id/boutMois1"

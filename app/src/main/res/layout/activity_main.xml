@@ -8,19 +8,75 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/poteau">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <ImageButton
+                android:id="@+id/boutPanc1"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/desc_panc"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                app:srcCompat="@drawable/no_parking_blank" />
+
+            <ImageButton
+                android:id="@+id/boutPanc2"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/desc_panc"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                app:srcCompat="@drawable/no_parking_blank" />
+
+            <ImageButton
+                android:id="@+id/boutPanc3"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/desc_panc"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                app:srcCompat="@drawable/no_parking_blank" />
+
+            <ImageButton
+                android:id="@+id/boutPanc4"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/desc_panc"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                app:srcCompat="@drawable/no_parking_blank" />
+
+            <ImageButton
+                android:id="@+id/boutPanc5"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/desc_panc"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                app:srcCompat="@drawable/no_parking_blank" />
 
             <ImageButton
                 android:id="@+id/boutAjoutPanc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/desc_panc_ajouter"
                 android:onClick="ActionBoutPancarte"
-                app:srcCompat="@drawable/pancarte_p_vide" />
+                android:scaleType="fitCenter"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ajouter" />
         </LinearLayout>
     </ScrollView>
 

@@ -15,4 +15,6 @@
     <string name="text_seek_heure" translatable="false"># ligne d\'heure:</string>
     <string name="text_seek_jour"># ligne de jour:</string>
     <string name="text_seek_mois"># ligne de mois:</string>
+    <string name="desc_panc_ajouter">cliquer pour ajouter une pancarte</string>
+    <string name="desc_panc">Cliquer pour modifier ce panneau</string>
 </resources>
