@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    // quand je bouton de nouvelle pancarte est clicker
+    // on cré un intent et lance la nouvelle activité
     public void ActionBoutPancarte(View view){
         Intent intent = new Intent(this, PancarteActivity.class);
         startActivity(intent);

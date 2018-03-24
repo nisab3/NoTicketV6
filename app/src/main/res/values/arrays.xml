@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="eta">
+        <item>""</item>
+        <item>"À"</item>
+        <item>"ET"</item>
+    </string-array>
+    <string-array name="jours">
+        <item>""</item>
+        <item>"LUN"</item>
+        <item>"MAR"</item>
+        <item>"MER"</item>
+        <item>"JEU"</item>
+        <item>"VEN"</item>
+        <item>"SAM"</item>
+        <item>"DIM"</item>
+    </string-array>
+    <string-array name="jours_complets">
+        <item>""</item>
+        <item>"LUNDI"</item>
+        <item>"MARDI"</item>
+        <item>"MERCREDI"</item>
+        <item>"JEUDI"</item>
+        <item>"VENDREDI"</item>
+        <item>"SAMEDI"</item>
+        <item>"DIMANCHE"</item>
+    </string-array>
+    <string-array name="heure">
+        <item>"24"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+        <item>"11"</item>
+        <item>"12"</item>
+        <item>"13"</item>
+        <item>"14"</item>
+        <item>"15"</item>
+        <item>"16"</item>
+        <item>"17"</item>
+        <item>"18"</item>
+        <item>"19"</item>
+        <item>"20"</item>
+        <item>"21"</item>
+        <item>"22"</item>
+        <item>"23 "</item>
+    </string-array>
+    <string-array name="min">
+        <item>"0"</item>
+        <item>"30"</item>
+    </string-array>
+
+    <string-array name="mois">
+        <item>"JAN"</item>
+        <item>"FEV"</item>
+        <item>"MARS"</item>
+        <item>"AVRIL"</item>
+        <item>"MAI"</item>
+        <item>"JUIN"</item>
+        <item>"JUIL"</item>
+        <item>"AOUT"</item>
+        <item>"SEPT"</item>
+        <item>"OCT"</item>
+        <item>"NOV"</item>
+        <item>"DEC"</item>
+    </string-array>
+</resources>

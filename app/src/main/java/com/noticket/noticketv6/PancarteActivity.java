@@ -17,11 +17,11 @@ public class PancarteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pancarte);
+
         // listenner pour les seekbars
         SeekBar barHeure = findViewById(R.id.seekBarHeure);
         SeekBar barJour = findViewById(R.id.seekBarJour);
         SeekBar barMois = findViewById(R.id.seekBarMois);
-
         barHeure.setOnSeekBarChangeListener(barChangement);
         barJour.setOnSeekBarChangeListener(barChangement);
         barMois.setOnSeekBarChangeListener(barChangement);
@@ -34,9 +34,6 @@ public class PancarteActivity extends AppCompatActivity {
         Button bj2 = findViewById(R.id.boutJour2);
         Button bj3 = findViewById(R.id.boutJour3);
         Button bm1 = findViewById(R.id.boutMois1);
-        Button bm2 = findViewById(R.id.boutMois2);
-        Button bm3 = findViewById(R.id.boutMois3);
-
         bh1.setOnClickListener(b);
         bh2.setOnClickListener(b);
         bh3.setOnClickListener(b);
@@ -44,11 +41,9 @@ public class PancarteActivity extends AppCompatActivity {
         bj2.setOnClickListener(b);
         bj3.setOnClickListener(b);
         bm1.setOnClickListener(b);
-        bm2.setOnClickListener(b);
-        bm3.setOnClickListener(b);
-
     }
 
+    // ecoute si il y a un changement sur les SeekBars et change les dessins de numero
     private SeekBar.OnSeekBarChangeListener barChangement = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -81,6 +76,7 @@ public class PancarteActivity extends AppCompatActivity {
 
         }
     };
+
     //fonction pour faire apparaitre les boutons heure, jour, mois selon le
     //nombre dans le seekBar fournie
     //in : SeekBar, int état u seekbar
@@ -120,20 +116,53 @@ public class PancarteActivity extends AppCompatActivity {
             }
         }
     }
+
+        // écoute si on click sur un bouton de l'activité ou du fragment et décide de ce qu'il doit faire
     private Button.OnClickListener b = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            // 1er ligne d'heure
             if (view.getId() == R.id.boutHeure1){
                 clickAjoutPancarte(view, "heure", "1");
             }
+            // 2e ligne d'heure
+            if (view.getId() == R.id.boutHeure2){
+                clickAjoutPancarte(view, "heure", "2");
+            }
+            // 3e ligne d'heure
+            if (view.getId() == R.id.boutHeure3){
+                clickAjoutPancarte(view, "heure", "3");
+            }
+
+            // 1er ligne jour
             if (view.getId() == R.id.boutJour1){
                 clickAjoutPancarte(view, "jour", "1");
             }
+            // 2e ligne jour
+            if (view.getId() == R.id.boutJour2){
+                clickAjoutPancarte(view, "jour", "2");
+            }
+            // 3e ligne jour
+            if (view.getId() == R.id.boutJour3){
+                clickAjoutPancarte(view, "jour", "3");
+            }
+
+            // 1er ligne mois
+            if (view.getId() == R.id.boutMois1){
+                clickAjoutPancarte(view, "mois", "1");
+            }
+
+            // cancel de tout fragment
             if (view.getId() == R.id.boutFragCancel){
                 clickFermerFrag(view);
             }
         }
     };
+
+            // mettre tout les infos nécessaires dans un bundle et lancer le fragment
+            // in : View view = view
+            //      string type = heure, jour, mois (type du bouton)
+            //      String numero = 1, 2, 3 (ligne du bouton)
     public void clickAjoutPancarte(View view, String type, String numero){
 
 
@@ -142,13 +171,16 @@ public class PancarteActivity extends AppCompatActivity {
         paquet.putString("numero", numero);
         Fragment fragChoix = new ChoixFragment();
         fragChoix.setArguments(paquet);
+
         //desactive tout les boutons dans pancarte activity
         desactivationBouton();
+
         //creer et lancer le fragment
         lanceFragment(view, fragChoix);
 
     }
 
+        //lancement du frangement
     public void lanceFragment(View view, Fragment fragChoix ){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -157,9 +189,11 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
     public void clickFermerFrag(View view){
+
         //reactivation des boutons de pancarte activity
         activationBouton();
-        //enlever le fragment
+
+        //enlever et détruire le fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment frag = fragmentManager.findFragmentById(R.id.layoutPourChoixFrag);
@@ -167,6 +201,7 @@ public class PancarteActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    // désactive tout les boutons de l'activity pancarte lorsque nous somme dans le fragment
     public void desactivationBouton(){
         findViewById(R.id.seekBarHeure).setEnabled(false);
         findViewById(R.id.seekBarJour).setEnabled(false);
@@ -180,9 +215,9 @@ public class PancarteActivity extends AppCompatActivity {
         findViewById(R.id.boutJour2).setEnabled(false);
         findViewById(R.id.boutJour3).setEnabled(false);
         findViewById(R.id.boutMois1).setEnabled(false);
-        findViewById(R.id.boutMois2).setEnabled(false);
-        findViewById(R.id.boutMois3).setEnabled(false);
     }
+
+    // réactive tout les bouton de activity pancarte lorsque nous sortont du fragment
     public void activationBouton(){
         findViewById(R.id.seekBarHeure).setEnabled(true);
         findViewById(R.id.seekBarJour).setEnabled(true);
@@ -197,7 +232,5 @@ public class PancarteActivity extends AppCompatActivity {
         findViewById(R.id.boutJour2).setEnabled(true);
         findViewById(R.id.boutJour3).setEnabled(true);
         findViewById(R.id.boutMois1).setEnabled(true);
-        findViewById(R.id.boutMois2).setEnabled(true);
-        findViewById(R.id.boutMois3).setEnabled(true);
     }
 }

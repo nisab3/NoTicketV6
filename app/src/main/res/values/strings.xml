@@ -4,5 +4,15 @@
     <string name="string_trait_picker">-</string>
     <string name="string_annuler">ANNULER</string>
     <string name="string_OK">OK</string>
-    <string name="text_bout_heure1">7h00 à 18h00</string>
+    <string name="text_bout_heure1" translatable="false">7h00 à 18h00</string>
+    <string name="text_bout_heure2" translatable="false">18h - 21h</string>
+    <string name="text_bout_heure3">15h30 - 16h30</string>
+    <string name="text_bout_jour1">LUN À VEN</string>
+    <string name="text_bout_jour2">VEN</string>
+    <string name="text_bout_jour3">SAM ET DIM</string>
+    <string name="text_bout_mois1">SEPT À JUIN</string>
+    <string name="string_a_mois">À</string>
+    <string name="text_seek_heure" translatable="false"># ligne d\'heure:</string>
+    <string name="text_seek_jour"># ligne de jour:</string>
+    <string name="text_seek_mois"># ligne de mois:</string>
 </resources>

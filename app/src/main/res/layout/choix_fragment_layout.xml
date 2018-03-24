@@ -86,16 +86,52 @@
                 android:id="@+id/jourPicker1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="gone" />
 
             <NumberPicker
                 android:id="@+id/jourPicker2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="gone" />
 
             <NumberPicker
                 android:id="@+id/jourPicker3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <NumberPicker
+                android:id="@+id/moisNumPicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <NumberPicker
+                android:id="@+id/moisPicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/textAMois"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/string_a_mois"
+                android:textAlignment="center" />
+
+            <NumberPicker
+                android:id="@+id/moisNumPicker2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <NumberPicker
+                android:id="@+id/moisPicker2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
