@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutPourChoixFrag"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.noticket.noticketv6.PancarteActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layoutPancarte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <SeekBar
+                    android:id="@+id/seekBarHeure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="3"
+                    android:progress="1"
+                    android:thumb="@drawable/number_1" />
+
+                <SeekBar
+                    android:id="@+id/seekBarJour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="3"
+                    android:progress="1"
+                    android:thumb="@drawable/number_1" />
+
+                <SeekBar
+                    android:id="@+id/seekBarMois"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="3"
+                    android:progress="1"
+                    android:thumb="@drawable/number_1" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/boutHeure1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:tag="bh1"
+                android:text="@string/text_bout_heure1" />
+
+            <Button
+                android:id="@+id/boutHeure2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/boutHeure3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/boutJour1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/boutJour2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/boutJour3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/boutMois1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/boutMois2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/boutMois3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NoTicketV6</string>
+    <string name="string_h_picker">h</string>
+    <string name="string_trait_picker">-</string>
+    <string name="string_annuler">ANNULER</string>
+    <string name="string_OK">OK</string>
+    <string name="text_bout_heure1">7h00 à 18h00</string>
+</resources>
