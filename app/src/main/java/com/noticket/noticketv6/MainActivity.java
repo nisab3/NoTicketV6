@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
-    Poteau poteau = new Poteau();
+
+//    Poteau poteau = new Poteau();
+//    Pancarte pancarteMain = poteau.get_pancarte(1);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

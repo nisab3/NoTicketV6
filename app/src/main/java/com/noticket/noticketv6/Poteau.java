@@ -6,19 +6,19 @@ import java.util.Date;
 
 public class Poteau {
     // Les 5 objets Pancarte
-    Pancarte p1, p2, p3, p4,  p5;
+    private Pancarte p1, p2, p3, p4,  p5;
     // État des 5 pancartes
-    boolean p1_active, p2_active, p3_active, p4_active, p5_active;
+    private boolean p1_active, p2_active, p3_active, p4_active, p5_active;
     // L'alarme en int
-    int alarme;
+    private int alarme;
 
     // Constructeur
     Poteau() {
-        Pancarte p1 = new Pancarte();
-        Pancarte p2 = new Pancarte();
-        Pancarte p3 = new Pancarte();
-        Pancarte p4 = new Pancarte();
-        Pancarte p5 = new Pancarte();
+        p1 = new Pancarte();
+        p2 = new Pancarte();
+        p3 = new Pancarte();
+        p4 = new Pancarte();
+        p5 = new Pancarte();
     }
 
     // Donne le numéro de la Pancarte désirée et
