@@ -105,14 +105,12 @@ public class PancarteActivity extends AppCompatActivity {
             }
             else {
                 //(barId == R.id.barMois)
-                for (int j = 0; j < 3; j++) {
-                    if (j < i) {
-                        findViewById(R.id.boutMois1 + j).setVisibility(View.VISIBLE);
-                    } else {
-                        findViewById(R.id.boutMois1 + j).setVisibility(View.GONE);
-                    }
-                }
 
+                    if (i == 1) {
+                        findViewById(R.id.boutMois1).setVisibility(View.VISIBLE);
+                    } else {
+                        findViewById(R.id.boutMois1).setVisibility(View.GONE);
+                    }
             }
         }
     }

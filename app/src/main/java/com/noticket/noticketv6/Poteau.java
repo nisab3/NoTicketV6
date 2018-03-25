@@ -14,11 +14,11 @@ public class Poteau {
 
     // Constructeur
     Poteau() {
-        private Pancarte p1 = new Pancarte();
-        private Pancarte p2 = new Pancarte();
-        private Pancarte p3 = new Pancarte();
-        private Pancarte p4 = new Pancarte();
-        private Pancarte p5 = new Pancarte();
+        Pancarte p1 = new Pancarte();
+        Pancarte p2 = new Pancarte();
+        Pancarte p3 = new Pancarte();
+        Pancarte p4 = new Pancarte();
+        Pancarte p5 = new Pancarte();
     }
 
     // Donne le numéro de la Pancarte désirée et
@@ -77,6 +77,6 @@ public class Poteau {
 
         }
 
-
+        return fleche; //temporaire il falait juste que ca retourne un int
     }
 }
