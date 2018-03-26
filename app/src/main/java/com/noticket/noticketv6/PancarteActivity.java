@@ -1,5 +1,6 @@
 package com.noticket.noticketv6;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,11 +12,14 @@ import android.widget.SeekBar;
 
 
 public class PancarteActivity extends AppCompatActivity {
-
+    private int numero = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pancarte);
+
+        Intent intent = getIntent();
+        intent.getIntExtra("NUMPANCARTE", numero);
 
         // listenner pour les seekbars
         SeekBar barHeure = findViewById(R.id.seekBarHeure);
@@ -40,6 +44,7 @@ public class PancarteActivity extends AppCompatActivity {
         bj2.setOnClickListener(b);
         bj3.setOnClickListener(b);
         bm1.setOnClickListener(b);
+
     }
 
     // ecoute si il y a un changement sur les SeekBars et change les dessins de numero
@@ -80,7 +85,7 @@ public class PancarteActivity extends AppCompatActivity {
     //nombre dans le seekBar fournie
     //in : SeekBar, int état u seekbar
     //out: rien
-    public void barChangeVisible(SeekBar seekbar, int i){
+    private void barChangeVisible(SeekBar seekbar, int i){
         int barId = seekbar.getId();
         if (barId == R.id.seekBarHeure){
             for (int j = 0; j < 3; j++ ){
@@ -120,33 +125,33 @@ public class PancarteActivity extends AppCompatActivity {
         public void onClick(View view) {
             // 1er ligne d'heure
             if (view.getId() == R.id.boutHeure1){
-                clickAjoutPancarte(view, "heure", "1");
+                clickModifieLigne(view, "heure", "1");
             }
             // 2e ligne d'heure
             if (view.getId() == R.id.boutHeure2){
-                clickAjoutPancarte(view, "heure", "2");
+                clickModifieLigne(view, "heure", "2");
             }
             // 3e ligne d'heure
             if (view.getId() == R.id.boutHeure3){
-                clickAjoutPancarte(view, "heure", "3");
+                clickModifieLigne(view, "heure", "3");
             }
 
             // 1er ligne jour
             if (view.getId() == R.id.boutJour1){
-                clickAjoutPancarte(view, "jour", "1");
+                clickModifieLigne(view, "jour", "1");
             }
             // 2e ligne jour
             if (view.getId() == R.id.boutJour2){
-                clickAjoutPancarte(view, "jour", "2");
+                clickModifieLigne(view, "jour", "2");
             }
             // 3e ligne jour
             if (view.getId() == R.id.boutJour3){
-                clickAjoutPancarte(view, "jour", "3");
+                clickModifieLigne(view, "jour", "3");
             }
 
             // 1er ligne mois
             if (view.getId() == R.id.boutMois1){
-                clickAjoutPancarte(view, "mois", "1");
+                clickModifieLigne(view, "mois", "1");
             }
 
             // cancel de tout fragment
@@ -156,11 +161,11 @@ public class PancarteActivity extends AppCompatActivity {
         }
     };
 
-            // mettre tout les infos nécessaires dans un bundle et lancer le fragment
-            // in : View view = view
-            //      string type = heure, jour, mois (type du bouton)
-            //      String numero = 1, 2, 3 (ligne du bouton)
-    public void clickAjoutPancarte(View view, String type, String numero){
+    // mettre tout les infos nécessaires dans un bundle et lancer le fragment
+    // in : View view = view
+    //      string type = heure, jour, mois (type du bouton)
+    //      String numero = 1, 2, 3 (ligne du bouton)
+    private void clickModifieLigne(View view, String type, String numero){
 
 
         Bundle paquet = new Bundle();
@@ -178,14 +183,14 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
         //lancement du frangement
-    public void lanceFragment(View view, Fragment fragChoix ){
+    private void lanceFragment(View view, Fragment fragChoix ){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.layoutPourChoixFrag, fragChoix);
         fragmentTransaction.commit();
     }
 
-    public void clickFermerFrag(View view){
+    private void clickFermerFrag(View view){
 
         //reactivation des boutons de pancarte activity
         activationBouton();
@@ -199,7 +204,7 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
     // désactive tout les boutons de l'activity pancarte lorsque nous somme dans le fragment
-    public void desactivationBouton(){
+    private void desactivationBouton(){
         findViewById(R.id.seekBarHeure).setEnabled(false);
         findViewById(R.id.seekBarJour).setEnabled(false);
         findViewById(R.id.seekBarMois).setEnabled(false);
@@ -215,7 +220,7 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
     // réactive tout les bouton de activity pancarte lorsque nous sortont du fragment
-    public void activationBouton(){
+    private void activationBouton(){
         findViewById(R.id.seekBarHeure).setEnabled(true);
         findViewById(R.id.seekBarJour).setEnabled(true);
         findViewById(R.id.seekBarMois).setEnabled(true);
@@ -229,5 +234,10 @@ public class PancarteActivity extends AppCompatActivity {
         findViewById(R.id.boutJour2).setEnabled(true);
         findViewById(R.id.boutJour3).setEnabled(true);
         findViewById(R.id.boutMois1).setEnabled(true);
+    }
+
+    // va chercher tout les infos de la pancarte et les mets dans les divers boutons
+    private void setInfoStart(){
+
     }
 }

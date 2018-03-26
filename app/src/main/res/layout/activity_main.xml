@@ -73,7 +73,6 @@
                 android:layout_height="250dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/desc_panc_ajouter"
-                android:onClick="ActionBoutPancarte"
                 android:scaleType="fitCenter"
                 android:visibility="visible"
                 app:srcCompat="@drawable/ajouter" />

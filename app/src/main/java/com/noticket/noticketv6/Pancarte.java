@@ -15,20 +15,39 @@ public class Pancarte {
     private Mois mois;
     private int fleche; // 0 = pas fleche, 1 = gauche, 2 = droite, 3 = les deux
     private int image;
-    private Heure [] heure = {hligne1, hligne2, hligne2};
-    private Jour[] jour = {jligne1, jligne2, jligne3};
+    private Heure[] heure = new Heure[3];
+    private Jour[] jour = new Jour[3];
 
     public Pancarte() {
         fleche = 0;
         image = 0;
+        //crée les lignes heure
+        hligne1 = new Heure();
+        hligne2 = new Heure();
+        hligne3 = new Heure();
+        // initialise le array heure
+        heure[0] = hligne1;
+        heure[1] = hligne2;
+        heure[2] = hligne3;
+        //crée les lignes jour
+        jligne1 = new Jour();
+        jligne2 = new Jour();
+        jligne3 = new Jour();
+        // initialise le array jour
+        jour[0] = jligne1;
+        jour[1] = jligne2;
+        jour[2] = jligne3;
+        // crée le mois
+        mois = new Mois();
+
     }
 
     // class pour nouvel objet heure
     private class Heure {
         // variable heure
-        int min1;
+        public int min1;
         int min2;
-        int heure1;
+        public int heure1;
         int heure2;
         boolean active;
 
@@ -45,35 +64,32 @@ public class Pancarte {
     //     int numero ligne
     // out: rien
     public void heureSetActive(boolean etat, int ligne){
-        heure[ligne].active = etat;
+        heure[ligne-1].active = etat;
     }
 
     // demande si la ligne est active
     // in: int numero ligne
     // out: true/false
     public boolean heureIsActive(int ligne){
-        return heure[ligne].active;
+        return heure[ligne-1].active;
     }
 
     // mettre l'heure a la ligne donner
-    // in: int heure1
-    //     int min1
-    //     int heure2
-    //     int min2
-    //     int numero ligne
+    // in: int [heure1, min1, heure2, min2]
+    //     int ligne
     // out: rien
-    public void setHeure (int h1, int m1, int h2, int m2, int ligne){
-        heure[ligne].heure1 = h1;
-        heure[ligne].heure2 = h2;
-        heure[ligne].min1 = m1;
-        heure[ligne].min2 = m2;
+    public void setHeure (int[] h, int ligne){
+        heure[ligne-1].heure1 = h[0];
+        heure[ligne-1].heure2 = h[2];
+        heure[ligne-1].min1 = h[1];
+        heure[ligne-1].min2 = h[3];
     }
 
     // demander l'heure a la ligne donner
     // in: numero de la ligne
     // out: int[heure1, min1, heure2, min2]
-    public int[] getheure(int ligne){
-        int[] result = {heure[ligne].heure1, heure[ligne].min1, heure[ligne].heure2, heure[ligne].min2};
+    public int[] getHeure(int ligne){
+        int[] result = {heure[ligne-1].heure1, heure[ligne-1].min1, heure[ligne-1].heure2, heure[ligne-1].min2};
         return result;
     }
 
@@ -98,7 +114,7 @@ public class Pancarte {
     // in: int numero ligne
     // out: true/false
     public boolean jourIsActive(int ligne){
-        return jour[ligne].active;
+        return jour[ligne-1].active;
     }
 
     // set si le jour est active
@@ -106,26 +122,24 @@ public class Pancarte {
     //     int numero ligne
     // out: rien
     public void jourSetActive(boolean etat, int ligne){
-        jour[ligne].active = etat;
+        jour[ligne-1].active = etat;
     }
 
     // mettre le jour a la ligne donner
-    // in: int jour1
-    //     int jour2
-    //     int et/a
+    // in: int [jour1, jour2, et/a]
     //     int numero ligne
     // out: rien
-    public void setjour (int j1, int j2, int eta, int ligne){
-        jour[ligne].jour1 = j1;
-        jour[ligne].jour2 = j2;
-        jour[ligne].eta = eta;
+    public void setJour(int[] j, int ligne){
+        jour[ligne].jour1 = j[0];
+        jour[ligne].jour2 = j[1];
+        jour[ligne].eta = j[2];
     }
 
     // demander le jour a la ligne donner
     // in: numero de la ligne
     // out: int[jour1, jour2, eta]
-    public int[] getjour(int ligne){
-        int[] result = {jour[ligne].jour1, jour[ligne].jour2, jour[ligne].eta};
+    public int[] getJour(int ligne){
+        int[] result = {jour[ligne-1].jour1, jour[ligne-1].jour2, jour[ligne-1].eta};
         return result;
     }
 
@@ -163,22 +177,19 @@ public class Pancarte {
     }
 
     // mettre le mois
-    // in: int date1
-    //     int mois1
-    //     int date2
-    //     int mois2
+    // in: int [date1, mois1, date2, mois2]
     // out: rien
-    public void setmois (int d1, int m1, int d2, int m2){
-        mois.date1 = d1;
-        mois.mois1 = m1;
-        mois.date2 = d2;
-        mois.mois2 = m2;
+    public void setmois (int[] m){
+        mois.date1 = m[0];
+        mois.mois1 = m[1];
+        mois.date2 = m[2];
+        mois.mois2 = m[3];
     }
 
     // demander le mois
     // in: rien
-    // out: int[jour1, jour2, eta]
-    public int[] getjour(){
+    // out: int[date1, mois1, date2, mois2]
+    public int[] getMois(){
         int[] result = {mois.date1, mois.mois1, mois.date2, mois.mois2};
         return result;
     }

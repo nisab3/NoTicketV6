@@ -8,7 +8,7 @@ public class Poteau {
     // Les 5 objets Pancarte
     private Pancarte p1, p2, p3, p4,  p5;
     // État des 5 pancartes
-    private boolean p1_active, p2_active, p3_active, p4_active, p5_active;
+    private boolean p1_active, p2_active, p3_active, p4_active, p5_active = false;
     // L'alarme en int
     private int alarme;
 
@@ -19,6 +19,7 @@ public class Poteau {
         p3 = new Pancarte();
         p4 = new Pancarte();
         p5 = new Pancarte();
+
     }
 
     // Donne le numéro de la Pancarte désirée et
@@ -31,6 +32,19 @@ public class Poteau {
             case 4: return p4;
             case 5: return p5;
             default: return p5;
+
+        }
+    }
+    // donne l'etat de la pancarte désiré et
+    // retourne un true/false
+    public boolean get_pancarte_active(int numero){
+        switch (numero) {
+            case 1: return p1_active;
+            case 2: return p2_active;
+            case 3: return p3_active;
+            case 4: return p4_active;
+            case 5: return p5_active;
+            default: return p5_active;
         }
     }
 
