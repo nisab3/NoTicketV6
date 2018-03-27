@@ -18,4 +18,5 @@
     <string name="desc_panc_ajouter">cliquer pour ajouter une pancarte</string>
     <string name="desc_panc">Cliquer pour modifier ce panneau</string>
     <string name="alerte_max_pancarte">Vous avez atteint le maximum de 5 pancartes</string>
+    <string name="title_activity_geolocalisation">Map</string>
 </resources>
