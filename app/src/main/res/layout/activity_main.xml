@@ -17,55 +17,257 @@
             android:orientation="vertical"
             android:paddingTop="20dp">
 
-            <ImageButton
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/boutPanc1"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/desc_panc"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:srcCompat="@drawable/no_parking_blank" />
+                android:visibility="gone">
 
-            <ImageButton
+                <ImageView
+                    android:id="@+id/boutImPanc1"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textImPanc1"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:srcCompat="@drawable/no_parking_blank" />
+
+                <TextView
+                    android:id="@+id/textImPanc1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="125dp"
+                    android:gravity="center"
+                    android:text="@string/alerte_max_pancarte"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fleche1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="220dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/boutImPanc1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/boutImPanc1"
+                    app:srcCompat="@drawable/fleche_d" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/boutPanc2"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/desc_panc"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:srcCompat="@drawable/no_parking_blank" />
+                android:visibility="gone">
 
-            <ImageButton
+                <ImageView
+                    android:id="@+id/boutImPanc2"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/no_parking_blank"
+                    tools:layout_editor_absoluteX="164dp" />
+
+                <TextView
+                    android:id="@+id/textImPanc2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="125dp"
+                    android:gravity="center"
+                    android:text="@string/alerte_max_pancarte"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fleche2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="220dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/boutImPanc2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/fleche_d" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/boutPanc3"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/desc_panc"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:srcCompat="@drawable/no_parking_blank" />
+                android:visibility="gone">
 
-            <ImageButton
+                <ImageView
+                    android:id="@+id/boutImPanc3"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/no_stop_blank" />
+
+                <TextView
+                    android:id="@+id/textImPanc3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="125dp"
+                    android:gravity="center"
+                    android:text="@string/alerte_max_pancarte"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fleche3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="220dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/boutImPanc3"
+                    app:layout_constraintTop_toTopOf="@+id/boutImPanc3"
+                    app:srcCompat="@drawable/fleche_d" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/boutPanc4"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/desc_panc"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:srcCompat="@drawable/no_parking_blank" />
+                android:visibility="gone">
 
-            <ImageButton
+                <ImageView
+                    android:id="@+id/boutImPanc4"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/no_stop_blank" />
+
+                <TextView
+                    android:id="@+id/textImPanc4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="125dp"
+                    android:gravity="center"
+                    android:text="@string/alerte_max_pancarte"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fleche4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="220dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/fleche_d" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/boutPanc5"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/desc_panc"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:srcCompat="@drawable/no_parking_blank" />
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/boutImPanc5"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/no_parking_blank" />
+
+                <TextView
+                    android:id="@+id/textImPanc5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="125dp"
+                    android:gravity="center"
+                    android:text="@string/alerte_max_pancarte"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fleche5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="220dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/fleche_d" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <ImageButton
                 android:id="@+id/boutAjoutPanc"
@@ -75,7 +277,9 @@
                 android:contentDescription="@string/desc_panc_ajouter"
                 android:scaleType="fitCenter"
                 android:visibility="visible"
-                app:srcCompat="@drawable/ajouter" />
+                app:srcCompat="@drawable/ajouter"
+                tools:srcCompat="@string/alerte_max_pancarte" />
+
         </LinearLayout>
     </ScrollView>
 
