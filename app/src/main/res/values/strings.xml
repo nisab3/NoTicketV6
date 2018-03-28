@@ -11,7 +11,7 @@
     <string name="text_bout_jour2">VEN</string>
     <string name="text_bout_jour3">SAM ET DIM</string>
     <string name="text_bout_mois1">SEPT À JUIN</string>
-    <string name="string_a_mois">À</string>
+    <string name="string_a_mois">AU</string>
     <string name="text_seek_heure" translatable="false"># ligne d\'heure:</string>
     <string name="text_seek_jour"># ligne de jour:</string>
     <string name="text_seek_mois"># ligne de mois:</string>

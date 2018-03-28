@@ -1,5 +1,6 @@
 package com.noticket.noticketv6;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -98,8 +99,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("NUMPANCARTE", numero);
 
         mettreInfo(intent, numero);     //mettre la pancarte dans le intent
-
-        startActivity(intent);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+        startActivityForResult(intent, Activity.RESULT_OK);
     }
 
     // mets les infos d'un pancarte dans un intent et le retourne
@@ -132,5 +134,19 @@ public class MainActivity extends AppCompatActivity {
         pancarte.setHeure(heure2, 2);
         int[] heure3 = intent.getIntArrayExtra("HEURE3");
         pancarte.setHeure(heure3, 3);
+        int[] jour1 = intent.getIntArrayExtra("JOUR1");
+        pancarte.setJour(jour1, 1);
+        int[] jour2 = intent.getIntArrayExtra("JOUR2");
+        pancarte.setJour(jour1, 2);
+        int[] jour3 = intent.getIntArrayExtra("JOUR3");
+        pancarte.setJour(jour1, 3);
+        int[] mois = intent.getIntArrayExtra("MOIS");
+        pancarte.setmois(mois);
+        int fleche = intent.getIntExtra("FLECHE", 0);
+        pancarte.setFleche(fleche);
+        int image = intent.getIntExtra("IMAGE", 0);
+        pancarte.setImage(image);
+
+        // ici je dois appeler a réecrire le texte sur les pancartes
     }
 }

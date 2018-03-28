@@ -130,9 +130,9 @@ public class Pancarte {
     //     int numero ligne
     // out: rien
     public void setJour(int[] j, int ligne){
-        jour[ligne].jour1 = j[0];
-        jour[ligne].jour2 = j[1];
-        jour[ligne].eta = j[2];
+        jour[ligne-1].jour1 = j[0];
+        jour[ligne-1].jour2 = j[1];
+        jour[ligne-1].eta = j[2];
     }
 
     // demander le jour a la ligne donner

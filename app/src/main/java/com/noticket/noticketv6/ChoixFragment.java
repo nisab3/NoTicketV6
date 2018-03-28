@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,89 +23,161 @@ public class ChoixFragment extends Fragment {
     // quel ligne 1, 2, 3 on se trouve
     private int numFrag = 0;
 
+    // utilisé pour retourner les infos a pancarte activité
+    private int[] resultat = {0, 0, 0, 0};
+
+    //nommer tout les numberpicker
+    private NumberPicker heure1;
+    private NumberPicker heure2;
+    private NumberPicker min1;
+    private NumberPicker min2;
+    private NumberPicker jour1;
+    private NumberPicker jour2;
+    private NumberPicker jour3;
+    private NumberPicker mois1;
+    private NumberPicker mois2;
+    private NumberPicker moisNum1;
+    private NumberPicker moisNum2;
+
+
     @Nullable
     @Override
-    //creation du fragment pour le retourner
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.choix_fragment_layout, container, false);
+
+
 
         return v;
     }
 
-    // appeler tout de suite apres la creation du fragement pour definir si c'est heure, jour ou mois
+    /* appeler tout de suite apres la creation du fragement pour definir si c'est heure, jour ou mois */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // initialisation de tout les numberPickers
+        heure1 = getActivity().findViewById(R.id.heurePicker1);
+        heure2 = getActivity().findViewById(R.id.heurePicker2);
+        min1 = getActivity().findViewById(R.id.minPicker1);
+        min2 = getActivity().findViewById(R.id.minPicker2);
+        jour1 = getActivity().findViewById(R.id.jourPicker1);
+        jour2 = getActivity().findViewById(R.id.jourPicker2);
+        jour3 = getActivity().findViewById(R.id.jourPicker3);
+        moisNum1 = getActivity().findViewById(R.id.moisNumPicker1);
+        moisNum2 = getActivity().findViewById(R.id.moisNumPicker2);
+        mois1 = getActivity().findViewById(R.id.moisPicker1);
+        mois2 = getActivity().findViewById(R.id.moisPicker2);
+
+        // mettre le listener
+        heure1.setOnValueChangedListener(n);
+        heure2.setOnValueChangedListener(n);
+        min1.setOnValueChangedListener(n);
+        min2.setOnValueChangedListener(n);
+        jour1.setOnValueChangedListener(n);
+        jour2.setOnValueChangedListener(n);
+        jour3.setOnValueChangedListener(n);
+        moisNum1.setOnValueChangedListener(n);
+        moisNum2.setOnValueChangedListener(n);
+        mois1.setOnValueChangedListener(n);
+        mois2.setOnValueChangedListener(n);
 
         Bundle paquet = getArguments();
-        String id = paquet.getString("numero");
-        switch (id){
-            case "1":   numFrag = 1;
-                        break;
-            case "2":   numFrag = 2;
-                        break;
-            case "3":   numFrag = 3;
-                        break;
-            default:    numFrag = 0;
-                        break;
-        }
-        String type = paquet.getString("type");
-        switch (type){
-            case "heure":    typeFrag = 1;
-                             break;
-            case "jour":     typeFrag = 2;
-                             break;
-            case "mois":     typeFrag= 3;
-                             break;
-            default:         typeFrag = 0;
-                             break;
-        }
+        //sortir le numero du paquet
+        numFrag = paquet.getInt("numero", 0);
+
+        //sortir le type du paquet
+        typeFrag = paquet.getInt("type", 0);
+
+        //sortir la ligne des infos pancarte du paquet
+        int[] info = paquet.getIntArray("info");
+
         // call le bon contructeur de l'interface voulu
         //si heure
         if (typeFrag == 1) {
-            makeHeureFrag();
+            makeHeureFrag(info);
         }
         //si jour
         if (typeFrag == 2){
-            makeJourFrag();
+            makeJourFrag(info);
         }
         //si mois
         if (typeFrag == 3){
-            makeMoisFrag();
+            makeMoisFrag(info);
         }
     }
 
-    // creation du fragement pour saisir l'heure
-    private void makeHeureFrag(){
+    /* ecoute les changements des numberPicker et les sauve dans le bundle pour le retour */
+    private NumberPicker.OnValueChangeListener n = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+            if (typeFrag == 1){
+                resultat[0] = heure1.getValue();
+                resultat[1] = min1.getValue();
+                resultat[2] = heure2.getValue();
+                resultat[3] = min2.getValue();
+                sauveBundle();
+            }
+            else {
+                if(typeFrag ==2){
+                    resultat[0] = jour1.getValue();
+                    resultat[1] = jour3.getValue();
+                    resultat[2] = jour2.getValue();
+                    sauveBundle();
+                }
+                else {
+                    if (typeFrag == 3) {
+                        resultat[0] = moisNum1.getValue();
+                        resultat[1] = mois1.getValue();
+                        resultat[2] = moisNum2.getValue();
+                        resultat[3] = mois2.getValue();
+                        sauveBundle();
+                    }
+                }
+            }
+        }
+    };
+
+    /* fonction pour ajouter l'info de resultat dans le bundle */
+    private void sauveBundle(){
+        Bundle bundle = getArguments();
+        bundle.putIntArray("info", resultat);
+        this.setArguments(bundle);
+    }
+
+    /*
+    creation du fragement pour saisir l'heure
+    in: les informations de la ligne de la pancarte
+    */
+    private void makeHeureFrag(int[] info){
 
         // formate number picker de l'heure 1
-        NumberPicker heure1 = getActivity().findViewById(R.id.heurePicker1); //va le chercher
         heure1.setWrapSelectorWheel(true);                                   //pour que la roue tourne sur elle meme
         heure1.setMinValue(0);                                               //valeur minimal
-        heure1.setMaxValue(23);                                              //valeur maximal
+        heure1.setMaxValue(23);                                              //valeur maximal//mets la valeur de la pancarte
         heure1.setDisplayedValues(getResources().getStringArray(R.array.heure)); //changer tout les valeurs affichées
-
+        heure1.setValue(info[0]);                                               //mets la valeur de la pancarte
         // formate number picker de l'heure 2
-        NumberPicker heure2 = getActivity().findViewById(R.id.heurePicker2);
         heure2.setWrapSelectorWheel(true);
         heure2.setMinValue(0);
         heure2.setMaxValue(23);
         heure2.setDisplayedValues(getResources().getStringArray(R.array.heure));
+        heure2.setValue(info[2]);
 
         // formate number picker des minutes 1
-        NumberPicker min1 = getActivity().findViewById(R.id.minPicker1);
         min1.setWrapSelectorWheel(true);
         min1.setMinValue(0);
         min1.setMaxValue(1);
+        min1.setValue(info[1]);
         min1.setDisplayedValues(getResources().getStringArray(R.array.min));
 
+
         // formate number picker des minutes 1
-        NumberPicker min2 = getActivity().findViewById(R.id.minPicker2);
         min2.setWrapSelectorWheel(true);
         min2.setMinValue(0);
         min2.setMaxValue(1);
         min2.setDisplayedValues(getResources().getStringArray(R.array.min));
+        min2.setValue(info[3]);
 
         // cache tout ce que nous avons pas besoin
         getActivity().findViewById(R.id.textHPicker1).setVisibility(View.VISIBLE);
@@ -124,29 +197,32 @@ public class ChoixFragment extends Fragment {
         getActivity().findViewById(R.id.moisPicker2).setVisibility(View.GONE);
     }
 
-    // creation du fragement pour saisir les jours
-    private void makeJourFrag(){
+    /*
+    creation du fragement pour saisir les jours
+    in: les informations de la ligne de la pancarte
+    */
+    private void makeJourFrag(int[] info){
 
         // formate number picker du premier jour
-        NumberPicker jour1 = getActivity().findViewById(R.id.jourPicker1);
         jour1.setMinValue(0);
         jour1.setMaxValue(7);
         jour1.setWrapSelectorWheel(true);
         jour1.setDisplayedValues(getResources().getStringArray(R.array.jours));
+        jour1.setValue(info[0]);
 
         // formate number picker du deuxieme jour
-        NumberPicker jour3 = getActivity().findViewById(R.id.jourPicker3);
         jour3.setMinValue(0);
         jour3.setMaxValue(7);
         jour3.setWrapSelectorWheel(true);
         jour3.setDisplayedValues(getResources().getStringArray(R.array.jours));
+        jour3.setValue(info[1]);
 
         // formate number picker du et ou à
-        NumberPicker jour2 = getActivity().findViewById(R.id.jourPicker2);
         jour2.setMinValue(0);
         jour2.setMaxValue(2);
         jour2.setWrapSelectorWheel(true);
         jour2.setDisplayedValues(getResources().getStringArray(R.array.eta));
+        jour2.setValue(info[2]);
 
         // cache tout ce que nous avons pas besoin
         getActivity().findViewById(R.id.textHPicker1).setVisibility(View.GONE);
@@ -166,34 +242,37 @@ public class ChoixFragment extends Fragment {
         getActivity().findViewById(R.id.moisPicker2).setVisibility(View.GONE);
     }
 
-    // creation du fragement pour saisir les mois
-    private void makeMoisFrag(){
+    /*
+    creation du fragement pour saisir les mois
+    in: les informations de la ligne de la pancarte
+    */
+    private void makeMoisFrag(int[] info){
 
         // formate number picker du numéro du mois 1
-        NumberPicker moisNum1 = getActivity().findViewById(R.id.moisNumPicker1);
-        moisNum1.setWrapSelectorWheel(true);
+        //moisNum1.setWrapSelectorWheel(true);
         moisNum1.setMaxValue(31);
         moisNum1.setMinValue(1);
+        moisNum1.setValue(info[0]);
 
         // formate number picker du numéro du mois 2
-        NumberPicker moisNum2 = getActivity().findViewById(R.id.moisNumPicker2);
-        moisNum2.setWrapSelectorWheel(true);
+        //moisNum2.setWrapSelectorWheel(true);
         moisNum2.setMaxValue(31);
         moisNum2.setMinValue(1);
+        moisNum2.setValue(info[2]);
 
         // formate number picker du nom du mois 1
-        NumberPicker mois1 = getActivity().findViewById(R.id.moisPicker1);
-        mois1.setWrapSelectorWheel(true);
+        //mois1.setWrapSelectorWheel(true);
         mois1.setMaxValue(12);
         mois1.setMinValue(1);
         mois1.setDisplayedValues(getResources().getStringArray(R.array.mois));
+        mois1.setValue(info[1]);
 
         // formate number picker du nom du mois 2
-        NumberPicker mois2 = getActivity().findViewById(R.id.moisPicker2);
-        mois2.setWrapSelectorWheel(true);
+        //mois2.setWrapSelectorWheel(true);
         mois2.setMaxValue(12);
         mois2.setMinValue(1);
         mois2.setDisplayedValues(getResources().getStringArray(R.array.mois));
+        mois2.setValue(info[3]);
 
         // cache tout ce que nous avons pas besoin
         getActivity().findViewById(R.id.textHPicker1).setVisibility(View.GONE);
