@@ -81,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
         }
         //appel la fonction de transfere a l'activity pancarte
         creeIntent(view, numero);
+
+        // TEST TOMMY
+//        Intent intent = new Intent(this, Geolocalisation.class);
+//        startActivity(intent);
+
+
     }
 
     // fonction appelé par un bouton de pancarte déjà créé
