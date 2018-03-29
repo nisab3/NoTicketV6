@@ -23,6 +23,7 @@ public class Pancarte {
         image = 0;
         //crée les lignes heure
         hligne1 = new Heure();
+        hligne1.active = true; // premiere ligne seulement active
         hligne2 = new Heure();
         hligne3 = new Heure();
         // initialise le array heure
@@ -31,6 +32,7 @@ public class Pancarte {
         heure[2] = hligne3;
         //crée les lignes jour
         jligne1 = new Jour();
+        jligne1.active = true;  // premiere ligne seulement active
         jligne2 = new Jour();
         jligne3 = new Jour();
         // initialise le array jour
@@ -39,6 +41,7 @@ public class Pancarte {
         jour[2] = jligne3;
         // crée le mois
         mois = new Mois();
+        mois.active = true; //ligne mois active
 
     }
 

@@ -2,15 +2,20 @@ package com.noticket.noticketv6;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     public Poteau poteau;
+    //variable utilisé pour identifier PancarteActivité a son retour
+    private static final int PANCARTE_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
         poteau = new Poteau();
         //créer les imageButton pour leur donner la fonction onclicklistener
-        ImageButton bp1 = findViewById(R.id.boutPanc1);
-        ImageButton bp2 = findViewById(R.id.boutPanc2);
-        ImageButton bp3 = findViewById(R.id.boutPanc3);
-        ImageButton bp4 = findViewById(R.id.boutPanc4);
-        ImageButton bp5 = findViewById(R.id.boutPanc5);
+        ImageView bp1 = findViewById(R.id.boutImPanc1);
+        ImageView bp2 = findViewById(R.id.boutImPanc2);
+        ImageView bp3 = findViewById(R.id.boutImPanc3);
+        ImageView bp4 = findViewById(R.id.boutImPanc4);
+        ImageView bp5 = findViewById(R.id.boutImPanc5);
         ImageButton bpa = findViewById(R.id.boutAjoutPanc);
         bp1.setOnClickListener(b);
         bp2.setOnClickListener(b);
@@ -32,27 +37,28 @@ public class MainActivity extends AppCompatActivity {
         bp5.setOnClickListener(b);
         bpa.setOnClickListener(b);
 
+
     }
     // fonction qui ecoute le click des imageButton pour lui envoyer la bonne fonction
-    private ImageButton.OnClickListener b = new View.OnClickListener() {
+    private ImageView.OnClickListener b = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.boutAjoutPanc){
                 actionBoutNouveau(view);
             }
-            if (view.getId() == R.id.boutPanc1){
+            if (view.getId() == R.id.boutImPanc1){
                 actionBoutPancarte(view, 1);
             }
-            if (view.getId() == R.id.boutPanc2){
+            if (view.getId() == R.id.boutImPanc2){
                 actionBoutPancarte(view, 2);
             }
-            if (view.getId() == R.id.boutPanc3){
+            if (view.getId() == R.id.boutImPanc3){
                 actionBoutPancarte(view, 3);
             }
-            if (view.getId() == R.id.boutPanc4){
+            if (view.getId() == R.id.boutImPanc4){
                 actionBoutPancarte(view, 4);
             }
-            if (view.getId() == R.id.boutPanc5){
+            if (view.getId() == R.id.boutImPanc5){
                 actionBoutPancarte(view, 5);
             }
         }
@@ -64,24 +70,22 @@ public class MainActivity extends AppCompatActivity {
     // vérifiant quel est la prochaine pancarte pas active
     private void actionBoutNouveau(View view){
         int numero = 1;
-        if (poteau.get_pancarte_active(1)){
-            numero = 2;
-            if (poteau.get_pancarte_active(2)){
-                numero = 3;
-                if (poteau.get_pancarte_active(3)){
-                    numero = 4;
-                    if (poteau.get_pancarte_active(4)){
-                        numero= 5;
-                        if (poteau.get_pancarte_active(5)){
-                            Toast.makeText(getApplicationContext(),R.string.alerte_max_pancarte, Toast.LENGTH_LONG );
-                        }
-                    }
-                }
+        boolean trouve = false;
+        while(numero < 6 && trouve == false){
+            if (poteau.get_pancarte_active(numero)){
+                numero++;
+            }
+            else{
+                trouve = true;
             }
         }
-        //appel la fonction de transfere a l'activity pancarte
-        creeIntent(view, numero);
-
+        if (numero < 6) {
+            //appel la fonction de transfere a l'activity pancarte
+            creeIntent(view, numero);
+        }
+        else{
+            Toast.makeText(getApplicationContext(),R.string.alerte_max_pancarte, Toast.LENGTH_LONG );
+        }
         // TEST TOMMY
 //        Intent intent = new Intent(this, Geolocalisation.class);
 //        startActivity(intent);
@@ -105,9 +109,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("NUMPANCARTE", numero);
 
         mettreInfo(intent, numero);     //mettre la pancarte dans le intent
-        setResult(Activity.RESULT_OK, intent);
-        finish();
-        startActivityForResult(intent, Activity.RESULT_OK);
+
+        startActivityForResult(intent, PANCARTE_ACTIVITY_REQUEST_CODE);
     }
 
     // mets les infos d'un pancarte dans un intent et le retourne
@@ -124,35 +127,117 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("MOIS", pancarte.getMois());
         intent.putExtra("FLECHE", pancarte.getFleche());
         intent.putExtra("IMAGE", pancarte.getImage());
+        boolean[] actif = {pancarte.heureIsActive(1), pancarte.heureIsActive(2), pancarte.heureIsActive(3),
+                            pancarte.jourIsActive(1), pancarte.jourIsActive(2), pancarte.jourIsActive(3),
+                            pancarte.moisIsActive()};
+        intent.putExtra("ACTIVE", actif);
 
         return intent;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ( requestCode == PANCARTE_ACTIVITY_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                prendreInfo(data);
+            }
+        }
+    }
+
     // prend le intent et remet les infos dans la pancarte
-    private void prendreInfo(){
-        Intent intent = getIntent();         //prend le intent
+    private void prendreInfo(Intent intent){
         int numero = intent.getIntExtra("NUMPANCARTE", 0);      //prend le numero de la pancarte
-        Pancarte pancarte = poteau.get_pancarte(numero);          //prend la bonne pancarte du poteau
+        Pancarte pancarteRetour = poteau.get_pancarte(numero);          //prend la bonne pancarte du poteau
+
         // sort tout les infos et le mettre dans pancarte
         int[] heure1 = intent.getIntArrayExtra("HEURE1");
-        pancarte.setHeure(heure1, 1);
+        pancarteRetour.setHeure(heure1, 1);
         int[] heure2 = intent.getIntArrayExtra("HEURE2");
-        pancarte.setHeure(heure2, 2);
+        pancarteRetour.setHeure(heure2, 2);
         int[] heure3 = intent.getIntArrayExtra("HEURE3");
-        pancarte.setHeure(heure3, 3);
+        pancarteRetour.setHeure(heure3, 3);
         int[] jour1 = intent.getIntArrayExtra("JOUR1");
-        pancarte.setJour(jour1, 1);
+        pancarteRetour.setJour(jour1, 1);
         int[] jour2 = intent.getIntArrayExtra("JOUR2");
-        pancarte.setJour(jour1, 2);
+        pancarteRetour.setJour(jour1, 2);
         int[] jour3 = intent.getIntArrayExtra("JOUR3");
-        pancarte.setJour(jour1, 3);
+        pancarteRetour.setJour(jour1, 3);
         int[] mois = intent.getIntArrayExtra("MOIS");
-        pancarte.setmois(mois);
+        pancarteRetour.setmois(mois);
         int fleche = intent.getIntExtra("FLECHE", 0);
-        pancarte.setFleche(fleche);
+        pancarteRetour.setFleche(fleche);
         int image = intent.getIntExtra("IMAGE", 0);
-        pancarte.setImage(image);
+        pancarteRetour.setImage(image);
+        boolean[] actif = intent.getBooleanArrayExtra("ACTIVE");
+        pancarteRetour.heureSetActive(actif[0], 1);
+        pancarteRetour.heureSetActive(actif[1], 2);
+        pancarteRetour.heureSetActive(actif[2], 3);
+        pancarteRetour.jourSetActive(actif[3], 1);
+        pancarteRetour.jourSetActive(actif[4], 2);
+        pancarteRetour.jourSetActive(actif[5], 3);
+        pancarteRetour.moisSetActive(actif[6]);
 
         // ici je dois appeler a réecrire le texte sur les pancartes
+        String resutatText = formateText(pancarteRetour);
+        TextView t = findViewById(R.id.textImPanc1 +(numero -1));
+        t.setText(resutatText);
+
+        // faire apparaitre la pancarte et l'activer et la mettre dans le poteau
+        poteau.set_pancarte_active(numero, true);
+        poteau.set_pancarte(pancarteRetour, numero);
+        findViewById(R.id.boutPanc1 + (numero -1) ).setVisibility(View.VISIBLE);
+        // cacher le bouton ajouterPancarte si il y a maintenant 5 pancarte
+        cacheBoutAjoute();
+    }
+
+    public String formateText (Pancarte panc){
+        String result = "";
+        Resources res = getResources();
+        for( int i =1; i < 4; i++){
+            if (panc.heureIsActive(i)){
+                int[] heure = panc.getHeure(i);
+                String[] min = res.getStringArray(R.array.min);
+                result = result + heure[0] + "h" + min[heure[1]] + " - " + heure[2] + "h" + min[heure[3]] + "\n";
+            }
+        }
+        for( int i =1; i < 4; i++){
+            if (panc.jourIsActive(i)){
+                int[] jour = panc.getJour(i);
+                String[] eta = res.getStringArray(R.array.eta);
+                String[] s_jour = res.getStringArray(R.array.jours);
+                result = result + s_jour[jour[0]] + " " + eta[jour[2]] + " " + s_jour[jour[1]] + "\n";
+            }
+        }
+        if (panc.moisIsActive()){
+            int[] mois = panc.getMois();
+            String[] s_mois = res.getStringArray(R.array.mois);
+            result = result + mois[0] + " " + s_mois[mois[1]-1] + " - " + mois[2] + " " + s_mois[mois[3]-1];
+        }
+        return result;
+    }
+
+    // fonction qui rend gone/visible le bouton ajouté selon e nombre de pancarte(max 5)
+    private void cacheBoutAjoute(){
+        int total = 0;
+        for(int i = 1; i<6; i++){
+            if (poteau.get_pancarte_active(i)){
+                total++;
+            }
+        }
+        if (total ==5){
+            findViewById(R.id.boutAjoutPanc).setVisibility(View.GONE);
+        }
+        else {
+            findViewById(R.id.boutAjoutPanc).setVisibility(View.VISIBLE);
+        }
+    }
+    
+    // désactivation du back button car lorqu'on reviens il repart a zero
+    // il faut donc utiliser le home button pour sortir
+    @Override
+    public void onBackPressed() {
+
     }
 }

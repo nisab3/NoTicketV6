@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context="com.noticket.noticketv6.PancarteActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -222,6 +233,13 @@
                     app:srcCompat="@android:drawable/arrow_up_float" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/boutCancelPanc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
 
         </LinearLayout>
     </ScrollView>

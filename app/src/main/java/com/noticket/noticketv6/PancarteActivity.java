@@ -2,6 +2,7 @@ package com.noticket.noticketv6;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,10 +27,12 @@ public class PancarteActivity extends AppCompatActivity {
     private Button bj2;
     private Button bj3;
     private Button bm1;
+    private FloatingActionButton ok;
+    private Button can;
     // l'objet pancarte traité
     public Pancarte pancarte;
 
-    ImageSwitcher is;
+    //ImageSwitcher is;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class PancarteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pancarte);
 
         Intent intent = getIntent();
-        intent.getIntExtra("NUMPANCARTE", numero);
+        numero = intent.getIntExtra("NUMPANCARTE", numero);
 
         pancarte = new Pancarte();
 
@@ -57,6 +60,8 @@ public class PancarteActivity extends AppCompatActivity {
         bj2 = findViewById(R.id.boutJour2);
         bj3 = findViewById(R.id.boutJour3);
         bm1 = findViewById(R.id.boutMois1);
+        ok = findViewById(R.id.floatingActionButton);
+        can = findViewById(R.id.boutCancelPanc);
 
         bh1.setOnClickListener(b);
         bh2.setOnClickListener(b);
@@ -65,17 +70,21 @@ public class PancarteActivity extends AppCompatActivity {
         bj2.setOnClickListener(b);
         bj3.setOnClickListener(b);
         bm1.setOnClickListener(b);
+        ok.setOnClickListener(b);
+        can.setOnClickListener(b);
 
         setInfoStart();
 
-        is = findViewById(R.id.stop);
-        is.setOnGenericMotionListener(im);
+        //is = findViewById(R.id.stop);
+        //is.setOnGenericMotionListener(im);
     }
 
-    // va etre utilisé plus tard surment pour envoyer les info a mainActivity quand on va clicker ok ou cancel
+    // que faire si le bouton back est clicker
+    // je dois la overrider car sinon ca repars une nouvelle MainActivity et perds tout les pancarte déja fait
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 
     /* ecoute si il y a un changement sur les SeekBars et change les dessins de numero */
@@ -114,15 +123,15 @@ public class PancarteActivity extends AppCompatActivity {
 
     //test imageswitcher
 
-    ImageSwitcher.OnGenericMotionListener im = new View.OnGenericMotionListener() {
-        @Override
-        public boolean onGenericMotion(View view, MotionEvent motionEvent) {
-            if (view.getId() == R.id.stop){
-                is.getNextView();
-            }
-            return false;
-        }
-    };
+//    ImageSwitcher.OnGenericMotionListener im = new View.OnGenericMotionListener() {
+//        @Override
+//        public boolean onGenericMotion(View view, MotionEvent motionEvent) {
+//            if (view.getId() == R.id.stop){
+//                is.getNextView();
+//            }
+//            return false;
+//        }
+//    };
 
     /*
     fonction pour faire apparaitre les boutons heure, jour, mois
@@ -175,6 +184,10 @@ public class PancarteActivity extends AppCompatActivity {
     private Button.OnClickListener b = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //floating button
+            if (view.getId() == R.id.floatingActionButton){
+                setInfoStop();
+            }
             // 1er ligne d'heure
             if (view.getId() == R.id.boutHeure1){
                 int[] info = pancarte.getHeure(1);
@@ -221,6 +234,9 @@ public class PancarteActivity extends AppCompatActivity {
             // bouton ok de tous fragments
             if (view.getId() == R.id.boutFragOk){
                 clickFermerFrag(view);
+            }
+            if (view.getId() == R.id.boutCancelPanc){
+                cancel();
             }
         }
     };
@@ -388,6 +404,14 @@ public class PancarteActivity extends AppCompatActivity {
         pancarte.setFleche(fleche);
         int image = intent.getIntExtra("IMAGE", 0);
         pancarte.setImage(image);
+        boolean[] actif = intent.getBooleanArrayExtra("ACTIVE");
+        pancarte.heureSetActive(actif[0], 1);
+        pancarte.heureSetActive(actif[1], 2);
+        pancarte.heureSetActive(actif[2], 3);
+        pancarte.jourSetActive(actif[3], 1);
+        pancarte.jourSetActive(actif[4], 2);
+        pancarte.jourSetActive(actif[5], 3);
+        pancarte.moisSetActive(actif[6]);
 
         // mettre les info de la pancarte dans les boutons
         ecrireBoutonHeure(1);
@@ -397,6 +421,27 @@ public class PancarteActivity extends AppCompatActivity {
         ecrireBoutonJour(2);
         ecrireBoutonJour(3);
         ecrireBoutonMois();
+
+        //ajustement du nombre de bouton actif
+        int actifHeure = 0;
+        int actifJour = 0;
+        int actifMois = 0;
+        for (int i = 0; i<3; i++){
+            if (actif[i]) {
+                    actifHeure ++;
+            }
+        }
+        for (int i = 3; i<6; i++){
+            if (actif[i]) {
+                actifJour ++;
+            }
+        }
+        if (actif[6]){
+            actifMois ++;
+        }
+        barMois.setProgress(actifMois);
+        barJour.setProgress(actifJour);
+        barHeure.setProgress(actifHeure);
     }
 
     /*
@@ -481,4 +526,29 @@ public class PancarteActivity extends AppCompatActivity {
         String[] mois = res.getStringArray(R.array.mois);
         return mois[numero-1];
     }
+
+    private void setInfoStop(){
+        Intent intent = new Intent();
+        intent.putExtra("HEURE1", pancarte.getHeure(1));
+        intent.putExtra("HEURE2", pancarte.getHeure(2));
+        intent.putExtra("HEURE3", pancarte.getHeure(3));
+        intent.putExtra("JOUR1", pancarte.getJour(1));
+        intent.putExtra("JOUR2", pancarte.getJour(2));
+        intent.putExtra("JOUR3", pancarte.getJour(3));
+        intent.putExtra("MOIS", pancarte.getMois());
+        intent.putExtra("FLECHE", pancarte.getFleche());
+        intent.putExtra("IMAGE", pancarte.getImage());
+        intent.putExtra("NUMPANCARTE", numero);
+        boolean[] actif = {pancarte.heureIsActive(1), pancarte.heureIsActive(2), pancarte.heureIsActive(3),
+                pancarte.jourIsActive(1), pancarte.jourIsActive(2), pancarte.jourIsActive(3),
+                pancarte.moisIsActive()};
+        intent.putExtra("ACTIVE", actif);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+    // le bouton cancel
+    private void cancel(){
+        finish();
+    }
+
 }
