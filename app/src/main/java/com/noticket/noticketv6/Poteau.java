@@ -8,9 +8,13 @@ public class Poteau {
     // Les 5 objets Pancarte
     private Pancarte p1, p2, p3, p4,  p5;
     // État des 5 pancartes
-    private boolean p1_active, p2_active, p3_active, p4_active, p5_active = false;
+    private boolean p1_active = false, p2_active = false, p3_active = false, p4_active = false, p5_active = false;
     // L'alarme en int
     private int alarme;
+    // Rue One Way
+    private boolean oneWay;
+    // Position sur la rue (1, 2, 3 ou 4)
+    private int position;
 
     // Constructeur
     Poteau() {
@@ -84,6 +88,22 @@ public class Poteau {
     public void set_alarme(int nouvelle_alarme) {
         alarme = nouvelle_alarme;
     }
+
+    // Retourne le booléen oneWay
+    public boolean get_oneWay(){
+        return oneWay;
+    }
+
+    // Input: la nouvelle valeur de oneWay
+    public void set_oneWay(boolean nouveau) { oneWay = nouveau; }
+
+    // Retourne le int position
+    public int get_position(){
+        return  position;
+    }
+
+    // Input: la nouvelle valeur de la position
+    public void set_position(int nouvelle_position) { position = nouvelle_position; }
 
     // Analyse les 5 pancartes en fonction du
     // type de flèche: 0 pas de flèche

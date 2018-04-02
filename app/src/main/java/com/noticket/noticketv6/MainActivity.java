@@ -1,11 +1,15 @@
 package com.noticket.noticketv6;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +41,50 @@ public class MainActivity extends AppCompatActivity {
         bp5.setOnClickListener(b);
         bpa.setOnClickListener(b);
 
+        // Création des floating buttons Analyse et effacer toutes les pancartes
+        FloatingActionButton analyse = (FloatingActionButton) findViewById(R.id.boutonAnalyse);
+        analyse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                final View mView = getLayoutInflater().inflate(R.layout.oneway, null);
+
+                Button boutonOui = (Button) mView.findViewById(R.id.boutonOui);
+                Button boutonNon = (Button) mView.findViewById(R.id.boutonNon);
+
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                boutonOui.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        poteau.set_oneWay(true);
+                        Toast.makeText(MainActivity.this,  String.valueOf( poteau.get_oneWay()), Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                        // TEST TOMMY
+                        Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                        startActivity(intent);
+                    }
+                });
+
+                boutonNon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        poteau.set_oneWay(false);
+                        Toast.makeText(MainActivity.this,  String.valueOf( poteau.get_oneWay()), Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                        // TEST TOMMY
+                        Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                        startActivity(intent);
+                    }
+                });
+
+
+
+            }
+        });
 
     }
     // fonction qui ecoute le click des imageButton pour lui envoyer la bonne fonction
@@ -86,9 +134,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(getApplicationContext(),R.string.alerte_max_pancarte, Toast.LENGTH_LONG );
         }
-        // TEST TOMMY
-//        Intent intent = new Intent(this, Geolocalisation.class);
-//        startActivity(intent);
+
 
 
     }
