@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Création des floating buttons Analyse et effacer toutes les pancartes
         FloatingActionButton analyse = (FloatingActionButton) findViewById(R.id.boutonAnalyse);
+        FloatingActionButton reset = (FloatingActionButton) findViewById(R.id.boutonReset);
+
+        // Listener du bouton Analyse
         analyse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,11 +64,66 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         poteau.set_oneWay(true);
-                        Toast.makeText(MainActivity.this,  String.valueOf( poteau.get_oneWay()), Toast.LENGTH_LONG).show();
                         dialog.dismiss();
-                        // TEST TOMMY
-                        Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                        startActivity(intent);
+
+                        AlertDialog.Builder positionBuilder = new AlertDialog.Builder(MainActivity.this);
+                        final View positionView = getLayoutInflater().inflate(R.layout.position_oneway, null);
+
+                        Button position1 = (Button) positionView.findViewById(R.id.position1);
+                        Button position2 = (Button) positionView.findViewById(R.id.position2);
+                        Button position3 = (Button) positionView.findViewById(R.id.position3);
+                        Button position4 = (Button) positionView.findViewById(R.id.position4);
+
+
+                        positionBuilder.setView(positionView);
+                        final AlertDialog dialogPosition = positionBuilder.create();
+                        dialogPosition.show();
+
+                        position1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                poteau.set_position(1);
+                                dialogPosition.dismiss();
+                                // Démarre l'activité Geolocalisation
+                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                                startActivity(intent);
+                            }
+                        });
+
+                        position2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                poteau.set_position(2);
+                                dialogPosition.dismiss();
+                                // Démarre l'activité Geolocalisation
+                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                                startActivity(intent);
+                            }
+                        });
+
+                        position3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                poteau.set_position(3);
+                                dialogPosition.dismiss();
+                                // Démarre l'activité Geolocalisation
+                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                                startActivity(intent);
+                            }
+                        });
+
+                        position4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                poteau.set_position(4);
+                                dialogPosition.dismiss();
+                                // Démarre l'activité Geolocalisation
+                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                                startActivity(intent);
+                            }
+                        });
+
+
                     }
                 });
 
@@ -73,16 +131,74 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         poteau.set_oneWay(false);
-                        Toast.makeText(MainActivity.this,  String.valueOf( poteau.get_oneWay()), Toast.LENGTH_LONG).show();
                         dialog.dismiss();
-                        // TEST TOMMY
-                        Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                        startActivity(intent);
+
+                        AlertDialog.Builder positionBuilder = new AlertDialog.Builder(MainActivity.this);
+                        final View positionView = getLayoutInflater().inflate(R.layout.position_twoway, null);
+
+                        Button position1 = (Button) positionView.findViewById(R.id.position1);
+                        Button position2 = (Button) positionView.findViewById(R.id.position2);
+
+                        positionBuilder.setView(positionView);
+                        final AlertDialog dialogPosition = positionBuilder.create();
+                        dialogPosition.show();
+
+                        position1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                poteau.set_position(1);
+                                dialogPosition.dismiss();
+                                // Démarre l'activité Geolocalisation
+                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                                startActivity(intent);
+                            }
+                        });
+
+                        position2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                poteau.set_position(2);
+                                dialogPosition.dismiss();
+                                // Démarre l'activité Geolocalisation
+                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
 
 
+            }
+        });
 
+        // Listener du bouton Reset
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                final View mView = getLayoutInflater().inflate(R.layout.reset, null);
+
+                Button boutonOui = (Button) mView.findViewById(R.id.boutonOui);
+                Button boutonNon = (Button) mView.findViewById(R.id.boutonNon);
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                boutonOui.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO Reseter le poteau
+                        dialog.dismiss();
+                    }
+                });
+
+                boutonNon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 
