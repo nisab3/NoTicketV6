@@ -23,7 +23,6 @@ public class Poteau {
         p3 = new Pancarte();
         p4 = new Pancarte();
         p5 = new Pancarte();
-
     }
 
     // Donne le numéro de la Pancarte désirée et
@@ -36,7 +35,6 @@ public class Poteau {
             case 4: return p4;
             case 5: return p5;
             default: return p5;
-
         }
     }
 
@@ -113,19 +111,140 @@ public class Poteau {
     // et retourne:  -1 si impossible de se stationner
     //               -2 si toujours possible de se stationner
     //               int entre 0000 et 2359 l'heure de départ pour éviter une contravention
+    // TODO pas d'input à la fonction analyse
     public int analyse(int fleche) {
-        Date now = new Date();
-        String maintenant = now.toString();
+        Date dateActuelle = new Date();
+        String maintenant = dateActuelle.toString();
 
+        // Date actuelle
         String mois = maintenant.substring(4, 7);
         String jour = maintenant.substring(0, 3);
-        int heure = Integer.parseInt(maintenant.substring(11, 13));
-        int minute = Integer.parseInt(maintenant.substring(14, 16));
+//        int heure = Integer.parseInt(maintenant.substring(11, 13));
+//        int minute = Integer.parseInt(maintenant.substring(14, 16));
+        String heure = maintenant.substring(11, 13);
+        String minute = maintenant.substring(14, 16);
+        String[] now = {mois, jour, heure, minute};
 
-        if (p1_active) {
+        // Array de 48h en bloc de 30min initialisé à true
+        boolean[] horaire = new boolean[96];
+        for(int i=0;i<horaire.length;i++)
+            horaire[i] = true;
 
-        }
+        // Heure actuelle en terme de l'indice dans le tableau horaire
+//        int horaireNow = heure_indice(heure, minute);
+
+        // Modifie le tableau horaire selon les 5 pancartes
+        traitement(p1, p1_active, position, horaire, now);
+        traitement(p2, p2_active, position, horaire, now);
+        traitement(p3, p3_active, position, horaire, now);
+        traitement(p4, p4_active, position, horaire, now);
+        traitement(p5, p5_active, position, horaire, now);
+
+        // TODO interprete le tableau horaire et retourne l'heure de départ
+
+
+
 
         return fleche; //temporaire il falait juste que ca retourne un int
+    }
+
+    // Retourne booléen vrai si la pancarte s'applique dans ce contexte,
+    //                          considérant la position de la voiture.
+    private boolean applicable(Pancarte p, boolean p_active, int pos) {
+        if (p_active==false){
+            return  false;
+        }
+        if (pos==1 && p.getFleche()!=2) {
+            return true;
+        }
+        if (pos==2 && p.getFleche()!=1) {
+            return true;
+        }
+        if (pos==3 && p.getFleche()!=1) {
+            return true;
+        }
+        if (pos==4 && p.getFleche()!=2) {
+            return true;
+        }
+        return false;
+    }
+
+    // Retourne booléen vrai si la pancarte s'applique à ce mois
+    private boolean applicableMois(Pancarte p, String[] n) {
+        // Si il y a des mois sur la pancarte
+        if (p.moisIsActive()) {
+            if (p.getMois()[3] >= p.getMois()[1]) {
+                if (Integer.parseInt(n[0]) >= p.getMois()[1]
+                        && Integer.parseInt(n[0]) <= p.getMois()[3]
+                        && Integer.parseInt(n[1]) >= p.getMois()[0]
+                        && Integer.parseInt(n[1]) <= p.getMois()[2]) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                if ((Integer.parseInt(n[0]) >= p.getMois()[1]
+                        || Integer.parseInt(n[0]) <= p.getMois()[3])
+                        && Integer.parseInt(n[1]) >= p.getMois()[0]
+                        && Integer.parseInt(n[1]) <= p.getMois()[2]) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        }
+        // Sinon
+        else {
+            return true;
+        }
+    }
+
+    // TODO est ce que les jour vont de 0=dim à 6=sam ???
+    // TODO et=0   à=1  ???
+    // TODO correspondance entre jour 1à3 et heure 1à3 ???
+    // Retourne booléen vrai si la pancarte s'applique à ce jour
+    private boolean applicableJour(Pancarte p, String[] n) {
+        // Si il y a des jours sur la pancarte
+        if (p.moisIsActive()) {
+
+            // TEMPORAIRE
+            return true;
+
+
+        }
+        // Sinon
+        else {
+            return true;
+        }
+    }
+
+    // Fait les modification dans horaire
+    private void traitement(Pancarte p, boolean p_active, int pos, boolean[] h, String[] n) {
+        if (applicable(p, p_active, pos) && applicableMois(p, n) && applicableJour(p, n)) {
+            // TODO joue dans le tableau horaire
+
+
+
+
+
+        }else return;
+    }
+
+    // Convertie l'heure en indice dans le tableau horaire
+    private int heure_indice(int h, int m) {
+        int resultat = h;
+        if (m==30) {
+            resultat += 1;
+        }
+        return resultat;
+    }
+
+    // Convertie l'indice dans le tableau horaire en heure
+    private int[] indice_heure(int i) {
+        int[] resultat = {i/2, 0};
+        if (i%2 == 1) {
+            resultat[1] = 30;
+        }
+        return resultat;
     }
 }
