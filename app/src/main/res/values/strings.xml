@@ -12,11 +12,17 @@
     <string name="text_bout_jour3">SAM ET DIM</string>
     <string name="text_bout_mois1">SEPT À JUIN</string>
     <string name="string_a_mois">AU</string>
-    <string name="text_seek_heure" translatable="false"># ligne d\'heure:</string>
+    <string name="text_seek_heure"># ligne d\'heure:</string>
     <string name="text_seek_jour"># ligne de jour:</string>
     <string name="text_seek_mois"># ligne de mois:</string>
     <string name="desc_panc_ajouter">cliquer pour ajouter une pancarte</string>
     <string name="desc_panc">Cliquer pour modifier ce panneau</string>
     <string name="alerte_max_pancarte">Vous avez atteint le maximum de 5 pancartes</string>
     <string name="title_activity_geolocalisation">Map</string>
+    <string name="text_bout_ajout_heure">Ajouter une heure</string>
+    <string name="text_bout_ajout_jour">Ajouter des jours</string>
+    <string name="text_bout_ajout_mois">Ajouter des mois</string>
+    <string name="desc_bout_delete">Effacer</string>
+    <string name="desc_bout_fleche_g">changer l\'image de la fleche</string>
+    <string name="desc_bout_fleche_d">changer l\'image de la fleche</string>
 </resources>

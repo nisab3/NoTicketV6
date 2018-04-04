@@ -8,18 +8,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
-import android.widget.SeekBar;
+import android.widget.ImageView;
 
 
 public class PancarteActivity extends AppCompatActivity {
-    private int numero = 1;
-    private SeekBar barHeure;
-    private SeekBar barJour;
-    private SeekBar barMois;
+    private int numero = 1; //no de pancarte 1 par default
+    private int noFleche = 1; // no de l'image de la fleche
+    private int noImageP = 0; // no de l'image du  P/stop
+
+    //bouton de chaque ligne
     private Button bh1;
     private Button bh2;
     private Button bh3;
@@ -27,12 +28,39 @@ public class PancarteActivity extends AppCompatActivity {
     private Button bj2;
     private Button bj3;
     private Button bm1;
+    //bouton ajouter (heure, jour, mois)
+    private Button bah;
+    private Button baj;
+    private Button bam;
+    //boutons effacer
+    private ImageButton supprimerH1;
+    private ImageButton supprimerH2;
+    private ImageButton supprimerH3;
+    private ImageButton supprimerJ1;
+    private ImageButton supprimerJ2;
+    private ImageButton supprimerJ3;
+    private ImageButton supprimerM1;
+
+    // bouton pour changer les images fleche
+    private ImageButton fleche_g;
+    private ImageButton fleche_d;
+
+    // bouton pour changer les images pancarte
+    private ImageButton panc_g;
+    private ImageButton panc_d;
+
+    // bouton cancel / ok
     private FloatingActionButton ok;
     private Button can;
+
+    // imageSwitcher fleche
+    private ImageSwitcher imfleche;
+    private ImageSwitcher imPanc;
+
     // l'objet pancarte traité
     public Pancarte pancarte;
 
-    //ImageSwitcher is;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +72,6 @@ public class PancarteActivity extends AppCompatActivity {
 
         pancarte = new Pancarte();
 
-        // listenner pour les seekbars
-        barHeure = findViewById(R.id.seekBarHeure);
-        barJour = findViewById(R.id.seekBarJour);
-        barMois = findViewById(R.id.seekBarMois);
-        barHeure.setOnSeekBarChangeListener(barChangement);
-        barJour.setOnSeekBarChangeListener(barChangement);
-        barMois.setOnSeekBarChangeListener(barChangement);
-
         //listener pour les boutons
         bh1 = findViewById(R.id.boutHeure1);
         bh2 = findViewById(R.id.boutHeure2);
@@ -60,8 +80,25 @@ public class PancarteActivity extends AppCompatActivity {
         bj2 = findViewById(R.id.boutJour2);
         bj3 = findViewById(R.id.boutJour3);
         bm1 = findViewById(R.id.boutMois1);
+        bah = findViewById(R.id.boutAjoutHeure);
+        baj = findViewById(R.id.boutAjoutJour);
+        bam = findViewById(R.id.boutAjoutMois);
+        supprimerH1 = findViewById(R.id.boutDeleteH1);
+        supprimerH2 = findViewById(R.id.boutDeleteH2);
+        supprimerH3 = findViewById(R.id.boutDeleteH3);
+        supprimerJ1 = findViewById(R.id.boutDeleteJ1);
+        supprimerJ2 = findViewById(R.id.boutDeleteJ2);
+        supprimerJ3 = findViewById(R.id.boutDeleteJ3);
+        supprimerM1 = findViewById(R.id.boutDeleteM1);
+        fleche_g = findViewById(R.id.boutFlecheG);
+        fleche_d = findViewById(R.id.boutFlecheD);
+        panc_g = findViewById(R.id.boutPancG);
+        panc_d = findViewById(R.id.boutPancD);
         ok = findViewById(R.id.floatingActionButton);
         can = findViewById(R.id.boutCancelPanc);
+
+        imfleche = findViewById(R.id.switcherFleche);
+        imPanc = findViewById(R.id.imageParkingSwitcher);
 
         bh1.setOnClickListener(b);
         bh2.setOnClickListener(b);
@@ -70,14 +107,28 @@ public class PancarteActivity extends AppCompatActivity {
         bj2.setOnClickListener(b);
         bj3.setOnClickListener(b);
         bm1.setOnClickListener(b);
+        bah.setOnClickListener(b);
+        baj.setOnClickListener(b);
+        bam.setOnClickListener(b);
         ok.setOnClickListener(b);
         can.setOnClickListener(b);
+        supprimerH1.setOnClickListener(b);
+        supprimerH2.setOnClickListener(b);
+        supprimerH3.setOnClickListener(b);
+        supprimerJ1.setOnClickListener(b);
+        supprimerJ2.setOnClickListener(b);
+        supprimerJ3.setOnClickListener(b);
+        supprimerM1.setOnClickListener(b);
+        fleche_d.setOnClickListener(b);
+        fleche_g.setOnClickListener(b);
+        panc_d.setOnClickListener(b);
+        panc_g.setOnClickListener(b);
 
+        //va chercher tout les infos recu de l'activité main
         setInfoStart();
 
-        //is = findViewById(R.id.stop);
-        //is.setOnGenericMotionListener(im);
     }
+
 
     // que faire si le bouton back est clicker
     // je dois la overrider car sinon ca repars une nouvelle MainActivity et perds tout les pancarte déja fait
@@ -87,106 +138,103 @@ public class PancarteActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    /* ecoute si il y a un changement sur les SeekBars et change les dessins de numero */
-    private SeekBar.OnSeekBarChangeListener barChangement = new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            if (i == 0) {
-                seekBar.setThumb(getDrawable(R.drawable.number_0));
-                barChangeVisible(seekBar, i);
-            } else {
-                if (i == 1) {
-                    seekBar.setThumb(getDrawable(R.drawable.number_1));
-                    barChangeVisible(seekBar, i);
-                } else {
-                    if (i == 2) {
-                        seekBar.setThumb(getDrawable(R.drawable.number_2));
-                        barChangeVisible(seekBar, i);
-                    } else {
-                        seekBar.setThumb(getDrawable(R.drawable.number_3));
-                        barChangeVisible(seekBar, i);
-                    }
-                }
-            }
-        }
 
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
-    };
-
-    //test imageswitcher
-
-//    ImageSwitcher.OnGenericMotionListener im = new View.OnGenericMotionListener() {
-//        @Override
-//        public boolean onGenericMotion(View view, MotionEvent motionEvent) {
-//            if (view.getId() == R.id.stop){
-//                is.getNextView();
-//            }
-//            return false;
-//        }
-//    };
-
-    /*
-    fonction pour faire apparaitre les boutons heure, jour, mois
-    selon le nombre dans le seekBar fournie
-    et activer ou désactiver le ligne dans pancarte
-    in : SeekBar, int état u seekbar
-    out: rien
-    */
-    private void barChangeVisible(SeekBar seekbar, int i){
-        int barId = seekbar.getId();
-        if (barId == R.id.seekBarHeure){
-            for (int j = 0; j < 3; j++ ){
-                if (j < i){
-                    findViewById(R.id.boutHeure1 + j).setVisibility(View.VISIBLE);
-                    pancarte.heureSetActive(true, 1+j);
-                }
-                else{
-                    findViewById(R.id.boutHeure1 + j).setVisibility(View.GONE);
-                    pancarte.heureSetActive(false, 1+j);
-                }
-            }
-        }
-        else {
-            if (barId == R.id.seekBarJour) {
-                for (int j = 0; j < 3; j++) {
-                    if (j < i) {
-                        findViewById(R.id.boutJour1 + j).setVisibility(View.VISIBLE);
-                        pancarte.jourSetActive(true, 1+j);
-                    } else {
-                        findViewById(R.id.boutJour1 + j).setVisibility(View.GONE);
-                        pancarte.jourSetActive(false, 1+j);
-                    }
-                }
-            }
-            else {
-                //(barId == R.id.barMois)
-
-                    if (i == 1) {
-                        findViewById(R.id.boutMois1).setVisibility(View.VISIBLE);
-                        pancarte.moisSetActive(true);
-                    } else {
-                        findViewById(R.id.boutMois1).setVisibility(View.GONE);
-                        pancarte.moisSetActive(false);
-                    }
-            }
-        }
-    }
 
     /* écoute si on click sur un bouton de l'activité ou du fragment et décide de ce qu'il doit faire */
     private Button.OnClickListener b = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //floating button
+
+            //floating button ok de l'activité pancarte
             if (view.getId() == R.id.floatingActionButton){
                 setInfoStop();
+            }
+            // bouton droit pour changer l'image pancarte
+            if (view.getId() == R.id.boutPancD){
+                if (noImageP == 0){
+                    noImageP = 1;
+                }
+                else{
+                    noImageP = 0;
+                }
+                setImageParking(noImageP);
+            }
+            // bouton gauche pour changer l'image pancarte
+            if (view.getId() == R.id.boutPancG){
+                if (noImageP == 1){
+                    noImageP = 0;
+                }
+                else{
+                    noImageP = 1;
+                }
+                setImageParking(noImageP);
+            }
+            // bouton droite pour changer la fleche
+            if (view.getId() == R.id.boutFlecheD){
+                if (noFleche == 3){
+                   noFleche = 0;
+                }
+                else{
+                    noFleche++;
+                }
+                setFleche(noFleche);
+            }
+            // bouton gauche pour changer la fleche
+            if (view.getId() == R.id.boutFlecheG){
+                if (noFleche == 0){
+                    noFleche = 3;
+                }
+                else{
+                    noFleche--;
+                }
+                setFleche(noFleche);
+            }
+            // bouton ajouter ligne heure
+            // trouve une ligne non-active
+            if (view.getId() == R.id.boutAjoutHeure){
+                if (!pancarte.heureIsActive(1)){
+                    int[] info = pancarte.getHeure(1);
+                    clickModifieLigne(view, 1, 1, info);
+                }
+                else{
+                    if (!pancarte.heureIsActive(2)){
+                        int[] info = pancarte.getHeure(2);
+                        clickModifieLigne(view, 1, 2, info);
+                    }
+                    else{
+                        if(!pancarte.heureIsActive(3)){
+                            int[] info = pancarte.getHeure(3);
+                            clickModifieLigne(view, 1, 3, info);
+                        }
+                    }
+                }
+            }
+            // bouton ajouter ligne jour
+            // trouve une ligne non-active
+            if (view.getId() == R.id.boutAjoutJour){
+                if(!pancarte.jourIsActive(1)){
+                    int[] info = pancarte.getJour(1);
+                    clickModifieLigne(view, 2, 1, info);
+                }
+                else{
+                    if (!pancarte.jourIsActive(2)){
+                        int[] info = pancarte.getJour(2);
+                        clickModifieLigne(view, 2, 2, info);
+                    }
+                    else{
+                        if (!pancarte.jourIsActive(3)) {
+                            int[] info = pancarte.getJour(3);
+                            clickModifieLigne(view, 2, 3, info);
+                        }
+                    }
+                }
+            }
+            // bouton ajouter mois
+            if (view.getId() == R.id.boutAjoutMois){
+                if (!pancarte.moisIsActive()){
+                    int[] info = pancarte.getMois();
+                    clickModifieLigne(view, 3, 1, info);
+                }
             }
             // 1er ligne d'heure
             if (view.getId() == R.id.boutHeure1){
@@ -235,8 +283,51 @@ public class PancarteActivity extends AppCompatActivity {
             if (view.getId() == R.id.boutFragOk){
                 clickFermerFrag(view);
             }
+            // bouton cancel la pancarte reviens vers Main activity sans sauvegarder
             if (view.getId() == R.id.boutCancelPanc){
                 cancel();
+            }
+            // delete ligne heure 1
+            if (view.getId() == R.id.boutDeleteH1){
+                findViewById(R.id.layoutHeure1).setVisibility(View.GONE);
+                findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
+                pancarte.heureSetActive(false, 1);
+            }
+            // delete ligne heure 2
+            if (view.getId() == R.id.boutDeleteH2){
+                findViewById(R.id.layoutHeure2).setVisibility(View.GONE);
+                pancarte.heureSetActive(false, 2);
+                findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
+            }
+            //delete ligne heure 3
+            if (view.getId() == R.id.boutDeleteH3){
+                findViewById(R.id.layoutHeure3).setVisibility(View.GONE);
+                pancarte.heureSetActive(false, 3);
+                findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
+            }
+            //delete ligne jour1
+            if (view.getId() == R.id.boutDeleteJ1){
+                findViewById(R.id.layoutJour1).setVisibility(View.GONE);
+                pancarte.jourSetActive(false, 1);
+                findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
+            }
+            //delete ligne jour 2
+            if (view.getId() == R.id.boutDeleteJ2){
+                findViewById(R.id.layoutJour2).setVisibility(View.GONE);
+                pancarte.jourSetActive(false, 2);
+                findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
+            }
+            //delete ligne jour 3
+            if (view.getId() == R.id.boutDeleteJ3){
+                findViewById(R.id.layoutJour3).setVisibility(View.GONE);
+                pancarte.jourSetActive(false, 3);
+                findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
+            }
+            //delete ligne mois 1
+            if (view.getId() == R.id.boutDeleteM1){
+                findViewById(R.id.layoutMois1).setVisibility(View.GONE);
+                pancarte.moisSetActive(false);
+                findViewById(R.id.boutAjoutMois).setVisibility(View.VISIBLE);
             }
         }
     };
@@ -273,7 +364,7 @@ public class PancarteActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
+    // faire le néssecaire pour fermer le fragment
     public void clickFermerFrag(View view){
 
         //reactivation des boutons de pancarte activity
@@ -284,9 +375,9 @@ public class PancarteActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment frag = fragmentManager.findFragmentById(R.id.layoutPourChoixFrag);
 
-        // va chercher les infos stocker dans le fragment avant de le détruire
-        // et changer le text du bouton concerné
-        // et mettre les changement dans pancarte
+        //va chercher les infos stocker dans le fragment avant de le détruire
+        //et changer le text du bouton concerné
+        //et mettre les changement dans pancarte
         if (view.getId() == R.id.boutFragOk) {
             // sors les info du paquet de fragment
             Bundle paquet = frag.getArguments();
@@ -300,17 +391,37 @@ public class PancarteActivity extends AppCompatActivity {
                 if (no == 1){
                     bh1.setText(s_heure);
                     pancarte.setHeure(nouvelinfo, no);
+                    pancarte.heureSetActive(true, no);
+                    findViewById(R.id.layoutHeure1).setVisibility(View.VISIBLE);
+                    // efface je bouton ajout si les 3 lignes sont activés
+                    if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)){
+                        findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
+                    }
                 }
                 else{
                     if (no == 2){
                         bh2.setText(s_heure);
                         pancarte.setHeure(nouvelinfo, no);
+                        pancarte.heureSetActive(true, no);
+                        findViewById(R.id.layoutHeure2).setVisibility(View.VISIBLE);
+                        // efface je bouton ajout si les 3 lignes sont activés
+                        if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)){
+                            findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
+                        }
+
                     }
                     if(no == 3){
                         bh3.setText(s_heure);
                         pancarte.setHeure(nouvelinfo, no);
+                        pancarte.heureSetActive(true, no);
+                        findViewById(R.id.layoutHeure3).setVisibility(View.VISIBLE);
+                        // efface je bouton ajout si les 3 lignes sont activés
+                        if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)){
+                            findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
+                        }
                     }
                 }
+
             }
             else{
                 if (type == 2){
@@ -319,16 +430,34 @@ public class PancarteActivity extends AppCompatActivity {
                     if (no == 1){
                         bj1.setText(ligneJour);
                         pancarte.setJour(nouvelinfo, no);
+                        pancarte.jourSetActive(true, no);
+                        findViewById(R.id.layoutJour1).setVisibility(View.VISIBLE);
+                        // efface je bouton ajout si les 3 lignes sont activés
+                        if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)){
+                            findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
+                        }
                     }
                     else{
                         if (no ==2){
                             bj2.setText(ligneJour);
                             pancarte.setJour(nouvelinfo, no);
+                            pancarte.jourSetActive(true, no);
+                            findViewById(R.id.layoutJour2).setVisibility(View.VISIBLE);
+                            // efface je bouton ajout si les 3 lignes sont activés
+                            if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)){
+                                findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
+                            }
                         }
                         else{
                             if (no == 3){
                                 bj3.setText(ligneJour);
                                 pancarte.setJour(nouvelinfo, no);
+                                pancarte.jourSetActive(true, no);
+                                findViewById(R.id.layoutJour3).setVisibility(View.VISIBLE);
+                                // efface je bouton ajout si les 3 lignes sont activés
+                                if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)){
+                                    findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
+                                }
                             }
                         }
                     }
@@ -338,6 +467,10 @@ public class PancarteActivity extends AppCompatActivity {
                         String ligneMois = nouvelinfo[0] + " " + quelMois(nouvelinfo[1]) + " - " + nouvelinfo[2] + " " + quelMois(nouvelinfo[3]);
                         bm1.setText(ligneMois);
                         pancarte.setmois(nouvelinfo);
+                        pancarte.moisSetActive(true);
+                        findViewById(R.id.layoutMois1).setVisibility(View.VISIBLE);
+                        // efface je bouton ajout
+                        findViewById(R.id.boutAjoutMois).setVisibility(View.GONE);
                     }
                 }
             }
@@ -350,11 +483,7 @@ public class PancarteActivity extends AppCompatActivity {
 
     // désactive tout les boutons de l'activity pancarte lorsque nous somme dans le fragment
     private void desactivationBouton(){
-        findViewById(R.id.seekBarHeure).setEnabled(false);
-        findViewById(R.id.seekBarJour).setEnabled(false);
-        findViewById(R.id.seekBarMois).setEnabled(false);
-        findViewById(R.id.seekBarJour).setEnabled(false);
-        findViewById(R.id.seekBarMois).setEnabled(false);
+
         findViewById(R.id.boutHeure1).setEnabled(false);
         findViewById(R.id.boutHeure2).setEnabled(false);
         findViewById(R.id.boutHeure3).setEnabled(false);
@@ -366,12 +495,7 @@ public class PancarteActivity extends AppCompatActivity {
 
     // réactive tout les bouton de activity pancarte lorsque nous sortont du fragment
     private void activationBouton(){
-        findViewById(R.id.seekBarHeure).setEnabled(true);
-        findViewById(R.id.seekBarJour).setEnabled(true);
-        findViewById(R.id.seekBarMois).setEnabled(true);
-        findViewById(R.id.seekBarHeure).setEnabled(true);
-        findViewById(R.id.seekBarJour).setEnabled(true);
-        findViewById(R.id.seekBarMois).setEnabled(true);
+
         findViewById(R.id.boutHeure1).setEnabled(true);
         findViewById(R.id.boutHeure2).setEnabled(true);
         findViewById(R.id.boutHeure3).setEnabled(true);
@@ -402,8 +526,13 @@ public class PancarteActivity extends AppCompatActivity {
         pancarte.setmois(mois);
         int fleche = intent.getIntExtra("FLECHE", 0);
         pancarte.setFleche(fleche);
+        noFleche = fleche;
+        setFleche(noFleche);
         int image = intent.getIntExtra("IMAGE", 0);
         pancarte.setImage(image);
+        noImageP = image;
+        setImageParking(noImageP);
+
         boolean[] actif = intent.getBooleanArrayExtra("ACTIVE");
         pancarte.heureSetActive(actif[0], 1);
         pancarte.heureSetActive(actif[1], 2);
@@ -425,23 +554,38 @@ public class PancarteActivity extends AppCompatActivity {
         //ajustement du nombre de bouton actif
         int actifHeure = 0;
         int actifJour = 0;
-        int actifMois = 0;
         for (int i = 0; i<3; i++){
             if (actif[i]) {
-                    actifHeure ++;
+                    findViewById(R.id.layoutHeure1 + i).setVisibility(View.VISIBLE);
+                    if (actifHeure == 3){
+                        findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
+                    }
+            }
+            else{
+                findViewById(R.id.layoutHeure1 + i).setVisibility(View.GONE);
+                findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
             }
         }
         for (int i = 3; i<6; i++){
             if (actif[i]) {
-                actifJour ++;
+                findViewById(R.id.layoutJour1 + (i - 3)).setVisibility(View.VISIBLE);
+                if (actifJour == 3){
+                    findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
+                }
+            }
+            else{
+                findViewById(R.id.layoutJour1 + (i - 3)).setVisibility(View.GONE);
+                findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
             }
         }
         if (actif[6]){
-            actifMois ++;
+            findViewById(R.id.layoutMois1).setVisibility(View.VISIBLE);
+            findViewById(R.id.boutAjoutMois).setVisibility(View.GONE);
         }
-        barMois.setProgress(actifMois);
-        barJour.setProgress(actifJour);
-        barHeure.setProgress(actifHeure);
+        else {
+            findViewById(R.id.layoutMois1).setVisibility(View.GONE);
+            findViewById(R.id.boutAjoutMois).setVisibility(View.VISIBLE);
+        }
     }
 
     /*
@@ -525,6 +669,36 @@ public class PancarteActivity extends AppCompatActivity {
         Resources res = getResources();
         String[] mois = res.getStringArray(R.array.mois);
         return mois[numero-1];
+    }
+
+    //change l'image de fleche selon le numero donné de 0 à 3
+    private void setFleche(int no){
+        pancarte.setFleche(no);
+        ImageView im = findViewById(R.id.imageViewFleche);
+        switch (no){
+            case 0: im.setImageResource(R.drawable.fleche_pas);
+                break;
+            case 1: im.setImageResource(R.drawable.fleche_g);
+                break;
+            case 2: im.setImageResource(R.drawable.fleche_double);
+                break;
+            default: im.setImageResource(R.drawable.fleche_d);
+                break;
+        }
+    }
+
+    //change l'image du p/stop selon le numero donné de 0 à 1
+    private void setImageParking(int no){
+        pancarte.setImage(no);
+        ImageView im = findViewById(R.id.imageViewPanc);
+        switch(no) {
+            case 0:
+                im.setImageResource(R.drawable.nop);
+                break;
+            default:
+                im.setImageResource(R.drawable.noa);
+                break;
+        }
     }
 
     private void setInfoStop(){

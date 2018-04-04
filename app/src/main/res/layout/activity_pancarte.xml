@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.noticket.noticketv6.PancarteActivity">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="24dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,35 +23,31 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/boutPancG"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/arrow_down_float" />
 
                 <ImageSwitcher
-                    android:id="@+id/stop"
-                    android:layout_width="match_parent"
+                    android:id="@+id/imageParkingSwitcher"
+                    android:layout_width="250dp"
                     android:layout_height="150dp"
                     android:layout_weight="1">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imageViewPanc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:scaleType="fitCenter"
                         app:srcCompat="@drawable/nop" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/noa" />
                 </ImageSwitcher>
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/boutPancD"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/arrow_up_float" />
 
@@ -74,127 +59,221 @@
                 android:layout_margin="10dp" />
 
             <LinearLayout
+                android:id="@+id/layoutHeure1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/textSeekHeure"
+                <Button
+                    android:id="@+id/boutHeure1"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:tag="bh1"
+                    android:text="@string/text_bout_heure1" />
+
+                <ImageButton
+                    android:id="@+id/boutDeleteH1"
+                    style="@android:style/Widget.Holo.ImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/text_seek_heure" />
-
-                <TextView
-                    android:id="@+id/textSeekJour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/text_seek_jour" />
-
-                <TextView
-                    android:id="@+id/textSeekMois"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/text_seek_mois" />
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/desc_bout_delete"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutHeure2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <SeekBar
-                    android:id="@+id/seekBarHeure"
+                <Button
+                    android:id="@+id/boutHeure2"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_bout_heure2" />
+
+                <ImageButton
+                    android:id="@+id/boutDeleteH2"
+                    style="@android:style/Widget.Holo.ImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:max="3"
-                    android:progress="1"
-                    android:thumb="@drawable/number_1" />
-
-                <SeekBar
-                    android:id="@+id/seekBarJour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:max="3"
-                    android:progress="1"
-                    android:thumb="@drawable/number_1" />
-
-                <SeekBar
-                    android:id="@+id/seekBarMois"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:max="1"
-                    android:progress="1"
-                    android:thumb="@drawable/number_1" />
-
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/desc_bout_delete"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
             </LinearLayout>
 
-            <Space
+            <LinearLayout
+                android:id="@+id/layoutHeure3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/boutHeure3"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_bout_heure3" />
+
+                <ImageButton
+                    android:id="@+id/boutDeleteH3"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/desc_bout_delete"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+            </LinearLayout>
 
             <Button
-                android:id="@+id/boutHeure1"
+                android:id="@+id/boutAjoutHeure"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="bh1"
-                android:text="@string/text_bout_heure1" />
-
-            <Button
-                android:id="@+id/boutHeure2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_bout_heure2"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/boutHeure3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_bout_heure3"
-                android:visibility="gone" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
-
-            <Button
-                android:id="@+id/boutJour1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_bout_jour1" />
-
-            <Button
-                android:id="@+id/boutJour2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_bout_jour2"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/boutJour3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_bout_jour3"
-                android:visibility="gone" />
+                android:background="@android:color/darker_gray"
+                android:text="@string/text_bout_ajout_heure" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
 
+            <LinearLayout
+                android:id="@+id/layoutJour1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/boutJour1"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_bout_jour1" />
+
+                <ImageButton
+                    android:id="@+id/boutDeleteJ1"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/desc_bout_delete"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutJour2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/boutJour2"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_bout_jour2" />
+
+                <ImageButton
+                    android:id="@+id/boutDeleteJ2"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/desc_bout_delete"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutJour3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/boutJour3"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_bout_jour3" />
+
+                <ImageButton
+                    android:id="@+id/boutDeleteJ3"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/desc_bout_delete"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+            </LinearLayout>
+
             <Button
-                android:id="@+id/boutMois1"
+                android:id="@+id/boutAjoutJour"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/text_bout_mois1" />
+                android:background="@android:color/darker_gray"
+                android:text="@string/text_bout_ajout_jour" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
+            <LinearLayout
+                android:id="@+id/layoutMois1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/boutMois1"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_bout_mois1" />
+
+                <ImageButton
+                    android:id="@+id/boutDeleteM1"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/desc_bout_delete"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/boutAjoutMois"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:text="@string/text_bout_ajout_mois" />
 
             <Space
                 android:layout_width="match_parent"
@@ -207,28 +286,40 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/boutFlecheG"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:background="@android:color/darker_gray"
+                    android:contentDescription="@string/desc_bout_fleche_g"
                     android:rotation="90"
+                    android:scaleType="fitCenter"
                     app:srcCompat="@android:drawable/arrow_down_float" />
 
                 <ImageSwitcher
                     android:id="@+id/switcherFleche"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageViewFleche"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/fleche_d" />
+
+                </ImageSwitcher>
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/boutFlecheD"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:background="@android:color/darker_gray"
+                    android:contentDescription="@string/desc_bout_fleche_d"
                     android:rotation="90"
                     app:srcCompat="@android:drawable/arrow_up_float" />
 
@@ -239,7 +330,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="@string/string_annuler" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="24dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
         </LinearLayout>
     </ScrollView>

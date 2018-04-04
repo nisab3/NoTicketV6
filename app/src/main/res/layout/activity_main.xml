@@ -36,6 +36,20 @@
                     app:layout_constraintVertical_bias="1.0"
                     app:srcCompat="@drawable/no_parking_blank" />
 
+                <ImageButton
+                    android:id="@+id/boutDeletePanc1"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/boutImPanc1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+
                 <TextView
                     android:id="@+id/textImPanc1"
                     android:layout_width="match_parent"
@@ -45,7 +59,6 @@
                     android:layout_marginStart="125dp"
                     android:layout_marginTop="125dp"
                     android:gravity="center"
-                    android:text="@string/alerte_max_pancarte"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +101,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/no_parking_blank" />
+
+                <ImageButton
+                    android:id="@+id/boutDeletePanc2"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/boutImPanc2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
 
                 <TextView
                     android:id="@+id/textImPanc2"
@@ -140,6 +167,20 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/no_stop_blank" />
 
+                <ImageButton
+                    android:id="@+id/boutDeletePanc3"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+
                 <TextView
                     android:id="@+id/textImPanc3"
                     android:layout_width="match_parent"
@@ -191,6 +232,20 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/no_stop_blank" />
 
+                <ImageButton
+                    android:id="@+id/boutDeletePanc4"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/boutImPanc4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+
                 <TextView
                     android:id="@+id/textImPanc4"
                     android:layout_width="match_parent"
@@ -241,6 +296,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/no_parking_blank" />
+
+                <ImageButton
+                    android:id="@+id/boutDeletePanc5"
+                    style="@android:style/Widget.Holo.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
 
                 <TextView
                     android:id="@+id/textImPanc5"
