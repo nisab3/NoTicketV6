@@ -96,7 +96,6 @@ public class Pancarte {
         return result;
     }
 
-
     // class pour nouvel objet jour
     private class Jour {
         //variable jour
