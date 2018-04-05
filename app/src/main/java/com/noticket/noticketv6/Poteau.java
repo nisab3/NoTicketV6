@@ -38,16 +38,6 @@ public class Poteau {
         }
     }
 
-//    public void set_pancarte(Pancarte pancarte, int numero){
-//        switch(numero) {
-//            case 1: p1 = pancarte; break;
-//            case 2: p2 = pancarte; break;
-//            case 3: p3 = pancarte; break;
-//            case 4: p4 = pancarte; break;
-//            case 5: p5 = pancarte; break;
-//            default: break; // rien
-//        }
-//    }
     // donne l'etat de la pancarte désiré et
     // retourne un true/false
     public boolean get_pancarte_active(int numero){

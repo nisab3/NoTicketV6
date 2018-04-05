@@ -61,7 +61,7 @@ public class PancarteActivity extends AppCompatActivity {
 
     // bouton favorie
     private Button allerFav;
-    private Button ajoutFav;
+    private ImageButton ajoutFav;
 
     // imageSwitcher fleche
     private ImageSwitcher imfleche;
