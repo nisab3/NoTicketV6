@@ -343,6 +343,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
+            <Button
+                android:id="@+id/boutAjoutFavorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ajouter Favorie" />
+
+            <Button
+                android:id="@+id/boutFavorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="aller au favorie" />
+
         </LinearLayout>
     </ScrollView>
 

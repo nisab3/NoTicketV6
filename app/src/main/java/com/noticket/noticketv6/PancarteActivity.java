@@ -14,8 +14,14 @@ import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 
 public class PancarteActivity extends AppCompatActivity {
+    private static final int FAVORIE_ACTIVITY_REQUEST_CODE = 1;
+
     private int numero = 1; //no de pancarte 1 par default
     private int noFleche = 1; // no de l'image de la fleche
     private int noImageP = 0; // no de l'image du  P/stop
@@ -52,6 +58,10 @@ public class PancarteActivity extends AppCompatActivity {
     // bouton cancel / ok
     private FloatingActionButton ok;
     private Button can;
+
+    // bouton favorie
+    private Button allerFav;
+    private Button ajoutFav;
 
     // imageSwitcher fleche
     private ImageSwitcher imfleche;
@@ -96,6 +106,8 @@ public class PancarteActivity extends AppCompatActivity {
         panc_d = findViewById(R.id.boutPancD);
         ok = findViewById(R.id.floatingActionButton);
         can = findViewById(R.id.boutCancelPanc);
+        allerFav = findViewById(R.id.boutFavorie);
+        ajoutFav = findViewById(R.id.boutAjoutFavorie);
 
         imfleche = findViewById(R.id.switcherFleche);
         imPanc = findViewById(R.id.imageParkingSwitcher);
@@ -123,6 +135,8 @@ public class PancarteActivity extends AppCompatActivity {
         fleche_g.setOnClickListener(b);
         panc_d.setOnClickListener(b);
         panc_g.setOnClickListener(b);
+        allerFav.setOnClickListener(b);
+        ajoutFav.setOnClickListener(b);
 
         //va chercher tout les infos recu de l'activité main
         setInfoStart();
@@ -145,6 +159,14 @@ public class PancarteActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            if (view.getId() == R.id.boutAjoutFavorie){
+                sauvegardeFavorie();
+            }
+
+            if (view.getId() == R.id.boutFavorie){
+                Intent intent = new Intent(getApplicationContext(), FavoriesActivity.class);
+                startActivityForResult(intent, FAVORIE_ACTIVITY_REQUEST_CODE);
+            }
             //floating button ok de l'activité pancarte
             if (view.getId() == R.id.floatingActionButton){
                 setInfoStop();
@@ -701,6 +723,7 @@ public class PancarteActivity extends AppCompatActivity {
         }
     }
 
+    // remet tout les infos dans le intent pour les retourner a main par un intent
     private void setInfoStop(){
         Intent intent = new Intent();
         intent.putExtra("HEURE1", pancarte.getHeure(1));
@@ -720,9 +743,48 @@ public class PancarteActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
-    // le bouton cancel
+    // le bouton cancel fait comme le bouton back
     private void cancel(){
         finish();
     }
+
+    private void sauvegardeFavorie(){
+        String [] liste = fileList();
+        String name;
+        int longueur = liste.length;
+        // donner un nouveau nom qui n'existe pas
+        if (longueur == 0) {
+            name = "com.noticket.noticketv6.sauvegarde" + longueur;
+        }
+        else{
+            name = liste[longueur - 1] + longueur;
+        }
+        //ouvrire la file
+        try {
+            File file = new File(getFilesDir(), name);
+            FileOutputStream outputStream = openFileOutput(name, MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(outputStream);
+            //y mettre les objets
+            os.writeObject(pancarte.getHeure(1)); //HEURE1
+            os.writeObject(pancarte.getHeure(2)); //HEURE2
+            os.writeObject(pancarte.getHeure(3)); //HEURE3
+            os.writeObject(pancarte.getJour(1)); //JOUR1
+            os.writeObject(pancarte.getJour(2)); //JOUR2
+            os.writeObject(pancarte.getJour(3)); //JOUR3
+            os.writeObject(pancarte.getMois()); //MOIS1
+            os.writeObject( pancarte.getFleche()); //FLECHE
+            os.writeObject( pancarte.getImage());  //IMAGE PANCARTE
+            boolean[] actif = {pancarte.heureIsActive(1), pancarte.heureIsActive(2), pancarte.heureIsActive(3),
+                    pancarte.jourIsActive(1), pancarte.jourIsActive(2), pancarte.jourIsActive(3),
+                    pancarte.moisIsActive()};
+            os.writeObject(actif);
+            //fermer le tout
+            os.close();
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }
