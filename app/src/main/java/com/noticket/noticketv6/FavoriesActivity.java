@@ -1,5 +1,6 @@
 package com.noticket.noticketv6;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,9 +46,24 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        // a remplir pour si je click sur un item de la liste
-        Toast.makeText(FavoriesActivity.this, "click", Toast.LENGTH_SHORT).show();
+
+        //TODO faire que le click sur le delete soit différent du reste(popup ok cancel delete
+        //adapterView.removeViewAt(index);
+       // View v = adapterView.findFocus();
+            Toast.makeText(FavoriesActivity.this, Integer.toString(i), Toast.LENGTH_SHORT).show();
+        int j = -1;
+        int trouver = i+1;
+        while (trouver != 0){
+            j++;
+            if (favlist[j].startsWith("com.noticket.noticketv6.sauvegarde")){
+                trouver --;
+            }
+
+        }
+        // call avec j qui est le bonne index pour favlist
+        fermeture(j);
     }
+
 
 
     public class MyAdapter extends BaseAdapter{
@@ -77,9 +95,8 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
             if (view == null){
                 view = inflater.inflate(R.layout.rangee_pancarte_fav, viewGroup, false);
             }
-            try{
-                if (favlist[i].startsWith("com.noticket.noticketv6.sauvegarde"));
-                {
+            if (favlist[i].startsWith("com.noticket.noticketv6.sauvegarde")) {
+                try {
                     FileInputStream fis = openFileInput(favlist[i]);
                     ObjectInputStream is = new ObjectInputStream(fis);
                     //aller chercher les objets
@@ -145,16 +162,23 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
                             f.setImageResource(R.drawable.fleche_d);
                             break;
                     }
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             return view;
         }
     }
 
 
+    // sortir les infos les la pancarte sauvé
+    private Pancarte chercherInfo(int i){
+
+        return null;
+    }
+
+    // faire le text de la pancarte
     public String formateText (Pancarte panc){
         String result = "";
         Resources res = getResources();
@@ -179,6 +203,48 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
             result = result + mois[0] + " " + s_mois[mois[1]-1] + " - " + mois[2] + " " + s_mois[mois[3]-1];
         }
         return result;
+    }
+
+    // remet tout les infos dans le intent pour les retourner a main par un intent
+    // in: numero ou se trouve le nom de file dans la liste favlist
+    // out: rien
+    private void fermeture( int i){
+        Intent intent = new Intent();
+        try{
+            FileInputStream fis = openFileInput(favlist[i]);
+            ObjectInputStream is = new ObjectInputStream(fis);
+            //aller chercher les objets
+            int[] heure1 = (int[]) is.readObject();
+            int[] heure2 = (int[]) is.readObject();
+            int[] heure3 = (int[]) is.readObject();
+            int[] jour1 = (int[]) is.readObject();
+            int[] jour2 = (int[]) is.readObject();
+            int[] jour3 = (int[]) is.readObject();
+            int[] mois1 = (int[]) is.readObject();
+            int fleche = (int) is.readObject();
+            int image = (int) is.readObject();
+            boolean[] actif = (boolean[]) is.readObject();
+
+            // fermer le tout
+            is.close();
+            fis.close();
+
+            intent.putExtra("HEURE1", heure1);
+            intent.putExtra("HEURE2", heure2);
+            intent.putExtra("HEURE3", heure3);
+            intent.putExtra("JOUR1", jour1);
+            intent.putExtra("JOUR2", jour2);
+            intent.putExtra("JOUR3", jour3);
+            intent.putExtra("MOIS", mois1);
+            intent.putExtra("FLECHE", fleche);
+            intent.putExtra("IMAGE", image);
+            intent.putExtra("ACTIVE", actif);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

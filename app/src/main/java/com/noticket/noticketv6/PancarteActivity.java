@@ -139,7 +139,7 @@ public class PancarteActivity extends AppCompatActivity {
         ajoutFav.setOnClickListener(b);
 
         //va chercher tout les infos recu de l'activité main
-        setInfoStart();
+        setInfoStart(intent);
 
     }
 
@@ -152,7 +152,16 @@ public class PancarteActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if ( requestCode == FAVORIE_ACTIVITY_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                setInfoStart(data);
+            }
+        }
+    }
 
     /* écoute si on click sur un bouton de l'activité ou du fragment et décide de ce qu'il doit faire */
     private Button.OnClickListener b = new View.OnClickListener() {
@@ -528,8 +537,7 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
     // va chercher tout les infos de la pancarte et les mets dans les divers boutons
-    private void setInfoStart(){
-        Intent intent = getIntent();
+    private void setInfoStart(Intent intent){
 
         // sort tout les infos et le mettre dans pancarte
         int[] heure1 = intent.getIntArrayExtra("HEURE1");
