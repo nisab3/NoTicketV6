@@ -17,7 +17,7 @@
         app:backgroundTint="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_off" />
+        app:srcCompat="@drawable/icon_etoile_vide" android:focusable="true"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/boutFavorie"
@@ -29,22 +29,38 @@
         app:backgroundTint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_input_get" />
+        app:srcCompat="@drawable/icon_fav_etoile" android:focusable="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/boutPancOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="8dp"
         android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@android:color/holo_green_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="?android:attr/textCheckMarkInverse" />
+        app:srcCompat="@drawable/icon_ok_rond" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/boutCancelPanc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icon_cancel_rond" android:focusable="true" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:keepScreenOn="false"
+        android:paddingTop="15dp">
 
         <LinearLayout
             android:id="@+id/layoutPancarte"
@@ -59,30 +75,28 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
                 <ImageButton
                     android:id="@+id/boutPancG"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
-                    app:srcCompat="@android:drawable/arrow_down_float" />
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/desc_bout_change_image"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_fleche_gauche" />
 
                 <ImageSwitcher
                     android:id="@+id/imageParkingSwitcher"
                     android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_height="100dp"
                     android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/imageViewPanc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/desc_image_pancarte"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/nop" />
 
@@ -90,10 +104,14 @@
 
                 <ImageButton
                     android:id="@+id/boutPancD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
-                    app:srcCompat="@android:drawable/arrow_up_float" />
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/desc_bout_change_image"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_fleche_droite" />
 
             </LinearLayout>
 
@@ -111,22 +129,24 @@
 
                 <Button
                     android:id="@+id/boutHeure1"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@android:style/Widget.Holo.Button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                     android:tag="bh1"
                     android:text="@string/text_bout_heure1" />
 
                 <ImageButton
                     android:id="@+id/boutDeleteH1"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_del_plain" />
             </LinearLayout>
 
             <LinearLayout
@@ -138,21 +158,23 @@
 
                 <Button
                     android:id="@+id/boutHeure2"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@android:style/Widget.Holo.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                     android:text="@string/text_bout_heure2" />
 
                 <ImageButton
                     android:id="@+id/boutDeleteH2"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_del_plain" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,29 +186,31 @@
 
                 <Button
                     android:id="@+id/boutHeure3"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@android:style/Widget.Holo.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                     android:text="@string/text_bout_heure3" />
 
                 <ImageButton
                     android:id="@+id/boutDeleteH3"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_del_plain" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/boutAjoutHeure"
-                style="@style/Widget.AppCompat.Button.Borderless"
+                style="@android:style/Widget.Holo.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
+                android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                 android:text="@string/text_bout_ajout_heure" />
 
             <Space
@@ -203,21 +227,23 @@
 
                 <Button
                     android:id="@+id/boutJour1"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@android:style/Widget.Holo.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                     android:text="@string/text_bout_jour1" />
 
                 <ImageButton
                     android:id="@+id/boutDeleteJ1"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_del_plain" />
             </LinearLayout>
 
             <LinearLayout
@@ -229,21 +255,23 @@
 
                 <Button
                     android:id="@+id/boutJour2"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@android:style/Widget.Holo.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                     android:text="@string/text_bout_jour2" />
 
                 <ImageButton
                     android:id="@+id/boutDeleteJ2"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_del_plain" />
             </LinearLayout>
 
             <LinearLayout
@@ -255,29 +283,31 @@
 
                 <Button
                     android:id="@+id/boutJour3"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@android:style/Widget.Holo.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                     android:text="@string/text_bout_jour3" />
 
                 <ImageButton
                     android:id="@+id/boutDeleteJ3"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_del_plain" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/boutAjoutJour"
-                style="@style/Widget.AppCompat.Button.Borderless"
+                style="@android:style/Widget.Holo.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
+                android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                 android:text="@string/text_bout_ajout_jour" />
 
             <Space
@@ -294,29 +324,31 @@
 
                 <Button
                     android:id="@+id/boutMois1"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@android:style/Widget.Holo.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                     android:text="@string/text_bout_mois1" />
 
                 <ImageButton
                     android:id="@+id/boutDeleteM1"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_del_plain" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/boutAjoutMois"
-                style="@style/Widget.AppCompat.Button.Borderless"
+                style="@android:style/Widget.Holo.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
+                android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
                 android:text="@string/text_bout_ajout_mois" />
 
             <Space
@@ -331,15 +363,15 @@
 
                 <ImageButton
                     android:id="@+id/boutFlecheG"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/darker_gray"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/desc_bout_fleche_g"
-                    android:rotation="90"
+                    android:padding="12dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@android:drawable/arrow_down_float" />
+                    app:srcCompat="@drawable/icon_fleche_gauche" />
 
                 <ImageSwitcher
                     android:id="@+id/switcherFleche"
@@ -352,6 +384,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:contentDescription="@string/desc_fleche"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/fleche_d" />
 
@@ -359,23 +392,17 @@
 
                 <ImageButton
                     android:id="@+id/boutFlecheD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/darker_gray"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/desc_bout_fleche_d"
-                    android:rotation="90"
-                    app:srcCompat="@android:drawable/arrow_up_float" />
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_fleche_droite" />
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/boutCancelPanc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/string_annuler" />
 
         </LinearLayout>
     </ScrollView>

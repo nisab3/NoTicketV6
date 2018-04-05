@@ -25,4 +25,7 @@
     <string name="desc_bout_delete">Effacer</string>
     <string name="desc_bout_fleche_g">changer l\'image de la fleche</string>
     <string name="desc_bout_fleche_d">changer l\'image de la fleche</string>
+    <string name="desc_bout_change_image">changer l\'image de la pancarte</string>
+    <string name="desc_image_pancarte">l\'image de la pancarte</string>
+    <string name="desc_fleche">image de la fleche</string>
 </resources>
