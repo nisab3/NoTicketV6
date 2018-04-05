@@ -158,6 +158,7 @@ public class PancarteActivity extends AppCompatActivity {
 
         if ( requestCode == FAVORIE_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
+                ajoutFav.setImageResource(android.R.drawable.star_big_on);
                 setInfoStart(data);
             }
         }
@@ -170,8 +171,7 @@ public class PancarteActivity extends AppCompatActivity {
 
             if (view.getId() == R.id.boutAjoutFavorie){
                 sauvegardeFavorie();
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_on);
+                ajoutFav.setImageResource(android.R.drawable.star_big_on);
             }
 
             if (view.getId() == R.id.boutFavorie){
@@ -179,7 +179,7 @@ public class PancarteActivity extends AppCompatActivity {
                 startActivityForResult(intent, FAVORIE_ACTIVITY_REQUEST_CODE);
             }
             //floating button ok de l'activité pancarte
-            if (view.getId() == R.id.floatingActionButton){
+            if (view.getId() == R.id.boutPancOk){
                 setInfoStop();
             }
             // bouton droit pour changer l'image pancarte
@@ -191,8 +191,8 @@ public class PancarteActivity extends AppCompatActivity {
                     noImageP = 0;
                 }
                 setImageParking(noImageP);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
+
             }
             // bouton gauche pour changer l'image pancarte
             if (view.getId() == R.id.boutPancG){
@@ -203,8 +203,7 @@ public class PancarteActivity extends AppCompatActivity {
                     noImageP = 1;
                 }
                 setImageParking(noImageP);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             // bouton droite pour changer la fleche
             if (view.getId() == R.id.boutFlecheD){
@@ -215,8 +214,7 @@ public class PancarteActivity extends AppCompatActivity {
                     noFleche++;
                 }
                 setFleche(noFleche);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             // bouton gauche pour changer la fleche
             if (view.getId() == R.id.boutFlecheG){
@@ -227,8 +225,7 @@ public class PancarteActivity extends AppCompatActivity {
                     noFleche--;
                 }
                 setFleche(noFleche);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             // bouton ajouter ligne heure
             // trouve une ligne non-active
@@ -333,56 +330,49 @@ public class PancarteActivity extends AppCompatActivity {
                 findViewById(R.id.layoutHeure1).setVisibility(View.GONE);
                 findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
                 pancarte.heureSetActive(false, 1);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             // delete ligne heure 2
             if (view.getId() == R.id.boutDeleteH2){
                 findViewById(R.id.layoutHeure2).setVisibility(View.GONE);
                 pancarte.heureSetActive(false, 2);
                 findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             //delete ligne heure 3
             if (view.getId() == R.id.boutDeleteH3){
                 findViewById(R.id.layoutHeure3).setVisibility(View.GONE);
                 pancarte.heureSetActive(false, 3);
                 findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             //delete ligne jour1
             if (view.getId() == R.id.boutDeleteJ1){
                 findViewById(R.id.layoutJour1).setVisibility(View.GONE);
                 pancarte.jourSetActive(false, 1);
                 findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             //delete ligne jour 2
             if (view.getId() == R.id.boutDeleteJ2){
                 findViewById(R.id.layoutJour2).setVisibility(View.GONE);
                 pancarte.jourSetActive(false, 2);
                 findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             //delete ligne jour 3
             if (view.getId() == R.id.boutDeleteJ3){
                 findViewById(R.id.layoutJour3).setVisibility(View.GONE);
                 pancarte.jourSetActive(false, 3);
                 findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
             //delete ligne mois 1
             if (view.getId() == R.id.boutDeleteM1){
                 findViewById(R.id.layoutMois1).setVisibility(View.GONE);
                 pancarte.moisSetActive(false);
                 findViewById(R.id.boutAjoutMois).setVisibility(View.VISIBLE);
-                FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-                fb.setImageResource(android.R.drawable.star_big_off);
+                ajoutFav.setImageResource(android.R.drawable.star_big_off);
             }
         }
     };
@@ -531,8 +521,7 @@ public class PancarteActivity extends AppCompatActivity {
             }
 
         }
-        FloatingActionButton fb = view.findViewById(R.id.boutAjoutFavorie);
-        fb.setImageResource(android.R.drawable.star_big_off);
+        ajoutFav.setImageResource(android.R.drawable.star_big_off);
         fragmentTransaction.remove(frag);
         fragmentTransaction.commit();
     }

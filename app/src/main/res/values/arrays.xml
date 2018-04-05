@@ -52,7 +52,7 @@
         <item>"23 "</item>
     </string-array>
     <string-array name="min">
-        <item>""</item>
+        <item>"00"</item>
         <item>"30"</item>
     </string-array>
 

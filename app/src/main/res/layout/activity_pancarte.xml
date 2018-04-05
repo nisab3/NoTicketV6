@@ -11,14 +11,36 @@
         android:id="@+id/boutAjoutFavorie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:clickable="true"
-        app:backgroundTint="@android:color/transparent"
+        app:backgroundTint="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@android:color/transparent"
         app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/boutFavorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_get" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/boutPancOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="15dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="?android:attr/textCheckMarkInverse" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,13 +59,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/boutFavorie"
-                    style="@android:style/Widget.DeviceDefault.Light.Button"
-                    android:layout_width="25dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="aller au favorie" />
             </LinearLayout>
 
             <LinearLayout
@@ -361,17 +376,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/string_annuler" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_marginEnd="24dp"
-                android:clickable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
         </LinearLayout>
     </ScrollView>
