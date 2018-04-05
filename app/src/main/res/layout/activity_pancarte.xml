@@ -7,17 +7,22 @@
     android:layout_height="match_parent"
     tools:context="com.noticket.noticketv6.PancarteActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/boutAjoutFavorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@android:color/transparent"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:clickable="true"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
 
         <LinearLayout
             android:id="@+id/layoutPancarte"
@@ -31,14 +36,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/boutAjoutFavorie"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@android:drawable/btn_star_big_off" />
 
                 <Button
                     android:id="@+id/boutFavorie"
