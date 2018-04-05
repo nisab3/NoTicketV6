@@ -104,7 +104,7 @@ public class PancarteActivity extends AppCompatActivity {
         fleche_d = findViewById(R.id.boutFlecheD);
         panc_g = findViewById(R.id.boutPancG);
         panc_d = findViewById(R.id.boutPancD);
-        ok = findViewById(R.id.floatingActionButton);
+        ok = findViewById(R.id.boutPancOk);
         can = findViewById(R.id.boutCancelPanc);
         allerFav = findViewById(R.id.boutFavorie);
         ajoutFav = findViewById(R.id.boutAjoutFavorie);
