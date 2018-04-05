@@ -200,6 +200,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // TODO Reseter le poteau
+                        poteau = new Poteau();
+                        findViewById(R.id.boutPanc1).setVisibility(View.GONE);
+                        findViewById(R.id.boutPanc2).setVisibility(View.GONE);
+                        findViewById(R.id.boutPanc3).setVisibility(View.GONE);
+                        findViewById(R.id.boutPanc4).setVisibility(View.GONE);
+                        findViewById(R.id.boutPanc5).setVisibility(View.GONE);
+                        findViewById(R.id.boutAjoutPanc).setVisibility(View.VISIBLE);
                         dialog.dismiss();
                     }
                 });
