@@ -532,10 +532,28 @@ public class PancarteActivity extends AppCompatActivity {
         findViewById(R.id.boutHeure1).setEnabled(false);
         findViewById(R.id.boutHeure2).setEnabled(false);
         findViewById(R.id.boutHeure3).setEnabled(false);
+        findViewById(R.id.boutAjoutHeure).setEnabled(false);
         findViewById(R.id.boutJour1).setEnabled(false);
         findViewById(R.id.boutJour2).setEnabled(false);
         findViewById(R.id.boutJour3).setEnabled(false);
+        findViewById(R.id.boutAjoutJour).setEnabled(false);
         findViewById(R.id.boutMois1).setEnabled(false);
+        findViewById(R.id.boutAjoutMois).setEnabled(false);
+        findViewById(R.id.boutDeleteH1).setEnabled(false);
+        findViewById(R.id.boutDeleteH2).setEnabled(false);
+        findViewById(R.id.boutDeleteH3).setEnabled(false);
+        findViewById(R.id.boutDeleteJ1).setEnabled(false);
+        findViewById(R.id.boutDeleteJ2).setEnabled(false);
+        findViewById(R.id.boutDeleteJ3).setEnabled(false);
+        findViewById(R.id.boutDeleteM1).setEnabled(false);
+        findViewById(R.id.boutFlecheD).setEnabled(false);
+        findViewById(R.id.boutFlecheG).setEnabled(false);
+        findViewById(R.id.boutPancD).setEnabled(false);
+        findViewById(R.id.boutPancG).setEnabled(false);
+        findViewById(R.id.boutAjoutFavorie).setVisibility(View.GONE);
+        findViewById(R.id.boutFavorie).setVisibility(View.GONE);
+        findViewById(R.id.boutPancOk).setVisibility(View.GONE);
+        findViewById(R.id.boutCancelPanc).setVisibility(View.GONE);
     }
 
     // réactive tout les bouton de activity pancarte lorsque nous sortont du fragment
@@ -544,10 +562,28 @@ public class PancarteActivity extends AppCompatActivity {
         findViewById(R.id.boutHeure1).setEnabled(true);
         findViewById(R.id.boutHeure2).setEnabled(true);
         findViewById(R.id.boutHeure3).setEnabled(true);
+        findViewById(R.id.boutAjoutHeure).setEnabled(true);
         findViewById(R.id.boutJour1).setEnabled(true);
         findViewById(R.id.boutJour2).setEnabled(true);
         findViewById(R.id.boutJour3).setEnabled(true);
+        findViewById(R.id.boutAjoutJour).setEnabled(true);
         findViewById(R.id.boutMois1).setEnabled(true);
+        findViewById(R.id.boutAjoutMois).setEnabled(true);
+        findViewById(R.id.boutDeleteH1).setEnabled(true);
+        findViewById(R.id.boutDeleteH2).setEnabled(true);
+        findViewById(R.id.boutDeleteH3).setEnabled(true);
+        findViewById(R.id.boutDeleteJ1).setEnabled(true);
+        findViewById(R.id.boutDeleteJ2).setEnabled(true);
+        findViewById(R.id.boutDeleteJ3).setEnabled(true);
+        findViewById(R.id.boutDeleteM1).setEnabled(true);
+        findViewById(R.id.boutFlecheD).setEnabled(true);
+        findViewById(R.id.boutFlecheG).setEnabled(true);
+        findViewById(R.id.boutPancD).setEnabled(true);
+        findViewById(R.id.boutPancG).setEnabled(true);
+        findViewById(R.id.boutAjoutFavorie).setVisibility(View.VISIBLE);
+        findViewById(R.id.boutFavorie).setVisibility(View.VISIBLE);
+        findViewById(R.id.boutPancOk).setVisibility(View.VISIBLE);
+        findViewById(R.id.boutCancelPanc).setVisibility(View.VISIBLE);
     }
 
     // va chercher tout les infos de la pancarte et les mets dans les divers boutons

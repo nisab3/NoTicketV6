@@ -48,9 +48,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
         //TODO faire que le click sur le delete soit différent du reste(popup ok cancel delete
-        //adapterView.removeViewAt(index);
-       // View v = adapterView.findFocus();
-            Toast.makeText(FavoriesActivity.this, Integer.toString(i), Toast.LENGTH_SHORT).show();
+        // utilisé si ok ou delete
         int j = -1;
         int trouver = i+1;
         while (trouver != 0){
@@ -60,10 +58,18 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
             }
 
         }
+
+        //si clicker ok on fait ca
         // call avec j qui est le bonne index pour favlist
         fermeture(j);
-    }
 
+
+
+        // si on suprime il faut appeler ca
+        //suprimeItemFavorie(adapterView, i, j);
+
+        //si cancel on fait rien
+    }
 
 
     public class MyAdapter extends BaseAdapter{
@@ -176,6 +182,15 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     private Pancarte chercherInfo(int i){
 
         return null;
+    }
+
+    //suprimer un ligne de la liste view et le files qui vient avec
+    //in : le adapterView pour enlever la ligne
+    //      int i = place dans le view liste
+    //      int index = place dans la favlist des nom de fichier
+    private void suprimeItemFavorie(AdapterView adapterView, int i, int index){
+        adapterView.removeViewAt(i);
+        String name = favlist[index];
     }
 
     // faire le text de la pancarte
