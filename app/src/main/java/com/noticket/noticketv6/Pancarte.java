@@ -1,7 +1,9 @@
 package com.noticket.noticketv6;
 
 /**
- * Created by Nicolas on 2018-03-25.
+ * Created by Nicolas Sabourin 1068459
+ *            Tommy Côté  1056362
+ *            Charles-Frédéric Amringer
  */
 
 public class Pancarte {

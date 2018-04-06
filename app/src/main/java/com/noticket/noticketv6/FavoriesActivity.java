@@ -20,7 +20,11 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-
+/**
+ * Created by Nicolas Sabourin 1068459
+ *            Tommy Côté  1056362
+ *            Charles-Frédéric Amringer
+ */
 public class FavoriesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     MyAdapter adapter;
@@ -39,7 +43,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
         String[] favbonlisttemp = new String[favlist.length];
         int indexbonfav = 0;
         for(int indexfav = 0; indexfav < favlist.length; indexfav++){
-            if (favlist[indexfav].startsWith("com.noticket.noticketv6.sauvegarde")) {
+            if (favlist[indexfav].startsWith("com.noticket.sauvegarde")) {
                 favbonlisttemp[indexbonfav] = favlist[indexfav];
                 indexbonfav++;
             }

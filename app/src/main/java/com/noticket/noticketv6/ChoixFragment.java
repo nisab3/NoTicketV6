@@ -234,14 +234,20 @@ public class ChoixFragment extends Fragment {
         getActivity().findViewById(R.id.heurePicker2).setVisibility(View.GONE);
         getActivity().findViewById(R.id.minPicker1).setVisibility(View.GONE);
         getActivity().findViewById(R.id.minPicker2).setVisibility(View.GONE);
+
         getActivity().findViewById(R.id.jourPicker1).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.jourPicker2).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.jourPicker3).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.spaceJ1).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.spaceJ2).setVisibility(View.VISIBLE);
+
         getActivity().findViewById(R.id.moisNumPicker1).setVisibility(View.GONE);
         getActivity().findViewById(R.id.moisNumPicker2).setVisibility(View.GONE);
         getActivity().findViewById(R.id.textAMois).setVisibility(View.GONE);
         getActivity().findViewById(R.id.moisPicker1).setVisibility(View.GONE);
         getActivity().findViewById(R.id.moisPicker2).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.spaceM1).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.spaceM2).setVisibility(View.GONE);
     }
 
     /*
@@ -285,13 +291,19 @@ public class ChoixFragment extends Fragment {
         getActivity().findViewById(R.id.heurePicker2).setVisibility(View.GONE);
         getActivity().findViewById(R.id.minPicker1).setVisibility(View.GONE);
         getActivity().findViewById(R.id.minPicker2).setVisibility(View.GONE);
+
         getActivity().findViewById(R.id.jourPicker1).setVisibility(View.GONE);
         getActivity().findViewById(R.id.jourPicker2).setVisibility(View.GONE);
         getActivity().findViewById(R.id.jourPicker3).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.spaceJ1).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.spaceJ2).setVisibility(View.GONE);
+
         getActivity().findViewById(R.id.moisNumPicker1).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.moisNumPicker2).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.textAMois).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.moisPicker1).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.moisPicker2).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.spaceM1).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.spaceM2).setVisibility(View.VISIBLE);
     }
 }

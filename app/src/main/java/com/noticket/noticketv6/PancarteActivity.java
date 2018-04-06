@@ -15,10 +15,17 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
+/**
+ * Created by Nicolas Sabourin 1068459
+ *            Tommy Côté  1056362
+ *            Charles-Frédéric Amringer
+ */
 public class PancarteActivity extends AppCompatActivity {
     private static final int FAVORIE_ACTIVITY_REQUEST_CODE = 1;
 
@@ -807,22 +814,57 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
     private void sauvegardeFavorie(){
+        // donne la liste des files
         String [] liste = fileList();
-        String name;
-        int longueur = liste.length;
-        // donner un nouveau nom qui n'existe pas
-        if (longueur == 0) {
-            name = "com.noticket.noticketv6.sauvegarde" + longueur;
+        // je vais choisir le prochain nom disponible
+
+        String name = "com.noticket.numero" ;  // jai enregistrer le numero de la derniere files sauvgarde ici
+        int trouver = 0;
+        // recherche et prend le numero
+        for ( String n: liste){
+            if (n.equals(name)){
+                try {
+                    FileInputStream fis = openFileInput(name);
+                    ObjectInputStream is = new ObjectInputStream(fis);
+                    trouver = (int) is.readObject();
+                    is.close();
+                    fis.close();
+                    FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
+                    ObjectOutputStream os = new ObjectOutputStream(fos);
+                    trouver++;
+                    os.writeObject(trouver);
+                    os.close();
+                    fos.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
-        else{
-            name = liste[longueur - 1] + longueur;
+        // si pas trouver alors on la creer et on y mets 1
+        if (trouver == 0){
+            try {
+                File file = new File(getFilesDir(),name );
+                FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                trouver++;
+                os.writeObject(trouver);
+                os.close();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        // nom de la prochaine file de favorie
+        name = "com.noticket.sauvegarde" + trouver;
+
         //ouvrire la file
         try {
             File file = new File(getFilesDir(), name);
             FileOutputStream outputStream = openFileOutput(name, MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(outputStream);
             //y mettre les objets
+
             os.writeObject(pancarte.getHeure(1)); //HEURE1
             os.writeObject(pancarte.getHeure(2)); //HEURE2
             os.writeObject(pancarte.getHeure(3)); //HEURE3

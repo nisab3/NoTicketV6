@@ -1,7 +1,9 @@
 package com.noticket.noticketv6;
 import java.util.Date;
 /**
- * Created by tommy on 2018-03-24.
+ * Created by Nicolas Sabourin 1068459
+ *            Tommy Côté  1056362
+ *            Charles-Frédéric Amringer
  */
 
 public class Poteau {

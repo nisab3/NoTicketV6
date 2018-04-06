@@ -97,10 +97,26 @@
                 android:layout_weight="1"
                 android:visibility="gone" />
 
+            <Space
+                android:id="@+id/spaceJ1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
             <NumberPicker
                 android:id="@+id/jourPicker2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <Space
+                android:id="@+id/spaceJ2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:visibility="gone" />
 
@@ -115,6 +131,13 @@
                 android:id="@+id/moisNumPicker1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Space
+                android:id="@+id/spaceM1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1" />
 
             <NumberPicker
@@ -138,6 +161,13 @@
                 android:id="@+id/moisNumPicker2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Space
+                android:id="@+id/spaceM2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1" />
 
             <NumberPicker

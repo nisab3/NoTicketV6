@@ -13,6 +13,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+/**
+ * Created by Nicolas Sabourin 1068459
+ *            Tommy Côté  1056362
+ *            Charles-Frédéric Amringer
+ */
 
 public class MainActivity extends AppCompatActivity {
 
