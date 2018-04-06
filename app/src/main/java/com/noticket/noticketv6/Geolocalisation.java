@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +23,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
 
     private GoogleMap mMap;
     private int REQUEST_FINE_LOCATION;
+    private NumberPicker alerte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +33,22 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        alerte = findViewById(R.id.numPickerAlerte);
+//        alerte.setOnValueChangedListener(n);
+        alerte.setWrapSelectorWheel(true);                                   //pour que la roue tourne sur elle meme
+        alerte.setMinValue(0);                                               //valeur minimal
+        alerte.setMaxValue(8);                                              //valeur maximal//mets la valeur de la pancarte
+        alerte.setDisplayedValues(getResources().getStringArray(R.array.alerte)); //changer tout les valeurs affichées
+        alerte.setValue(3);
     }
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Vérifie si l'utilisation de la localisation fine est autorisée
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             Toast.makeText(this, "La permission est requise pour pouvoir vous localiser par rapport à votre automobile.", Toast.LENGTH_SHORT).show();
             // Demande la permission pour utiliser la localisation fine
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);

@@ -70,4 +70,16 @@
         <item>"NOV"</item>
         <item>"DEC"</item>
     </string-array>
+
+    <string-array name="alerte">
+        <item>"0"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"20"</item>
+        <item>"25"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+    </string-array>
 </resources>
