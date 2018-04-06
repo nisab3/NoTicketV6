@@ -26,6 +26,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     MyAdapter adapter;
     ListView list;
     String[] favlist;
+    String[] favbonlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,22 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
 
         // prendre la liste de tout les favories
         favlist = fileList();
-
+        // chercher juste les files qui sont des favories
+        String[] favbonlisttemp = new String[favlist.length];
+        int indexbonfav = 0;
+        for(int indexfav = 0; indexfav < favlist.length; indexfav++){
+            if (favlist[indexfav].startsWith("com.noticket.noticketv6.sauvegarde")) {
+                favbonlisttemp[indexbonfav] = favlist[indexfav];
+                indexbonfav++;
+            }
+        }
+        // tranfere dans une liste sans null a la fin
+        if (favbonlisttemp.length > 0) {
+            favbonlist = new String[indexbonfav + 1];
+            for (int i = 0; i < indexbonfav ; i++) {
+                favbonlist[i] = favbonlisttemp[i];
+            }
+        }
         list = (ListView) findViewById((R.id.list_fav));
 
         // call pour faire le boucle et ajouter tout les files
@@ -49,20 +65,11 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
         //TODO faire que le click sur le delete soit différent du reste(popup ok cancel delete
-        // utilisé si ok ou delete
-        int j = -1;
-        int trouver = i+1;
-        while (trouver != 0){
-            j++;
-            if (favlist[j].startsWith("com.noticket.noticketv6.sauvegarde")){
-                trouver --;
-            }
 
-        }
 
         //si clicker ok on fait ca
         // call avec j qui est le bonne index pour favlist
-        fermeture(j);
+        fermeture(i);
 
 
 
@@ -83,7 +90,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
 
         @Override
         public int getCount() {
-            return favlist.length;
+            return favbonlist.length -1;
         }
 
         @Override
@@ -102,10 +109,10 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
             if (view == null){
                 view = inflater.inflate(R.layout.rangee_pancarte_fav, viewGroup, false);
             }
-            if (favlist[i].startsWith("com.noticket.noticketv6.sauvegarde")) {
+            if (favbonlist[i] != null) {
                 try {
-                    File file = new File(getFilesDir(), favlist[i]);
-                    FileInputStream fis = openFileInput(favlist[i]);
+                    File file = new File(getFilesDir(), favbonlist[i]);
+                    FileInputStream fis = openFileInput(favbonlist[i]);
                     ObjectInputStream is = new ObjectInputStream(fis);
                     //aller chercher les objets
                     int[] heure1 = (int[]) is.readObject();
@@ -158,7 +165,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
                     ImageView f = view.findViewById(R.id.flecheFav);
                     switch (fleche) {
                         case 0:
-                            f.setImageResource(R.drawable.fleche_pas);
+                            f.setImageResource(R.drawable.fleche_vide);
                             break;
                         case 1:
                             f.setImageResource(R.drawable.fleche_g);
@@ -179,12 +186,6 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
-
-    // sortir les infos les la pancarte sauvé
-    private Pancarte chercherInfo(int i){
-
-        return null;
-    }
 
     //suprimer un ligne de la liste view et le files qui vient avec
     //in : le adapterView pour enlever la ligne

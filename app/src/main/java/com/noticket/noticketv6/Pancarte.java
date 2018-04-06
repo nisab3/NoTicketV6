@@ -19,11 +19,11 @@ public class Pancarte {
     private Jour[] jour = new Jour[3];
 
     public Pancarte() {
-        fleche = 0;
+        fleche = 1;
         image = 0;
         //crée les lignes heure
         hligne1 = new Heure();
-        hligne1.active = true; // premiere ligne seulement active
+
         hligne2 = new Heure();
         hligne3 = new Heure();
         // initialise le array heure
@@ -32,7 +32,7 @@ public class Pancarte {
         heure[2] = hligne3;
         //crée les lignes jour
         jligne1 = new Jour();
-        jligne1.active = true;  // premiere ligne seulement active
+
         jligne2 = new Jour();
         jligne3 = new Jour();
         // initialise le array jour
@@ -41,16 +41,16 @@ public class Pancarte {
         jour[2] = jligne3;
         // crée le mois
         mois = new Mois();
-        mois.active = true; //ligne mois active
+
 
     }
 
     // class pour nouvel objet heure
     private class Heure {
         // variable heure
-        public int min1;
+        int min1;
         int min2;
-        public int heure1;
+        int heure1;
         int heure2;
         boolean active;
 

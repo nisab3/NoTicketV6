@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         poubelle5.setOnClickListener(b);
 
         // Création des floating buttons Analyse et effacer toutes les pancartes
-        FloatingActionButton analyse = (FloatingActionButton) findViewById(R.id.boutonAnalyse);
-        FloatingActionButton reset = (FloatingActionButton) findViewById(R.id.boutonReset);
+        FloatingActionButton analyse = findViewById(R.id.boutonAnalyse);
+        FloatingActionButton reset = findViewById(R.id.boutonReset);
 
         // Listener du bouton Analyse
         analyse.setOnClickListener(new View.OnClickListener() {
@@ -394,7 +394,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView f = findViewById(R.id.fleche1 + (numero - 1));
         switch (fleche){
             case 0:
-                f.setImageResource(R.drawable.fleche_pas);
+                f.setImageResource(R.drawable.fleche_vide);
                 break;
             case 1:
                 f.setImageResource(R.drawable.fleche_g);
