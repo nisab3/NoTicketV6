@@ -17,7 +17,9 @@
             android:id="@+id/textMessagePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:capitalize="characters"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Holo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,6 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="@string/string_h_picker"
                 android:textAlignment="center"
@@ -53,6 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="@string/string_trait_picker"
                 android:textAlignment="center"
@@ -70,6 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="@string/string_h_picker"
                 android:textAlignment="center"
@@ -119,6 +127,8 @@
                 android:id="@+id/textAMois"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/string_a_mois"
@@ -138,25 +148,33 @@
 
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/boutFragCancel"
+                style="@android:style/Widget.Holo.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_red_dark"
                 android:onClick="clickFermerFrag"
                 android:text="@android:string/no" />
 
             <Button
                 android:id="@+id/boutFragOk"
+                style="@android:style/Widget.Holo.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
                 android:onClick="clickFermerFrag"
                 android:text="@android:string/ok" />
         </LinearLayout>

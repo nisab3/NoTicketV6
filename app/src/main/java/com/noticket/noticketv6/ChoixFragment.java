@@ -7,8 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
-
-
+import android.widget.TextView;
 
 
 /**
@@ -151,7 +150,8 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeHeureFrag(int[] info){
-
+        TextView t = getActivity().findViewById(R.id.textMessagePicker);
+        t.setText(R.string.text_heure_frag);
         // formate number picker de l'heure 1
         heure1.setWrapSelectorWheel(true);                                   //pour que la roue tourne sur elle meme
         heure1.setMinValue(0);                                               //valeur minimal
@@ -203,7 +203,8 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeJourFrag(int[] info){
-
+        TextView t = getActivity().findViewById(R.id.textMessagePicker);
+        t.setText(R.string.text_jour_frag);
         // formate number picker du premier jour
         jour1.setMinValue(0);
         jour1.setMaxValue(7);
@@ -248,7 +249,8 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeMoisFrag(int[] info){
-
+        TextView t = getActivity().findViewById(R.id.textMessagePicker);
+        t.setText(R.string.text_mois_frag);
         // formate number picker du numéro du mois 1
         //moisNum1.setWrapSelectorWheel(true);
         moisNum1.setMaxValue(31);

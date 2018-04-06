@@ -28,4 +28,7 @@
     <string name="desc_bout_change_image">changer l\'image de la pancarte</string>
     <string name="desc_image_pancarte">l\'image de la pancarte</string>
     <string name="desc_fleche">image de la fleche</string>
+    <string name="text_heure_frag">Entrer l\'heure</string>
+    <string name="text_jour_frag">Entrer le/les jours</string>
+    <string name="text_mois_frag">Entrer les dates</string>
 </resources>
