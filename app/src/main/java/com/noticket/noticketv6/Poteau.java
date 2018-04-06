@@ -199,28 +199,57 @@ public class Poteau {
         }
     }
 
-    // TODO est ce que les jour vont de 1=lun à 7=dim  0 =aucune journée
-    // TODO et=2   à=1  0=rien
-    // TODO correspondance entre jour 1à3 et heure 1à3 Toutes les heures s'appilquent à toutes les journées
     // Retourne booléen vrai si la pancarte s'applique à ce jour
-    private boolean applicableJour(Pancarte p, int[] n) {
-        // Si il y a des jours sur la pancarte
-        if (p.moisIsActive()) {
+    private boolean applicableJour(Pancarte p, int[] n, int j) {
+        // S'il y a des jours sur la ligne j de la pancarte
+        if (p.jourIsActive(j)) {
+            // S'il y a un seul jour sur la ligne
+            if (p.getJour(j)[1]==0) {
+                // Est-ce que ce jour est le jour actuel?
+                if (p.getJour(j)[0]==n[1]) {
+                    return true;
+                } else return false;
+            }
 
-            // TEMPORAIRE
-            return true;
+            // Si on a jour1 à jour2
+            if (p.getJour(j)[2]==1) {
+                if (p.getJour(j)[0] <= p.getJour(j)[1]) {
+                    if (n[1] >= p.getJour(j)[0] && n[1] <= p.getJour(j)[1]) {
+                        return true;
+                    } else return false;
+                } else {
+                    if (n[1] >= p.getJour(j)[0] || n[1] <= p.getJour(j)[1]) {
+                        return true;
+                    } else return false;
+                }
+            }
 
+            // Si on a jour1 et jour2
+            if (p.getJour(j)[2]==2) {
+                // Est-ce qu'un de ces 2 jours est le jour actuel?
+                if (p.getJour(j)[0]==n[1] || p.getJour(j)[1]==n[1]) {
+                    return true;
+                } else return false;
+            }
 
+            // Si rien ne s'applique
+            return false;
         }
         // Sinon
         else {
-            return true;
+            return false;
         }
     }
 
+
+    // TODO Avoir que minuit == 00h00
+
+    // TODO est ce que les jour vont de 1=lun à 7=dim  0 =aucune journée
+    // TODO et=2   à=1  0=rien
+    // TODO correspondance entre jour 1à3 et heure 1à3 Toutes les heures s'appilquent à toutes les journées
     // Fait les modification dans horaire
     private void traitement(Pancarte p, boolean p_active, int pos, boolean[] h, int[] n) {
-        if (applicable(p, p_active, pos) && applicableMois(p, n) && applicableJour(p, n)) {
+        if (applicable(p, p_active, pos) && applicableMois(p, n) && (applicableJour(p, n, 1) || applicableJour(p, n, 2) || applicableJour(p, n, 3) )){
             // TODO joue dans le tableau horaire
 
 
