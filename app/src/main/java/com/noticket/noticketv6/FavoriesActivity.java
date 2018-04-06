@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
@@ -103,6 +104,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
             }
             if (favlist[i].startsWith("com.noticket.noticketv6.sauvegarde")) {
                 try {
+                    File file = new File(getFilesDir(), favlist[i]);
                     FileInputStream fis = openFileInput(favlist[i]);
                     ObjectInputStream is = new ObjectInputStream(fis);
                     //aller chercher les objets
@@ -116,7 +118,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
                     int fleche = (int) is.readObject();
                     int image = (int) is.readObject();
                     boolean[] actif = (boolean[]) is.readObject();
-//
+
                     // fermer le tout
                     is.close();
                     fis.close();
@@ -191,6 +193,12 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     private void suprimeItemFavorie(AdapterView adapterView, int i, int index){
         adapterView.removeViewAt(i);
         String name = favlist[index];
+        try{
+            File file = new File(getFilesDir(), name);
+            file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // faire le text de la pancarte
@@ -226,6 +234,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     private void fermeture( int i){
         Intent intent = new Intent();
         try{
+
             FileInputStream fis = openFileInput(favlist[i]);
             ObjectInputStream is = new ObjectInputStream(fis);
             //aller chercher les objets

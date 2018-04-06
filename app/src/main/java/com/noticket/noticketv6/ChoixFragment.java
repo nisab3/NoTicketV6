@@ -6,14 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.NumberPicker;
-import android.widget.TextView;
-import android.widget.Toast;
+
+
 
 
 /**
- * Created by Nicolas on 2018-03-21.
+ * Created by Nicolas Sabourin 1068459
+ *            Tommy Côté  1056362
+ *            Charles-Frédéric Amringer
  */
 
 public class ChoixFragment extends Fragment {
