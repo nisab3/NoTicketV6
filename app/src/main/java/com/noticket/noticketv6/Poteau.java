@@ -201,50 +201,102 @@ public class Poteau {
         int heure = Integer.parseInt(maintenant.substring(11, 13));
         int minute = Integer.parseInt(maintenant.substring(14, 16));
         int[] now = {mois, jour, heure, minute};
-        int[] resultat = {-1, -1};
+        // TODO vérifier le changement de mois
+        int[] tomorrow = {mois, jour+1, heure, minute};
+        int[] resultat = {24, 0, 0, 1};
 
-        // Array de 48h en bloc de 30min initialisé à true
-        boolean[] horaire = new boolean[96];
-        for(int i=0;i<horaire.length;i++)
-            horaire[i] = true;
+//        // Array de 48h en bloc de 30min initialisé à true
+//        boolean[] horaire = new boolean[96];
+//        for(int i=0;i<horaire.length;i++)
+//            horaire[i] = true;
+
+        // 2 Arrays de 24h en bloc de 30min initialisé à true
+        boolean[] jour1 = new boolean[48];
+        boolean[] jour2 = new boolean[48];
+        for(int i=0;i<jour1.length;i++) {
+            jour1[i] = true;
+            jour2[i] = true;
+        }
+
+        // Modifie le tableau horaire selon les 5 pancartes
+        traitement(p1, p1_active, position, jour1, now);
+        traitement(p2, p2_active, position, jour1, now);
+        traitement(p3, p3_active, position, jour1, now);
+        traitement(p4, p4_active, position, jour1, now);
+        traitement(p5, p5_active, position, jour1, now);
+        traitement(p1, p1_active, position, jour2, tomorrow);
+        traitement(p2, p2_active, position, jour2, tomorrow);
+        traitement(p3, p3_active, position, jour2, tomorrow);
+        traitement(p4, p4_active, position, jour2, tomorrow);
+        traitement(p5, p5_active, position, jour2, tomorrow);
+
+        // Merge les 2 talbeau d'horaire
+        boolean[] horaire = mergeTab(jour1, jour2);
 
         // Heure actuelle en terme de l'indice dans le tableau horaire
         int horaireNow = heure_indice(heure, minute);
-
-        // Modifie le tableau horaire selon les 5 pancartes
-        traitement(p1, p1_active, position, horaire, now);
-        traitement(p2, p2_active, position, horaire, now);
-        traitement(p3, p3_active, position, horaire, now);
-        traitement(p4, p4_active, position, horaire, now);
-        traitement(p5, p5_active, position, horaire, now);
-
-        // Si le stationnement est impossible actuellement
-        if (horaire[horaireNow] == false) {
-            return resultat;
-        }
-        // Sinon
         int i = horaireNow;
-        while (horaire[i] == true) {
-            i++;
-            if (i==horaire.length) {
-                resultat[0] = 48;
-                resultat[1] = 0;
-                return resultat;
-            }
-        }
 
-        resultat[0] = indice_heure(i)[0];
-        resultat[1] = indice_heure(i)[1];
-        return resultat;
+        // Si le stationnement est actuellement possible
+        if (horaire[horaireNow] == true) {
+            while (horaire[i] == true) {
+                i++;
+                if (i==horaire.length) {
+                    resultat[0] = 24;
+                    resultat[1] = 0;
+                    resultat[2] = 1;
+                    resultat[3] =1;
+                    return resultat;
+                }
+            }
+
+            if (indice_heure(i)[0] >=24) {
+                resultat[0] = indice_heure(i)[0]-24;
+                resultat[3] = 1;
+            }
+            else {
+                resultat[0] = indice_heure(i)[0];
+                resultat[3] = 0;
+            }
+            resultat[1] = indice_heure(i)[1];
+            resultat[2] = 1;
+            return resultat;
+        } else
+        // Si le stationnement est impossible actuellement
+            while (horaire[i] == false) {
+                i++;
+                if (i==horaire.length) {
+                    resultat[0] = 24;
+                    resultat[1] = 0;
+                    resultat[2] = 0;
+                    resultat[3] =1;
+                    return resultat;
+                }
+            }
+            if (indice_heure(i)[0] >=24) {
+                resultat[0] = indice_heure(i)[0]-24;
+                resultat[3] = 1;
+            }
+            else {
+                resultat[0] = indice_heure(i)[0];
+                resultat[3] = 0;
+            }
+            resultat[1] = indice_heure(i)[1];
+            resultat[2] = 0;
+            return resultat;
     }
 
     // Retourne booléen vrai si la pancarte s'applique dans ce contexte,
     //                          considérant la position de la voiture.
+    // type de flèche: 0 pas de flèche
+    //                 1 <-
+    //                 2 <->
+    //                 3 ->
     private boolean applicable(Pancarte p, boolean p_active, int pos) {
         if (p_active==false){
             return false;
         }
-        if (pos==1 && p.getFleche()!=2) {
+        if (pos==1 && p.getFleche()!=3) {
             return true;
         }
         if (pos==2 && p.getFleche()!=1) {
@@ -253,7 +305,7 @@ public class Poteau {
         if (pos==3 && p.getFleche()!=1) {
             return true;
         }
-        if (pos==4 && p.getFleche()!=2) {
+        if (pos==4 && p.getFleche()!=3) {
             return true;
         }
         return false;
@@ -273,10 +325,10 @@ public class Poteau {
                     return false;
                 }
             }else {
-                if ((n[0] >= p.getMois()[1]
-                        || n[0] <= p.getMois()[3])
-                        && n[1] >= p.getMois()[0]
-                        && n[1] <= p.getMois()[2]) {
+                if ((n[0] <= p.getMois()[1]
+                        || n[0] >= p.getMois()[3])
+                        && (n[1] <= p.getMois()[0]
+                        || n[1] >= p.getMois()[2])) {
                     return true;
                 }else {
                     return false;
@@ -308,14 +360,14 @@ public class Poteau {
                         return true;
                     } else return false;
                 } else {
-                    if (n[1] >= p.getJour(j)[0] || n[1] <= p.getJour(j)[1]) {
+                    if (n[1] <= p.getJour(j)[0] || n[1] >= p.getJour(j)[1]) {
                         return true;
                     } else return false;
                 }
             }
 
             // Si on a jour1 et jour2
-            if (p.getJour(j)[2]==2) {
+            if (p.getJour(j)[2]==2 || p.getJour(j)[2]==0) {
                 // Est-ce qu'un de ces 2 jours est le jour actuel?
                 if (p.getJour(j)[0]==n[1] || p.getJour(j)[1]==n[1]) {
                     return true;
@@ -351,14 +403,22 @@ public class Poteau {
             int indiceHeureDepart = heure_indice(p.getHeure(ligne)[0], p.getHeure(ligne)[1]);
             int indiceHeureFin = heure_indice(p.getHeure(ligne)[2], p.getHeure(ligne)[3]);
 
-            // Si on à le cas de 23h à 4h, alors le 4h dépasse dans la prochaine journée
-            if (indiceHeureDepart>indiceHeureFin) {
-                indiceHeureFin += h.length/2;
-            }
 
-            // Met false dans le tableau horaire pour toutes les heures sur le panneau
-            for(int i=indiceHeureDepart; i<indiceHeureFin; i++){
-                h[i] = false;
+            // Si les heures sont normales. Ex: 12h-15h30
+            if (indiceHeureDepart<=indiceHeureFin) {
+                // Met false dans le tableau horaire pour toutes les heures sur le panneau
+                for(int i=indiceHeureDepart; i<indiceHeureFin; i++){
+                    h[i] = false;
+                }
+            }
+            // Sinon, les heures dépassent dans les autres jours. Ex: 23h à 4h
+            else {
+                for(int i=0; i<indiceHeureFin; i++){
+                    h[i] = false;
+                }
+                for(int i=indiceHeureDepart; i<h.length; i++){
+                    h[i] = false;
+                }
             }
         }
     }
@@ -378,6 +438,16 @@ public class Poteau {
         if (i%2 == 1) {
             resultat[1] = 30;
         }
+        return resultat;
+    }
+
+    // Merge 2 arrays et retourne le résultat
+    private boolean[] mergeTab(boolean[] tab1, boolean[] tab2) {
+        boolean[] resultat = new boolean[tab1.length+tab2.length];
+        for(int i=0;i<tab1.length;i++)
+            resultat[i] = tab1[i];
+        for(int i=0;i<tab2.length;i++)
+            resultat[i+tab1.length] = tab2[i];
         return resultat;
     }
 }

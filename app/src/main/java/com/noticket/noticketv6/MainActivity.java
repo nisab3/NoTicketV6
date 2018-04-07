@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public Poteau poteau;
     //variable utilisé pour identifier PancarteActivité a son retour
     private static final int PANCARTE_ACTIVITY_REQUEST_CODE = 0;
+    private static final int GEOLOCALISATION_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton poubelle3 = findViewById(R.id.boutDeletePanc3);
         ImageButton poubelle4 = findViewById(R.id.boutDeletePanc4);
         ImageButton poubelle5 = findViewById(R.id.boutDeletePanc5);
-
 
         bp1.setOnClickListener(b);
         bp2.setOnClickListener(b);
@@ -216,6 +216,13 @@ public class MainActivity extends AppCompatActivity {
         if ( requestCode == PANCARTE_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
                 prendreInfo(data);
+            }
+        }
+        if ( requestCode == GEOLOCALISATION_ACTIVITY_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                
+                // TODO faire une fonction qui gère ce que GEO retourne
+//                prendreInfo(data);
             }
         }
     }
@@ -411,13 +418,14 @@ public class MainActivity extends AppCompatActivity {
 //        TextView test1 = (TextView) analyseView.findViewById(R.id.textView6);
 //        test1.setText(test);
 
+        // analyse return int[heure, min, peutMaintenant=>(0=non et 1=Oui), jour=>(0=aujourdhui et 1=demain)]
         int[] analyse = poteau.analyse();
 //        String test = poteau.
 //        TextView test1 = (TextView) analyseView.findViewById(R.id.textView6);
 //        test1.setText(test);
 
         // Si on ne peut pas se stationner
-        if (analyse[0]==-1) {
+        if (analyse[2]==0) {
             reponse.setText("Non");
             reponse.setTextColor(Color.RED);
         } else {
@@ -443,7 +451,8 @@ public class MainActivity extends AppCompatActivity {
                 dialogAnalyse.dismiss();
                 // Démarre l'activité Geolocalisation
                 Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                startActivity(intent);
+                startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
+
             }
         });
 
