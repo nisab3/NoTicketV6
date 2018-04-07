@@ -66,17 +66,18 @@
                 <ImageButton
                     android:id="@+id/boutDeletePanc1"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45"
+                    android:layout_height="45"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/holo_red_dark"
+                    android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/boutImPanc1"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    app:srcCompat="@drawable/icon_del_plain" />
 
                 <TextView
                     android:id="@+id/textImPanc1"
@@ -134,17 +135,18 @@
                 <ImageButton
                     android:id="@+id/boutDeletePanc2"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45"
+                    android:layout_height="45"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/holo_red_dark"
+                    android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/boutImPanc2"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    app:srcCompat="@drawable/icon_del_plain" />
 
                 <TextView
                     android:id="@+id/textImPanc2"
@@ -201,17 +203,18 @@
                 <ImageButton
                     android:id="@+id/boutDeletePanc3"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45"
+                    android:layout_height="45"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/holo_red_dark"
+                    android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    app:srcCompat="@drawable/icon_del_plain" />
 
                 <TextView
                     android:id="@+id/textImPanc3"
@@ -268,17 +271,18 @@
                 <ImageButton
                     android:id="@+id/boutDeletePanc4"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45"
+                    android:layout_height="45"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/holo_red_dark"
+                    android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/boutImPanc4"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    app:srcCompat="@drawable/icon_del_plain" />
 
                 <TextView
                     android:id="@+id/textImPanc4"
@@ -335,17 +339,18 @@
                 <ImageButton
                     android:id="@+id/boutDeletePanc5"
                     style="@android:style/Widget.Holo.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45"
+                    android:layout_height="45"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/holo_red_dark"
+                    android:backgroundTint="@android:color/holo_red_dark"
                     android:contentDescription="@string/desc_bout_delete"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                    app:srcCompat="@drawable/icon_del_plain" />
 
                 <TextView
                     android:id="@+id/textImPanc5"
