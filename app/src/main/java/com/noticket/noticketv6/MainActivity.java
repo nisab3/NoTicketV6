@@ -1,9 +1,16 @@
 package com.noticket.noticketv6;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -469,10 +476,64 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // désactivation du back button car lorqu'on reviens il repart a zero
-    // il faut donc utiliser le home button pour sortir
+    /*
+    /désactivation du back button car lorqu'on reviens il repart a zero
+    /il faut donc utiliser le home button pour sortir
+    */
     @Override
     public void onBackPressed() {
 
+    }
+
+    /*
+     *partie pour la Notification
+     *
+     *
+     *-------------><-------------
+     *
+    */
+
+    // annuler tout les nofications qui sont en actives
+    public void cancelNot(){
+        NotificationManager mNotificationManager =
+
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotificationManager.cancelAll();
+    }
+    // la fonction qu'on call pour mettre la notification
+    // créer le intent pour le donner a l'alarme manager et calculer le temps délais
+    // in: int[] = [min, heure, délais]
+    public void mettreNotif(int[] temps){
+
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 567);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, faireNotif(temps));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //TODO calculer le timer a partir de int donné
+        // calcul du timer
+        long timer = SystemClock.elapsedRealtime() + 15000;
+        AlarmManager alarme = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarme.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timer, pendingIntent);
+    }
+
+    // fonction qui cree la notification
+    // c'est ici qu'on lui passe les textes et alarme
+    // in: in: int[] = [min, heure, délais]
+    // out: une Notification
+    private Notification faireNotif(int[] temps){
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        long[] pattern = {0, 100, 1000};
+
+        Notification.Builder builder = new Notification.Builder(this);
+        //TODO mettre l'icone
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        //TODO entrer le text de la notification avec le temps
+        builder.setContentTitle("My notification");
+        builder.setContentText("Hello World!");
+        builder.setSound(uri);
+        builder.setVibrate(pattern);
+
+        return builder.build();
     }
 }
