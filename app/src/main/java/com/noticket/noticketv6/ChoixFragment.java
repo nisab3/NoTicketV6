@@ -132,6 +132,7 @@ public class ChoixFragment extends Fragment {
                         resultat[2] = moisNum2.getValue();
                         resultat[3] = mois2.getValue();
                         sauveBundle();
+                        ajutementMois();
                     }
                 }
             }
@@ -283,6 +284,9 @@ public class ChoixFragment extends Fragment {
         mois2.setDisplayedValues(getResources().getStringArray(R.array.mois));
         mois2.setValue(info[3]);
 
+        //on ajuste au cas ou
+        ajutementMois();
+
         // cache tout ce que nous avons pas besoin
         getActivity().findViewById(R.id.textHPicker1).setVisibility(View.GONE);
         getActivity().findViewById(R.id.textHPicker2).setVisibility(View.GONE);
@@ -306,4 +310,36 @@ public class ChoixFragment extends Fragment {
         getActivity().findViewById(R.id.spaceM1).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.spaceM2).setVisibility(View.VISIBLE);
     }
+
+    //TODO cest possible que ca marche pas ou je l'ai callé
+    // fonction qui vérifie les mois entré pour changer le nombre de jour
+    private void ajutementMois(){
+       int m1 = mois1.getValue();
+       int m2 = mois2.getValue();
+
+       //février
+       if (m1 == 1){
+           moisNum1.setMaxValue(28);
+       }
+        if (m2 == 1){
+            moisNum2.setMaxValue(28);
+        }
+
+        // mois a 31 jours
+        if (m1 == 0  || m1 == 2 || m1 == 4 || m1 == 6 || m1 == 7 || m1 == 9 || m1 == 11){
+            moisNum1.setMaxValue(31);
+        }
+        if (m2 == 0  || m2 == 2 || m2 == 4 || m2 == 6 || m2 == 7 || m2 == 9 || m2 == 11){
+            moisNum2.setMaxValue(31);
+        }
+
+        // mois a 30 jours
+        if (m1 == 3  || m1 == 5 || m1 == 4 || m1 == 8 || m1 == 10 || m1 == 12){
+            moisNum1.setMaxValue(31);
+        }
+        if (m2 == 3  || m2 == 5 || m2 == 4 || m2 == 8 || m2 == 10 || m2 == 12){
+            moisNum2.setMaxValue(31);
+        }
+    }
+
 }

@@ -416,9 +416,41 @@ public class PancarteActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    //TODO ou on verifie avec le if pour faire un popup avant de fermer le fragment(dans le pancarte activity?)
+    // fonction qui verifie l'entré quand on appuis sur ok pour s'assurer que l'entré est valide
+    // in: le type de fragement a verifier
+    // out: oui ou non
+    public boolean verifieValide(int type, int[] info){
+        boolean reponse = true;
+        // si le fragemnt est heure = les 2 heures ne peuvent etre pareille
+        if (type == 1) {
+            int heure1 = info[0];
+            int heure2 = info[3];
+            if (heure1 == heure2) {
+                reponse = false;
+            }
+        }
+        // si le fragemnt est jour = les 2 jours ne peuvent etre pareille
+        if (type == 2) {
+            int jour1 = info[0];
+            int jour2 = info[2];
+            if (jour1 == jour2) {
+                reponse = false;
+            }
+        }
+        // si le fragemnt est mois = les 2 mois ne peuvent etre pareille
+        if (type == 3) {
+            int mois1 = info[1];
+            int mois2 = info[3];
+            if (mois1 == mois2) {
+                reponse = false;
+            }
+        }
+        return reponse;
+    }
+
     // faire le néssecaire pour fermer le fragment
     public void clickFermerFrag(View view){
-
         //reactivation des boutons de pancarte activity
         activationBouton();
 
@@ -437,9 +469,14 @@ public class PancarteActivity extends AppCompatActivity {
             int[] nouvelinfo = paquet.getIntArray("info");  //le int array avec les valeurs de la ligne
             int no = paquet.getInt("numero", 0);
             int type = paquet.getInt("type", 0);
+
             if(type == 1){
+                if (!verifieValide(type, nouvelinfo)){
+                    //TODO cancel la fermeture en mettant le popup
+                }
                 String[] min = res.getStringArray(R.array.min);
                 String s_heure = nouvelinfo[0] + "h" + min[nouvelinfo[1]] + " - " + nouvelinfo[2] + "h" + min[nouvelinfo[3]];
+                // ligne heure 3
                 if (no == 1){
                     bh1.setText(s_heure);
                     pancarte.setHeure(nouvelinfo, no);
@@ -451,6 +488,7 @@ public class PancarteActivity extends AppCompatActivity {
                     }
                 }
                 else{
+                    // ligne heure 2
                     if (no == 2){
                         bh2.setText(s_heure);
                         pancarte.setHeure(nouvelinfo, no);
@@ -462,6 +500,7 @@ public class PancarteActivity extends AppCompatActivity {
                         }
 
                     }
+                    // ligne heure 3
                     if(no == 3){
                         bh3.setText(s_heure);
                         pancarte.setHeure(nouvelinfo, no);
@@ -477,8 +516,12 @@ public class PancarteActivity extends AppCompatActivity {
             }
             else{
                 if (type == 2){
+                    if (!verifieValide(type, nouvelinfo)){
+                        //TODO cancel la fermeture en mettant le popup
+                    }
                     String[] eta = res.getStringArray(R.array.eta);
                     String ligneJour = quelJour(nouvelinfo[0]) + " " + eta[nouvelinfo[2]] + " " + quelJour(nouvelinfo[1]);
+                    // ligne heure 1
                     if (no == 1){
                         bj1.setText(ligneJour);
                         pancarte.setJour(nouvelinfo, no);
@@ -490,6 +533,7 @@ public class PancarteActivity extends AppCompatActivity {
                         }
                     }
                     else{
+                        // ligne heure 2
                         if (no ==2){
                             bj2.setText(ligneJour);
                             pancarte.setJour(nouvelinfo, no);
@@ -501,6 +545,7 @@ public class PancarteActivity extends AppCompatActivity {
                             }
                         }
                         else{
+                            // ligne heure 3
                             if (no == 3){
                                 bj3.setText(ligneJour);
                                 pancarte.setJour(nouvelinfo, no);
@@ -516,6 +561,9 @@ public class PancarteActivity extends AppCompatActivity {
                 }
                 else {
                     if (type == 3) {
+                        if (!verifieValide(type, nouvelinfo)){
+                            //TODO cancel la fermeture en mettant le popup
+                        }
                         String ligneMois = nouvelinfo[0] + " " + quelMois(nouvelinfo[1]) + " - " + nouvelinfo[2] + " " + quelMois(nouvelinfo[3]);
                         bm1.setText(ligneMois);
                         pancarte.setmois(nouvelinfo);
