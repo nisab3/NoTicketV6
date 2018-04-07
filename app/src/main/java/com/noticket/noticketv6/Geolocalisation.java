@@ -2,6 +2,7 @@ package com.noticket.noticketv6;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -30,11 +31,16 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
     private int REQUEST_FINE_LOCATION;
     private NumberPicker alerte;
     private TextView minRestantes;
+    private int[] analyse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geolocalisation);
+
+        Intent intent = getIntent();
+        analyse = intent.getIntArrayExtra("INFO_ANALYSE");
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

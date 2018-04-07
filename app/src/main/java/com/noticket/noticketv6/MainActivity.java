@@ -29,6 +29,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public Poteau poteau;
+    int[] analyse;
     //variable utilisé pour identifier PancarteActivité a son retour
     private static final int PANCARTE_ACTIVITY_REQUEST_CODE = 0;
     private static final int GEOLOCALISATION_ACTIVITY_REQUEST_CODE = 1;
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if ( requestCode == GEOLOCALISATION_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
-                
+
                 // TODO faire une fonction qui gère ce que GEO retourne
 //                prendreInfo(data);
             }
@@ -418,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
 //        test1.setText(test);
 
         // analyse return int[heure, min, peutMaintenant=>(0=non et 1=Oui), jour=>(0=aujourdhui et 1=demain)]
-        int[] analyse = poteau.analyse();
+        analyse = poteau.analyse();
 //        String test = poteau.
 //        TextView test1 = (TextView) analyseView.findViewById(R.id.textView6);
 //        test1.setText(test);
@@ -450,8 +451,8 @@ public class MainActivity extends AppCompatActivity {
                 dialogAnalyse.dismiss();
                 // Démarre l'activité Geolocalisation
                 Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                intent.putExtra("INFO_ANALYSE", analyse);
                 startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
-
             }
         });
 
