@@ -16,11 +16,11 @@
         android:textSize="50sp" />
 
     <Button
-        android:id="@+id/boutonRetour"
+        android:id="@+id/boutonFavSup"
         style="@android:style/Widget.Holo.Button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/boutonAlarme"
+        android:layout_alignTop="@+id/boutonFavAnuler"
         android:layout_toStartOf="@+id/textView4"
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="Retour" />
@@ -30,13 +30,13 @@
         style="@android:style/Widget.Holo.Button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/boutonRetour"
+        android:layout_alignTop="@+id/boutonFavSup"
         android:layout_toEndOf="@+id/textView4"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="OK" />
 
     <Button
-        android:id="@+id/boutonAlarme"
+        android:id="@+id/boutonFavAnuler"
         style="@android:style/Widget.Holo.Button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"

@@ -310,7 +310,7 @@ public class ChoixFragment extends Fragment {
         getActivity().findViewById(R.id.spaceM1).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.spaceM2).setVisibility(View.VISIBLE);
     }
-    
+
     // fonction qui vérifie les mois entré pour changer le nombre de jour
     private void ajutementMois(){
        int m1 = mois1.getValue();

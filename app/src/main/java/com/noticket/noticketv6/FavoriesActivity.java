@@ -1,5 +1,6 @@
 package com.noticket.noticketv6;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
@@ -69,11 +70,15 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
         //TODO faire que le click sur le delete soit différent du reste(popup ok cancel delete
-
-
+        AlertDialog.Builder positionBuilder = new AlertDialog.Builder(FavoriesActivity.this);
+        final View positionView = getLayoutInflater().inflate(R.layout.pop_favorie, null);
+        positionBuilder.setView(positionView);
+        final AlertDialog dialogPosition = positionBuilder.create();
+        dialogPosition.show();
         //si clicker ok on fait ca
         // call avec j qui est le bonne index pour favlist
-        fermeture(i);
+
+        //fermeture(i);
 
 
 

@@ -31,4 +31,7 @@
     <string name="text_heure_frag">Entrer l\'heure</string>
     <string name="text_jour_frag">Entrer le/les jours</string>
     <string name="text_mois_frag">Entrer les dates</string>
+    <string name="text_bout_supprimer">SUPPRIMER</string>
+    <string name="text_supprimer_fav">Supprimer \n ce favorie</string>
+    <string name="text_pop_fav">Voulez-vous importer\nce favorie ?</string>
 </resources>

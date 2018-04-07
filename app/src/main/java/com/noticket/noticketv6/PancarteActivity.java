@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -861,6 +862,8 @@ public class PancarteActivity extends AppCompatActivity {
         finish();
     }
 
+    //fonction pour sauvegarger un nouveau favorie
+    //TODO ne pas sauvegarder une files qui existe deja
     private void sauvegardeFavorie(){
         // donne la liste des files
         String [] liste = fileList();
@@ -871,6 +874,29 @@ public class PancarteActivity extends AppCompatActivity {
         // recherche et prend le numero
         for ( String n: liste){
             if (n.equals(name)){
+                //TODO essayer voir si ca existe
+//                try {
+//                    File file = new File(getFilesDir(), favbonlist[i]);
+//                    FileInputStream fis = openFileInput(favbonlist[i]);
+//                    ObjectInputStream is = new ObjectInputStream(fis);
+//                    //aller chercher les objets
+//                    int[] heure1 = (int[]) is.readObject();
+//                    int[] heure2 = (int[]) is.readObject();
+//                    int[] heure3 = (int[]) is.readObject();
+//                    int[] jour1 = (int[]) is.readObject();
+//                    int[] jour2 = (int[]) is.readObject();
+//                    int[] jour3 = (int[]) is.readObject();
+//                    int[] mois1 = (int[]) is.readObject();
+//                    int fleche = (int) is.readObject();
+//                    int image = (int) is.readObject();
+//                    boolean[] actif = (boolean[]) is.readObject();
+//
+//                    // fermer le tout
+//                    is.close();
+//                    fis.close();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 try {
                     FileInputStream fis = openFileInput(name);
                     ObjectInputStream is = new ObjectInputStream(fis);

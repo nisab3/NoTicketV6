@@ -1,6 +1,5 @@
 package com.noticket.noticketv6;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -407,8 +406,8 @@ public class MainActivity extends AppCompatActivity {
         final View analyseView = getLayoutInflater().inflate(R.layout.analyse, null);
 
         Button boutonOk = (Button) analyseView.findViewById(R.id.boutonOk);
-        Button boutonAlarme = (Button) analyseView.findViewById(R.id.boutonAlarme);
-        Button boutonRetour = (Button) analyseView.findViewById(R.id.boutonRetour);
+        Button boutonAlarme = (Button) analyseView.findViewById(R.id.boutonFavAnuler);
+        Button boutonRetour = (Button) analyseView.findViewById(R.id.boutonFavSup);
 
         TextView reponse = (TextView) analyseView.findViewById(R.id.reponse);
 
