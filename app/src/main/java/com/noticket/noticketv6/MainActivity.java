@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.SystemClock;
@@ -72,125 +73,8 @@ public class MainActivity extends AppCompatActivity {
         analyse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-                final View mView = getLayoutInflater().inflate(R.layout.oneway, null);
-
-                Button boutonOui = (Button) mView.findViewById(R.id.boutonOui);
-                Button boutonNon = (Button) mView.findViewById(R.id.boutonNon);
-
-
-                mBuilder.setView(mView);
-                final AlertDialog dialog = mBuilder.create();
-                dialog.show();
-
-                boutonOui.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        poteau.set_oneWay(true);
-                        dialog.dismiss();
-
-                        AlertDialog.Builder positionBuilder = new AlertDialog.Builder(MainActivity.this);
-                        final View positionView = getLayoutInflater().inflate(R.layout.position_oneway, null);
-
-                        Button position1 = (Button) positionView.findViewById(R.id.position1);
-                        Button position2 = (Button) positionView.findViewById(R.id.position2);
-                        Button position3 = (Button) positionView.findViewById(R.id.position3);
-                        Button position4 = (Button) positionView.findViewById(R.id.position4);
-
-
-                        positionBuilder.setView(positionView);
-                        final AlertDialog dialogPosition = positionBuilder.create();
-                        dialogPosition.show();
-
-                        position1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                poteau.set_position(1);
-                                dialogPosition.dismiss();
-                                // Démarre l'activité Geolocalisation
-                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                        position2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                poteau.set_position(2);
-                                dialogPosition.dismiss();
-                                // Démarre l'activité Geolocalisation
-                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                        position3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                poteau.set_position(3);
-                                dialogPosition.dismiss();
-                                // Démarre l'activité Geolocalisation
-                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                        position4.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                poteau.set_position(4);
-                                dialogPosition.dismiss();
-                                // Démarre l'activité Geolocalisation
-                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                                startActivity(intent);
-                            }
-                        });
-
-
-                    }
-                });
-
-                boutonNon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        poteau.set_oneWay(false);
-                        dialog.dismiss();
-
-                        AlertDialog.Builder positionBuilder = new AlertDialog.Builder(MainActivity.this);
-                        final View positionView = getLayoutInflater().inflate(R.layout.position_twoway, null);
-
-                        Button position1 = (Button) positionView.findViewById(R.id.position1);
-                        Button position2 = (Button) positionView.findViewById(R.id.position2);
-
-                        positionBuilder.setView(positionView);
-                        final AlertDialog dialogPosition = positionBuilder.create();
-                        dialogPosition.show();
-
-                        position1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                poteau.set_position(1);
-                                dialogPosition.dismiss();
-                                // Démarre l'activité Geolocalisation
-                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                        position2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                poteau.set_position(2);
-                                dialogPosition.dismiss();
-                                // Démarre l'activité Geolocalisation
-                                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                });
-
-
+                // Lance le Pop Up Question Oneway
+                popUpQuestionOneway();
             }
         });
 
@@ -198,36 +82,8 @@ public class MainActivity extends AppCompatActivity {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-                final View mView = getLayoutInflater().inflate(R.layout.reset, null);
-
-                Button boutonOui = (Button) mView.findViewById(R.id.boutonOui);
-                Button boutonNon = (Button) mView.findViewById(R.id.boutonNon);
-
-                mBuilder.setView(mView);
-                final AlertDialog dialog = mBuilder.create();
-                dialog.show();
-
-                boutonOui.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        poteau = new Poteau();
-                        findViewById(R.id.boutPanc1).setVisibility(View.GONE);
-                        findViewById(R.id.boutPanc2).setVisibility(View.GONE);
-                        findViewById(R.id.boutPanc3).setVisibility(View.GONE);
-                        findViewById(R.id.boutPanc4).setVisibility(View.GONE);
-                        findViewById(R.id.boutPanc5).setVisibility(View.GONE);
-                        findViewById(R.id.boutAjoutPanc).setVisibility(View.VISIBLE);
-                        dialog.dismiss();
-                    }
-                });
-
-                boutonNon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+                // Lance le Pop Up Reset
+                popUpReset();
             }
         });
 
@@ -535,5 +391,222 @@ public class MainActivity extends AppCompatActivity {
         builder.setVibrate(pattern);
 
         return builder.build();
+    }
+
+
+    // Fait apparaitre un Pop Up avec le résultat de l'analyse
+    private void popUpAnalyse() {
+        AlertDialog.Builder analyseBuilder = new AlertDialog.Builder(MainActivity.this);
+        final View analyseView = getLayoutInflater().inflate(R.layout.analyse, null);
+
+        Button boutonOk = (Button) analyseView.findViewById(R.id.boutonOk);
+        Button boutonAlarme = (Button) analyseView.findViewById(R.id.boutonAlarme);
+        Button boutonRetour = (Button) analyseView.findViewById(R.id.boutonRetour);
+
+        TextView reponse = (TextView) analyseView.findViewById(R.id.reponse);
+
+
+//        String test = poteau.test();
+//        Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
+//        TextView test1 = (TextView) analyseView.findViewById(R.id.textView6);
+//        test1.setText(test);
+
+        int[] analyse = poteau.analyse();
+//        String test = poteau.
+//        TextView test1 = (TextView) analyseView.findViewById(R.id.textView6);
+//        test1.setText(test);
+
+        // Si on ne peut pas se stationner
+        if (analyse[0]==-1) {
+            reponse.setText("Non");
+            reponse.setTextColor(Color.RED);
+        } else {
+            reponse.setText("Oui");
+            reponse.setTextColor(Color.GREEN);
+        }
+
+        analyseBuilder.setView(analyseView);
+        final AlertDialog dialogAnalyse = analyseBuilder.create();
+        dialogAnalyse.show();
+//                                dialogAnalyse.getWindow().setLayout(1000, 1000);
+
+        boutonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogAnalyse.dismiss();
+            }
+        });
+
+        boutonAlarme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogAnalyse.dismiss();
+                // Démarre l'activité Geolocalisation
+                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
+                startActivity(intent);
+            }
+        });
+
+        boutonRetour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (poteau.get_oneWay()==true) {
+                    dialogAnalyse.dismiss();
+                    popUpOneway();
+                } else {
+                    dialogAnalyse.dismiss();
+                    popUpTwoway();
+                }
+            }
+        });
+    }
+
+    // Fait apparaitre un Pop Up avec le choix de position dans le Oneway
+    private void popUpOneway() {
+        AlertDialog.Builder positionBuilder = new AlertDialog.Builder(MainActivity.this);
+        final View positionView = getLayoutInflater().inflate(R.layout.position_oneway, null);
+
+        Button position1 = (Button) positionView.findViewById(R.id.position1);
+        Button position2 = (Button) positionView.findViewById(R.id.position2);
+        Button position3 = (Button) positionView.findViewById(R.id.position3);
+        Button position4 = (Button) positionView.findViewById(R.id.position4);
+
+        positionBuilder.setView(positionView);
+        final AlertDialog dialogPosition = positionBuilder.create();
+        dialogPosition.show();
+
+        position1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_position(1);
+                dialogPosition.dismiss();
+                popUpAnalyse();
+            }
+        });
+
+        position2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_position(2);
+                dialogPosition.dismiss();
+                popUpAnalyse();
+            }
+        });
+
+        position3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_position(3);
+                dialogPosition.dismiss();
+                popUpAnalyse();
+            }
+        });
+
+        position4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_position(4);
+                dialogPosition.dismiss();
+                popUpAnalyse();
+            }
+        });
+    }
+
+    // Fait apparaitre un Pop Up avec le choix de position dans le Twoway
+    private void popUpTwoway() {
+        AlertDialog.Builder positionBuilder = new AlertDialog.Builder(MainActivity.this);
+        final View positionView = getLayoutInflater().inflate(R.layout.position_twoway, null);
+
+        Button position1 = (Button) positionView.findViewById(R.id.position1);
+        Button position2 = (Button) positionView.findViewById(R.id.position2);
+
+        positionBuilder.setView(positionView);
+        final AlertDialog dialogPosition = positionBuilder.create();
+        dialogPosition.show();
+
+        position1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_position(1);
+                dialogPosition.dismiss();
+                popUpAnalyse();
+            }
+        });
+
+        position2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_position(2);
+                dialogPosition.dismiss();
+                popUpAnalyse();
+            }
+        });
+    }
+
+    // Fait apparaitre un Pop Up avec la question Oneway V/F?
+    private void popUpQuestionOneway() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        final View mView = getLayoutInflater().inflate(R.layout.oneway, null);
+
+        Button boutonOui = (Button) mView.findViewById(R.id.boutonOui);
+        Button boutonNon = (Button) mView.findViewById(R.id.boutonNon);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        dialog.getWindow().setLayout(800, 500);
+
+        boutonOui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_oneWay(true);
+                dialog.dismiss();
+                popUpOneway();
+            }
+        });
+
+        boutonNon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau.set_oneWay(false);
+                dialog.dismiss();
+                popUpTwoway();
+            }
+        });
+    }
+
+    // Fait apparaitre un Pop Up avec la question Reset le poteau?
+    private void popUpReset() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        final View mView = getLayoutInflater().inflate(R.layout.reset, null);
+
+        Button boutonOui = (Button) mView.findViewById(R.id.boutonOui);
+        Button boutonNon = (Button) mView.findViewById(R.id.boutonNon);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        dialog.getWindow().setLayout(800, 550);
+
+        boutonOui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poteau = new Poteau();
+                findViewById(R.id.boutPanc1).setVisibility(View.GONE);
+                findViewById(R.id.boutPanc2).setVisibility(View.GONE);
+                findViewById(R.id.boutPanc3).setVisibility(View.GONE);
+                findViewById(R.id.boutPanc4).setVisibility(View.GONE);
+                findViewById(R.id.boutPanc5).setVisibility(View.GONE);
+                findViewById(R.id.boutAjoutPanc).setVisibility(View.VISIBLE);
+                dialog.dismiss();
+            }
+        });
+
+        boutonNon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

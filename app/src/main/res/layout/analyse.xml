@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/reponse"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Oui"
+        android:textAlignment="center"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/boutonRetour"
+        style="@android:style/Widget.Holo.Button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/boutonAlarme"
+        android:layout_toStartOf="@+id/textView4"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:text="Retour" />
+
+    <Button
+        android:id="@+id/boutonOk"
+        style="@android:style/Widget.Holo.Button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/boutonRetour"
+        android:layout_toEndOf="@+id/textView4"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="OK" />
+
+    <Button
+        android:id="@+id/boutonAlarme"
+        style="@android:style/Widget.Holo.Button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="156dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="Alarme" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="122dp"
+        android:text="temps restant:" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4"
+        android:text="25 min" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="91dp"
+        android:text="vous pouvez vous stationner jusqu'à:" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="82dp"
+        android:layout_marginTop="60dp"
+        android:text="22h30" />
+</RelativeLayout>
