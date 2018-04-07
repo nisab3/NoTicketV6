@@ -206,10 +206,10 @@ public class ChoixFragment extends Fragment {
         TextView t = getActivity().findViewById(R.id.textMessagePicker);
         t.setText(R.string.text_jour_frag);
         // formate number picker du premier jour
-        jour1.setMinValue(0);
+        jour1.setMinValue(1);
         jour1.setMaxValue(7);
         jour1.setWrapSelectorWheel(true);
-        jour1.setDisplayedValues(getResources().getStringArray(R.array.jours));
+        jour1.setDisplayedValues(getResources().getStringArray(R.array.jours1));
         jour1.setValue(info[0]);
 
         // formate number picker du deuxieme jour

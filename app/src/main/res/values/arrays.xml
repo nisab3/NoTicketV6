@@ -15,8 +15,16 @@
         <item>"SAM"</item>
         <item>"DIM"</item>
     </string-array>
+    <string-array name="jours1">
+        <item>"LUN"</item>
+        <item>"MAR"</item>
+        <item>"MER"</item>
+        <item>"JEU"</item>
+        <item>"VEN"</item>
+        <item>"SAM"</item>
+        <item>"DIM"</item>
+    </string-array>
     <string-array name="jours_complets">
-        <item>""</item>
         <item>"LUNDI"</item>
         <item>"MARDI"</item>
         <item>"MERCREDI"</item>
