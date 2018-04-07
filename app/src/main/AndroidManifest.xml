@@ -47,6 +47,7 @@
             android:name=".Geolocalisation"
             android:label="@string/title_activity_geolocalisation" />
         <activity android:name=".FavoriesActivity"></activity>
+        <receiver android:name=".NotificationPublisher" />
     </application>
 
 </manifest>
