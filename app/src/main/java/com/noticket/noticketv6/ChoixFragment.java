@@ -312,33 +312,66 @@ public class ChoixFragment extends Fragment {
     }
 
     //TODO cest possible que ca marche pas ou je l'ai callé
+    //TODO il faut faire les getvalue et setvalue mais si cest trop haut on descent
     // fonction qui vérifie les mois entré pour changer le nombre de jour
     private void ajutementMois(){
        int m1 = mois1.getValue();
        int m2 = mois2.getValue();
 
        //février
-       if (m1 == 1){
+       if (m1 == 2){
+           int v = moisNum1.getValue();
            moisNum1.setMaxValue(28);
+           if (v > 28) {
+               moisNum1.setValue(28);
+           }
+           else{
+               moisNum1.setValue(v);
+           }
        }
-        if (m2 == 1){
+        if (m2 == 2){
+            int v = moisNum2.getValue();
             moisNum2.setMaxValue(28);
+            if (v > 28) {
+                moisNum2.setValue(28);
+            }
+            else{
+                moisNum2.setValue(v);
+            }
         }
 
         // mois a 31 jours
-        if (m1 == 0  || m1 == 2 || m1 == 4 || m1 == 6 || m1 == 7 || m1 == 9 || m1 == 11){
+        if (m1 == 1  || m1 == 3 || m1 == 5 || m1 == 7 || m1 == 8 || m1 == 10 || m1 == 12){
+            int v = moisNum1.getValue();
             moisNum1.setMaxValue(31);
+            moisNum1.setValue(v);
         }
-        if (m2 == 0  || m2 == 2 || m2 == 4 || m2 == 6 || m2 == 7 || m2 == 9 || m2 == 11){
+        if (m2 == 1  || m2 == 3 || m2 == 5 || m2 == 7 || m2 == 8 || m2 == 10 || m2 == 12){
+            int v = moisNum2.getValue();
             moisNum2.setMaxValue(31);
+            moisNum2.setValue(v);
         }
 
         // mois a 30 jours
-        if (m1 == 3  || m1 == 5 || m1 == 4 || m1 == 8 || m1 == 10 || m1 == 12){
-            moisNum1.setMaxValue(31);
+        if (m1 == 4  || m1 == 6  || m1 == 9 || m1 == 11){
+            int v = moisNum1.getValue();
+            moisNum1.setMaxValue(30);
+            if (v > 30) {
+                moisNum1.setValue(30);
+            }
+            else{
+                moisNum1.setValue(v);
+            }
         }
-        if (m2 == 3  || m2 == 5 || m2 == 4 || m2 == 8 || m2 == 10 || m2 == 12){
-            moisNum2.setMaxValue(31);
+        if (m2 == 4  || m2 == 6  || m2 == 9 || m2 == 11){
+            int v = moisNum2.getValue();
+            moisNum2.setMaxValue(30);
+            if (v > 30) {
+                moisNum2.setValue(30);
+            }
+            else{
+                moisNum2.setValue(v);
+            }
         }
     }
 
