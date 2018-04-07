@@ -310,9 +310,7 @@ public class ChoixFragment extends Fragment {
         getActivity().findViewById(R.id.spaceM1).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.spaceM2).setVisibility(View.VISIBLE);
     }
-
-    //TODO cest possible que ca marche pas ou je l'ai callé
-    //TODO il faut faire les getvalue et setvalue mais si cest trop haut on descent
+    
     // fonction qui vérifie les mois entré pour changer le nombre de jour
     private void ajutementMois(){
        int m1 = mois1.getValue();
