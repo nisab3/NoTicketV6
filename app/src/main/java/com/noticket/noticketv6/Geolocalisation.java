@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +29,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
     private GoogleMap mMap;
     private int REQUEST_FINE_LOCATION;
     private NumberPicker alerte;
+    private TextView minRestantes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         alerte.setMaxValue(8);                                              //valeur maximal//mets la valeur de la pancarte
         alerte.setDisplayedValues(getResources().getStringArray(R.array.alerte)); //changer tout les valeurs affichées
         alerte.setValue(3);
+
+        minRestantes = findViewById(R.id.minRestantes);
+//        minRestantes.setText();
     }
 
 

@@ -16,6 +16,27 @@
         android:layout_marginBottom="20dp"
         android:layout_weight="1" />
 
+    <NumberPicker
+        android:id="@+id/numPickerAlerte"
+        android:layout_width="wrap_content"
+        android:layout_height="99dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_toStartOf="@+id/textView3"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/minRestantes"
+        android:layout_width="107dp"
+        android:layout_height="42dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="96dp"
+        android:layout_marginTop="67dp"
+        android:layout_weight="1"
+        android:text="min avant"
+        android:textAlignment="center" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,20 +49,24 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <NumberPicker
-                android:id="@+id/numPickerAlerte"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Alarme" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/map"
+        android:layout_centerHorizontal="true"
+        android:text="Géolocalisation" />
 
 </RelativeLayout>

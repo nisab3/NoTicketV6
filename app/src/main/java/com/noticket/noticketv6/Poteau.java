@@ -1,5 +1,14 @@
 package com.noticket.noticketv6;
+import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * Created by Nicolas Sabourin 1068459
  *            Tommy Côté  1056362
@@ -95,21 +104,100 @@ public class Poteau {
     // Input: la nouvelle valeur de la position
     public void set_position(int nouvelle_position) { position = nouvelle_position; }
 
-    // Analyse les 5 pancartes en fonction du
+
+    public String test() {
+//        GregorianCalendar dateActuelle = new GregorianCalendar();
+//        String maintenant = dateActuelle.toString();
+
+
+
+
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
+
+
+
+        Date currentLocalTime = cal.getTime();
+
+
+//        DateFormat date = new SimpleDateFormat("HH:mm a");
+        // you can get seconds by adding  "...:ss" to it
+//        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+//        String localTime = date.format(currentLocalTime);
+
+
+
+//        DateFormat df = DateFormat.getDateTimeInstance();
+
+//        String maintenant = DateFormat.getDateTimeInstance().format(currentLocalTime);
+
+        Date dateActuelle = new Date();
+        String maintenant = dateActuelle.toString();
+
+
+
+        int mois = moisActuel(maintenant.substring(4, 7));
+        int jour = jourActuel(maintenant.substring(0, 3));
+        int heure = Integer.parseInt(maintenant.substring(11, 13));
+        int minute = Integer.parseInt(maintenant.substring(14, 16));
+//
+        return "on est le jour" + jour + "du mois" + mois+ "et il est" +heure+"h"+minute;
+//        return maintenant;
+    }
+
+    // Prend le mois en String et le retourne en int
+    private int moisActuel(String mois) {
+        switch (mois){
+            case "Jan": return 1;
+            case "Feb": return 2;
+            case "Mar": return 3;
+            case "Apr": return 4;
+            case "May": return 5;
+            case "Jun": return 6;
+            case "Jul": return 7;
+            case "Aug": return 8;
+            case "Sep": return 9;
+            case "Oct": return 10;
+            case "Nov": return 11;
+            case "Dec": return 12;
+            default: return 1;
+        }
+    }
+
+    // Prend le jour en String et le retourne en int
+    private int jourActuel(String mois) {
+        switch (mois){
+            case "Mon": return 1;
+            case "Tue": return 2;
+            case "Wed": return 3;
+            case "Thu": return 4;
+            case "Fri": return 5;
+            case "Sat": return 6;
+            case "Sun": return 7;
+            default: return 1;
+        }
+    }
+
+
+    // Analyse les 5 pancartes
+    // et retourne:  [-1,-1] si impossible de se stationner
+    //               [heure, minute] l'heure de départ pour éviter une
+    //                               contravention, à partir de minuit le jour actuel
+    //
+    // Les jour vont de 1=lun à 7=dim  0 =aucune journée
+    // et=2   à=1  0=rien
+    // correspondance entre jour 1à3 et heure 1à3 Toutes les heures s'appilquent à toutes les journées
     // type de flèche: 0 pas de flèche
     //                 1 <-
     //                 2 ->
     //                 3 <->
-    // et retourne:  [-1,-1] si impossible de se stationner
-    //               [heure, minute] l'heure de départ pour éviter une
-    //                               contravention, à partir de minuit le jour actuel
     public int[] analyse() {
         Date dateActuelle = new Date();
         String maintenant = dateActuelle.toString();
 
         // Date actuelle
-        int mois = Integer.parseInt(maintenant.substring(4, 7));
-        int jour = Integer.parseInt(maintenant.substring(0, 3));
+        int mois = moisActuel(maintenant.substring(4, 7));
+        int jour = jourActuel(maintenant.substring(0, 3));
         int heure = Integer.parseInt(maintenant.substring(11, 13));
         int minute = Integer.parseInt(maintenant.substring(14, 16));
         int[] now = {mois, jour, heure, minute};
@@ -154,7 +242,7 @@ public class Poteau {
     //                          considérant la position de la voiture.
     private boolean applicable(Pancarte p, boolean p_active, int pos) {
         if (p_active==false){
-            return  false;
+            return false;
         }
         if (pos==1 && p.getFleche()!=2) {
             return true;
@@ -243,22 +331,36 @@ public class Poteau {
         }
     }
 
-
-    // TODO Avoir que minuit == 00h00
-
-    // TODO est ce que les jour vont de 1=lun à 7=dim  0 =aucune journée
-    // TODO et=2   à=1  0=rien
-    // TODO correspondance entre jour 1à3 et heure 1à3 Toutes les heures s'appilquent à toutes les journées
     // Fait les modification dans horaire
     private void traitement(Pancarte p, boolean p_active, int pos, boolean[] h, int[] n) {
-        if (applicable(p, p_active, pos) && applicableMois(p, n) && (applicableJour(p, n, 1) || applicableJour(p, n, 2) || applicableJour(p, n, 3) )){
-            // TODO joue dans le tableau horaire
+        if (applicable(p, p_active, pos) && applicableMois(p, n)){
 
+            if ((p.jourIsActive(1)==false && p.jourIsActive(2)==false && p.jourIsActive(3)==false) ||
+                (applicableJour(p, n, 1) || applicableJour(p, n, 2) || applicableJour(p, n, 3))){
+                // Met les valeurs à false dans le tableau horaire pour les heures sur le panneau
+                traitementHeure(p, h, 1);
+                traitementHeure(p, h, 2);
+                traitementHeure(p, h, 3);
+            }
+        }
+    }
 
+    // Met les valeurs à false dans le tableau horaire pour les heures sur le panneau
+    private void traitementHeure(Pancarte p, boolean[] h, int ligne) {
+        if (p.heureIsActive(ligne)) {
+            int indiceHeureDepart = heure_indice(p.getHeure(ligne)[0], p.getHeure(ligne)[1]);
+            int indiceHeureFin = heure_indice(p.getHeure(ligne)[2], p.getHeure(ligne)[3]);
 
+            // Si on à le cas de 23h à 4h, alors le 4h dépasse dans la prochaine journée
+            if (indiceHeureDepart>indiceHeureFin) {
+                indiceHeureFin += h.length/2;
+            }
 
-
-        }else return;
+            // Met false dans le tableau horaire pour toutes les heures sur le panneau
+            for(int i=indiceHeureDepart; i<indiceHeureFin; i++){
+                h[i] = false;
+            }
+        }
     }
 
     // Convertie l'heure en indice dans le tableau horaire
