@@ -14,7 +14,9 @@ import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -88,6 +90,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.avertissement:
+                AlertDialog.Builder avertissementBuilder = new AlertDialog.Builder(MainActivity.this);
+                final View avertissementView = getLayoutInflater().inflate(R.layout.avertissement, null);
+                avertissementBuilder.setView(avertissementView);
+                final AlertDialog dialogAvertissement = avertissementBuilder.create();
+                dialogAvertissement.show();
+                break;
+            case R.id.tutoriel:
+                AlertDialog.Builder tutorielBuilder = new AlertDialog.Builder(MainActivity.this);
+                final View tutorielView = getLayoutInflater().inflate(R.layout.tutoriel, null);
+                tutorielBuilder.setView(tutorielView);
+                final AlertDialog dialogTutoriel = tutorielBuilder.create();
+                dialogTutoriel.show();
+                break;
+        }
+        return true;
+    }
+
     // fonction qui ecoute le click des imageButton pour lui envoyer la bonne fonction
     private ImageView.OnClickListener b = new View.OnClickListener() {
         @Override
@@ -410,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
         Button boutonAlarme = (Button) analyseView.findViewById(R.id.boutonFavAnuler);
         Button boutonRetour = (Button) analyseView.findViewById(R.id.boutonFavSup);
 
-        TextView reponse = (TextView) analyseView.findViewById(R.id.questionPoubelle);
+        TextView reponse = (TextView) analyseView.findViewById(R.id.titre);
         TextView momentDisponible = (TextView) analyseView.findViewById(R.id.momentDisponible);
         TextView tempsDisponible = (TextView) analyseView.findViewById(R.id.tempsRestant);
 

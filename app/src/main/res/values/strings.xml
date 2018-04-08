@@ -34,4 +34,6 @@
     <string name="text_bout_supprimer">SUPPRIMER</string>
     <string name="text_supprimer_fav">Supprimer \n ce favorie</string>
     <string name="text_pop_fav">Voulez-vous importer\nce favorie ?</string>
+    <string name="avertissement">Avertissement</string>
+    <string name="tutoriel">Tutoriel</string>
 </resources>

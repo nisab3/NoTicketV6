@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/questionPoubelle"
+        android:id="@+id/titre"
         android:layout_width="196dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -20,8 +20,8 @@
         style="@android:style/Widget.Holo.Button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/questionPoubelle"
-        android:layout_below="@+id/questionPoubelle"
+        android:layout_alignStart="@+id/titre"
+        android:layout_below="@+id/titre"
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="Non" />
 
@@ -30,8 +30,8 @@
         style="@android:style/Widget.Holo.Button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/questionPoubelle"
-        android:layout_below="@+id/questionPoubelle"
+        android:layout_alignEnd="@+id/titre"
+        android:layout_below="@+id/titre"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="Oui" />
 </RelativeLayout>
