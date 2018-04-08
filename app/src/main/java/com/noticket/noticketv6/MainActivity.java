@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
         Button boutonAlarme = (Button) analyseView.findViewById(R.id.boutonFavAnuler);
         Button boutonRetour = (Button) analyseView.findViewById(R.id.boutonFavSup);
 
-        TextView reponse = (TextView) analyseView.findViewById(R.id.reponse);
+        TextView reponse = (TextView) analyseView.findViewById(R.id.questionPoubelle);
         TextView momentDisponible = (TextView) analyseView.findViewById(R.id.momentDisponible);
         TextView tempsDisponible = (TextView) analyseView.findViewById(R.id.tempsRestant);
 

@@ -8,10 +8,10 @@
     <TextView
         android:id="@+id/questionPoubelle"
         android:layout_width="196dp"
-        android:layout_height="78dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Etes-vous dans un sens unique?"
+        android:text="Voulez-vous vraiment effacer votre alarme et votre géolocalisation?"
         android:textAlignment="center"
         android:textSize="25dp" />
 

@@ -2,14 +2,18 @@ package com.noticket.noticketv6;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +36,8 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
     private NumberPicker alerte;
     private TextView minRestantes;
     private int[] analyse;
+    private FloatingActionButton boutonOk;
+    private FloatingActionButton boutonPoubelle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,28 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        boutonOk = findViewById(R.id.boutonOk);
+        boutonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO décider comment revenir au main
+                // Démarre l'activité Geolocalisation
+//                Intent intent = new Intent(Geolocalisation.this, MainActivity.class);
+//                intent.putExtra("INFO_ANALYSE", analyse);
+//                startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
+//                startActivity(intent);
+                finish();
+            }
+        });
+
+        boutonPoubelle = findViewById(R.id.boutonPoubelle);
+        boutonPoubelle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpPoubelle();
+            }
+        });
+
         alerte = findViewById(R.id.numPickerAlerte);
 //        alerte.setOnValueChangedListener(n);
         alerte.setWrapSelectorWheel(true);                                   //pour que la roue tourne sur elle meme
@@ -57,7 +85,6 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         minRestantes = findViewById(R.id.minRestantes);
 //        minRestantes.setText();
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -95,5 +122,31 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    // Fait apparaitre un Pop Up poubelle
+    private void popUpPoubelle() {
+        AlertDialog.Builder poubelleBuilder = new AlertDialog.Builder(Geolocalisation.this);
+        final View poubelleView = getLayoutInflater().inflate(R.layout.poubelle, null);
+        poubelleBuilder.setView(poubelleView);
+        final AlertDialog dialogPoubelle = poubelleBuilder.create();
+        dialogPoubelle.show();
+
+        Button boutonOui = (Button) poubelleView.findViewById(R.id.boutonOui);
+        boutonOui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO doit effacer l'alarme et la géolocalisation
+                finish();
+            }
+        });
+
+        Button boutonNon = (Button) poubelleView.findViewById(R.id.boutonNon);
+        boutonNon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogPoubelle.dismiss();
+            }
+        });
     }
 }

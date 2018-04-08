@@ -13,7 +13,7 @@
         android:layout_height="297dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="62dp"
+        android:layout_marginBottom="73dp"
         android:layout_weight="1" />
 
     <NumberPicker
@@ -22,17 +22,17 @@
         android:layout_height="99dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="18dp"
         android:layout_weight="1" />
 
     <TextView
         android:id="@+id/minRestantes"
         android:layout_width="107dp"
         android:layout_height="42dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="96dp"
-        android:layout_marginTop="67dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
         android:layout_weight="1"
         android:text="min avant"
         android:textAlignment="center" />
@@ -75,8 +75,34 @@
         android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/minRestantes"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="80dp"
         android:text="TextView" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/boutonOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:clickable="true"
+        map:backgroundTint="@android:color/holo_green_dark"
+        map:srcCompat="@drawable/icon_ok_rond" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/boutonPoubelle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        map:backgroundTint="@android:color/holo_red_dark"
+        map:srcCompat="@drawable/icon_del_vide" />
 
 </RelativeLayout>
