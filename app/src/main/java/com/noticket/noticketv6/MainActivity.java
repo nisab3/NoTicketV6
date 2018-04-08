@@ -411,26 +411,32 @@ public class MainActivity extends AppCompatActivity {
         Button boutonRetour = (Button) analyseView.findViewById(R.id.boutonFavSup);
 
         TextView reponse = (TextView) analyseView.findViewById(R.id.reponse);
+        TextView momentDisponible = (TextView) analyseView.findViewById(R.id.momentDisponible);
+        TextView tempsDisponible = (TextView) analyseView.findViewById(R.id.tempsRestant);
 
-
-//        String test = poteau.test();
-//        Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
-//        TextView test1 = (TextView) analyseView.findViewById(R.id.textView6);
-//        test1.setText(test);
 
         // analyse return int[heure, min, peutMaintenant=>(0=non et 1=Oui), jour=>(0=aujourdhui et 1=demain)]
         analyse = poteau.analyse();
-//        String test = poteau.
-//        TextView test1 = (TextView) analyseView.findViewById(R.id.textView6);
-//        test1.setText(test);
+
+        // Pour faire que les heures comme 12h00 ne donne pas 12h0
+        String heure = "" + analyse[0];
+        String minute = "" + analyse[1];
+        if (heure.equals("0")) heure="00";
+        if (minute.equals("0")) minute="00";
 
         // Si on ne peut pas se stationner
         if (analyse[2]==0) {
             reponse.setText("Non");
             reponse.setTextColor(Color.RED);
+            momentDisponible.setText("Le stationnement ne sera disponible qu'à "+heure+"h"+minute);
+            // TODO fonction qui calcule la différence entre 2 temps
+            tempsDisponible.setText("Il reste à attendre "+"1h22");
         } else {
             reponse.setText("Oui");
             reponse.setTextColor(Color.GREEN);
+            momentDisponible.setText("Le stationnement est disponible jusqu'à "+heure+"h"+minute);
+            // TODO fonction qui calcule la différence entre 2 temps
+            tempsDisponible.setText("Vous devrez déplacez votre véhicule dans "+"1 heure et 22 minutes");
         }
 
         analyseBuilder.setView(analyseView);
