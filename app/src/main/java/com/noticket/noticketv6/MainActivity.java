@@ -22,6 +22,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Date;
+
 /**
  * Created by Nicolas Sabourin 1068459
  *            Tommy Côté  1056362
@@ -447,33 +450,43 @@ public class MainActivity extends AppCompatActivity {
         TextView momentDisponible = (TextView) analyseView.findViewById(R.id.momentDisponible);
         TextView tempsDisponible = (TextView) analyseView.findViewById(R.id.tempsRestant);
 
-
         // analyse return int[heure, min, peutMaintenant=>(0=non et 1=Oui), jour=>(0=aujourdhui et 1=demain)]
         analyse = poteau.analyse();
 
-        //TEST
-//        String test = ""+poteau.get_pancarte(1).getHeure(1)[1];
-//        Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
-
-        // Pour faire que les heures comme 12h00 ne donne pas 12h0
+        // Formattage
         String heure = "" + analyse[0];
         String minute = "" + analyse[1];
-        if (heure.equals("0")) heure="00";
+        // Pour faire que les heures comme 12h00 ne donne pas 12h0
         if (minute.equals("0")) minute="00";
+        int[] tempsRestant = diffTemps(analyse[0], analyse[1], analyse[3]);
+        String textHeure = " heure";
+        String textMinute = " minute";
+        if (tempsRestant[0]>1) textHeure=" heures";
+        if (tempsRestant[1]>1) textMinute=" minutes";
 
         // Si on ne peut pas se stationner
         if (analyse[2]==0) {
             reponse.setText("Non");
             reponse.setTextColor(Color.RED);
-            momentDisponible.setText("Le stationnement ne sera disponible qu'à "+heure+"h"+minute);
-            // TODO fonction qui calcule la différence entre 2 temps
-            tempsDisponible.setText("Il reste à attendre "+"1h22");
+            if (tempsRestant[0]<24) {
+                momentDisponible.setText("Le stationnement ne sera disponible qu'à "+heure+"h"+minute);
+                tempsDisponible.setText("Il vous reste à attendre "+tempsRestant[0]+textHeure+" et "+tempsRestant[1]+textMinute);
+            } else {
+                momentDisponible.setText("Le stationnement ne sera pas disponible pendant les 24 prochaines heures");
+                tempsDisponible.setText("Essayez de trouver une autre place de stationnement");
+            }
+        // Sinon
         } else {
             reponse.setText("Oui");
             reponse.setTextColor(Color.GREEN);
-            momentDisponible.setText("Le stationnement est disponible jusqu'à "+heure+"h"+minute);
-            // TODO fonction qui calcule la différence entre 2 temps
-            tempsDisponible.setText("Vous devrez déplacez votre véhicule dans "+"1 heure et 22 minutes");
+            if (tempsRestant[0]<24) {
+                momentDisponible.setText("Le stationnement est disponible jusqu'à "+heure+"h"+minute);
+                tempsDisponible.setText("Vous devrez déplacez votre véhicule dans "+tempsRestant[0]+textHeure+" et "+tempsRestant[1]+textMinute);
+            } else {
+                momentDisponible.setText("Le stationnement est disponible tout au long des 24 prochaines heures");
+                tempsDisponible.setText("N'oubliez pas de revérifier sa disponibilité d'ici là");
+            }
+
         }
 
         analyseBuilder.setView(analyseView);
@@ -511,6 +524,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Calcule la différence entre un temps donné et le temps actuel
+    private int[] diffTemps(int h, int m, int jour) {
+        Date dateActuelle = new Date();
+        String maintenant = dateActuelle.toString();
+        int heure = Integer.parseInt(maintenant.substring(11, 13));
+        int minute = Integer.parseInt(maintenant.substring(14, 16));
+
+        int[] resultat = {h-heure, m-minute};
+        if (resultat[1]<0) {
+            resultat[0]-=1;
+            resultat[1]+=60;
+        }
+        if (resultat[1]>=60) {
+            resultat[0]+=1;
+            resultat[1]-=60;
+        }
+        if (jour==1) resultat[0]+=24;
+
+        return resultat;
     }
 
     // Fait apparaitre un Pop Up avec le choix de position dans le Oneway
