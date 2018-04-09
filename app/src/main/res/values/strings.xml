@@ -41,4 +41,5 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="avertissement">Avertissement</string>
     <string name="tutoriel">Tutoriel</string>
+    <string name="text_tutoriel_debut">TOUCHER POUR CONTINUER</string>
 </resources>

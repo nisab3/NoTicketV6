@@ -51,7 +51,8 @@
 
         <receiver android:name=".NotificationPublisher" />
 
-        <activity android:name=".TutorielDebut"></activity>
+        <activity android:name=".TutorielDebut" />
+        <activity android:name=".TutorielPancarte"></activity>
     </application>
 
 </manifest>
