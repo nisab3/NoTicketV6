@@ -44,7 +44,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geolocalisation);
-        
+
         Intent intent = getIntent();
         analyse = intent.getIntArrayExtra("INFO_ANALYSE");
 
@@ -127,7 +127,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
 
     // Fait apparaitre un Pop Up poubelle
     private void popUpPoubelle() {
-        AlertDialog.Builder poubelleBuilder = new AlertDialog.Builder(Geolocalisation.this);
+        final AlertDialog.Builder poubelleBuilder = new AlertDialog.Builder(Geolocalisation.this);
         final View poubelleView = getLayoutInflater().inflate(R.layout.poubelle, null);
         poubelleBuilder.setView(poubelleView);
         final AlertDialog dialogPoubelle = poubelleBuilder.create();
@@ -138,6 +138,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 // TODO doit effacer l'alarme et la géolocalisation
+                dialogPoubelle.dismiss();
                 finish();
             }
         });

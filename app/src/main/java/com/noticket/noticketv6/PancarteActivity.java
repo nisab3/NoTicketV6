@@ -876,32 +876,10 @@ public class PancarteActivity extends AppCompatActivity {
 
         String name = "com.noticket.numero" ;  // jai enregistrer le numero de la derniere files sauvgarde ici
         int trouver = 0;
-        // recherche et prend le numero
+        // recherche et prend le fichier numero
         for ( String n: liste){
             if (n.equals(name)){
-                //TODO essayer voir si ca existe
-//                try {
-//                    File file = new File(getFilesDir(), favbonlist[i]);
-//                    FileInputStream fis = openFileInput(favbonlist[i]);
-//                    ObjectInputStream is = new ObjectInputStream(fis);
-//                    //aller chercher les objets
-//                    int[] heure1 = (int[]) is.readObject();
-//                    int[] heure2 = (int[]) is.readObject();
-//                    int[] heure3 = (int[]) is.readObject();
-//                    int[] jour1 = (int[]) is.readObject();
-//                    int[] jour2 = (int[]) is.readObject();
-//                    int[] jour3 = (int[]) is.readObject();
-//                    int[] mois1 = (int[]) is.readObject();
-//                    int fleche = (int) is.readObject();
-//                    int image = (int) is.readObject();
-//                    boolean[] actif = (boolean[]) is.readObject();
-//
-//                    // fermer le tout
-//                    is.close();
-//                    fis.close();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+
                 try {
                     FileInputStream fis = openFileInput(name);
                     ObjectInputStream is = new ObjectInputStream(fis);
@@ -919,7 +897,7 @@ public class PancarteActivity extends AppCompatActivity {
                 }
             }
         }
-        // si pas trouver alors on la creer et on y mets 1
+        // si pas trouver fichier numero alors on le creer et on y mets 1
         if (trouver == 0){
             try {
                 File file = new File(getFilesDir(),name );

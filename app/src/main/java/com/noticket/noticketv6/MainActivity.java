@@ -24,6 +24,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 
 /**
@@ -42,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     float[] geoPosition = {0, 0};
 
     int delai = 15;
+
+    boolean alarmeActive = false;
+
 
 
 
@@ -89,6 +97,22 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton analyse = findViewById(R.id.boutonAnalyse);
         FloatingActionButton reset = findViewById(R.id.boutonReset);
 
+        // bouton float alarme
+        FloatingActionButton cloche = findViewById(R.id.boutonCloche);
+        rechercheFichierNumero();
+        if (alarmeActive){
+            cloche.setVisibility(View.VISIBLE);
+        }
+        else{
+            cloche.setVisibility(View.GONE);
+        }
+
+        cloche.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         // Listener du bouton Analyse
         analyse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,6 +284,18 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, PANCARTE_ACTIVITY_REQUEST_CODE);
     }
 
+    // fonction pour créer le Intent pour géolacalisation et y mettre les infos
+    private Intent geoIntent(){
+        Intent geoIntent = new Intent(this, Geolocalisation.class);
+        geoIntent.putExtra("ANALYSE", analyse);
+        geoIntent.putExtra("POSITION", geoPosition);
+        geoIntent.putExtra("DELAI", delai);
+        geoIntent.putExtra("ALARMEACTIVE", alarmeActive);
+
+        return geoIntent;
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -272,8 +308,19 @@ public class MainActivity extends AppCompatActivity {
         if ( requestCode == GEOLOCALISATION_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
 
-                // TODO faire une fonction qui gère ce que GEO retourne
-//                prendreInfo(data);
+               geoPosition = data.getFloatArrayExtra("POSITION");
+               delai = data.getIntExtra("DELAI", 15);
+               alarmeActive = data.getBooleanExtra("ALARMEACTIVE", false);
+               FloatingActionButton cloche = findViewById(R.id.boutonCloche);
+                if (alarmeActive){
+                    cloche.setVisibility(View.VISIBLE);
+                }
+                else{
+                    cloche.setVisibility(View.GONE);
+                    delai = 15;
+                    geoPosition[0] = 0;
+                    geoPosition[1] = 0;
+                }
             }
         }
     }
@@ -348,6 +395,7 @@ public class MainActivity extends AppCompatActivity {
         cacheBoutAjoute();
     }
 
+    // fonction pour faire le text complet de la pancarte
     public String formateText (Pancarte panc){
         String result = "";
         Resources res = getResources();
@@ -440,7 +488,6 @@ public class MainActivity extends AppCompatActivity {
         long[] pattern = {0, 100, 1000};
 
         Notification.Builder builder = new Notification.Builder(this);
-        //TODO mettre l'icone
         builder.setSmallIcon(R.drawable.ic_launcher_foreground);
         //TODO entrer le text de la notification avec le temps
         builder.setContentTitle("My notification");
@@ -521,8 +568,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialogAnalyse.dismiss();
                 // Démarre l'activité Geolocalisation
-                Intent intent = new Intent(MainActivity.this, Geolocalisation.class);
-                intent.putExtra("INFO_ANALYSE", analyse);
+                Intent intent = geoIntent();
                 startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -709,5 +755,53 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    // fonction pour chercher le fichier de base numero pour sortir les info sauvegardé
+    // ou le créer
+    private void rechercheFichierNumero(){
+
+        // donne la liste des files
+        String [] liste = fileList();
+        // je vais choisir le prochain nom disponible
+
+        String name = "com.noticket.numero" ;  // jai enregistrer le numero de la derniere files sauvgarde ici
+        int trouver = 0;
+        // recherche et prend le fichier numero
+        for ( String n: liste){
+            if (n.equals(name)){
+                // reprend tout les info dans le fichier
+                try {
+                    FileInputStream fis = openFileInput(name);
+                    ObjectInputStream is = new ObjectInputStream(fis);
+                    trouver = (int) is.readObject(); // juste bon pour favorie. donc je le mets nulpart
+                    analyse = (int[]) is.readObject();
+                    geoPosition = (float[]) is.readObject();
+                    delai = (int) is.readObject();
+                    is.close();
+                    fis.close();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        // si pas trouver fichier numero alors on le creer et on y mets 1
+        if (trouver == 0){
+            try {
+
+                File file = new File(getFilesDir(),name );
+                FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(trouver); // pour analyse
+                os.writeObject(analyse);
+                os.writeObject(geoPosition);
+                os.writeObject(delai);
+                os.close();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

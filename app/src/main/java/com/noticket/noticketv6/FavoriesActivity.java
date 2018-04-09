@@ -99,8 +99,8 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fermeture(i);
                 dialog.dismiss();
+                fermeture(i);
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +112,8 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
         supprimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                suprimeItemFavorie(adapterView, view1, i);
                 dialog.dismiss();
+                suprimeItemFavorie(adapterView, view1, i);
             }
         });
 
