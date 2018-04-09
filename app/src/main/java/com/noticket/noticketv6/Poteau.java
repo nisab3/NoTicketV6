@@ -104,47 +104,6 @@ public class Poteau {
     // Input: la nouvelle valeur de la position
     public void set_position(int nouvelle_position) { position = nouvelle_position; }
 
-
-    public String test() {
-//        GregorianCalendar dateActuelle = new GregorianCalendar();
-//        String maintenant = dateActuelle.toString();
-
-
-
-
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
-
-
-
-        Date currentLocalTime = cal.getTime();
-
-
-//        DateFormat date = new SimpleDateFormat("HH:mm a");
-        // you can get seconds by adding  "...:ss" to it
-//        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
-//        String localTime = date.format(currentLocalTime);
-
-
-
-//        DateFormat df = DateFormat.getDateTimeInstance();
-
-//        String maintenant = DateFormat.getDateTimeInstance().format(currentLocalTime);
-
-        Date dateActuelle = new Date();
-        String maintenant = dateActuelle.toString();
-
-
-
-        int mois = moisActuel(maintenant.substring(4, 7));
-        int jour = jourActuel(maintenant.substring(0, 3));
-        int heure = Integer.parseInt(maintenant.substring(11, 13));
-        int minute = Integer.parseInt(maintenant.substring(14, 16));
-//
-        return "on est le jour" + jour + "du mois" + mois+ "et il est" +heure+"h"+minute;
-//        return maintenant;
-    }
-
     // Prend le mois en String et le retourne en int
     private int moisActuel(String mois) {
         switch (mois){
@@ -177,7 +136,6 @@ public class Poteau {
             default: return 1;
         }
     }
-
 
     // Analyse les 5 pancartes
     // et retourne:  [-1,-1] si impossible de se stationner
@@ -245,7 +203,7 @@ public class Poteau {
                     resultat[0] = 24;
                     resultat[1] = 0;
                     resultat[2] = 1;
-                    resultat[3] =1;
+                    resultat[3] = 1;
                     return resultat;
                 }
             }
@@ -269,7 +227,7 @@ public class Poteau {
                     resultat[0] = 24;
                     resultat[1] = 0;
                     resultat[2] = 0;
-                    resultat[3] =1;
+                    resultat[3] = 1;
                     return resultat;
                 }
             }
@@ -400,9 +358,16 @@ public class Poteau {
     // Met les valeurs à false dans le tableau horaire pour les heures sur le panneau
     private void traitementHeure(Pancarte p, boolean[] h, int ligne) {
         if (p.heureIsActive(ligne)) {
-            int indiceHeureDepart = heure_indice(p.getHeure(ligne)[0], p.getHeure(ligne)[1]);
-            int indiceHeureFin = heure_indice(p.getHeure(ligne)[2], p.getHeure(ligne)[3]);
+            int heure1 = p.getHeure(ligne)[0];
+            int minute1 = p.getHeure(ligne)[1];
+            int heure2 = p.getHeure(ligne)[2];
+            int minute2 = p.getHeure(ligne)[3];
 
+            if (minute1==1) minute1=30;
+            if (minute2==1) minute2=30;
+
+            int indiceHeureDepart = heure_indice(heure1, minute1);
+            int indiceHeureFin = heure_indice(heure2, minute2);
 
             // Si les heures sont normales. Ex: 12h-15h30
             if (indiceHeureDepart<=indiceHeureFin) {

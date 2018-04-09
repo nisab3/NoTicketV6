@@ -451,6 +451,10 @@ public class MainActivity extends AppCompatActivity {
         // analyse return int[heure, min, peutMaintenant=>(0=non et 1=Oui), jour=>(0=aujourdhui et 1=demain)]
         analyse = poteau.analyse();
 
+        //TEST
+//        String test = ""+poteau.get_pancarte(1).getHeure(1)[1];
+//        Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
+
         // Pour faire que les heures comme 12h00 ne donne pas 12h0
         String heure = "" + analyse[0];
         String minute = "" + analyse[1];
