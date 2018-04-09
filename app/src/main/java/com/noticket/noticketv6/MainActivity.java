@@ -157,6 +157,21 @@ public class MainActivity extends AppCompatActivity {
                 final View tutorielView = getLayoutInflater().inflate(R.layout.tutoriel, null);
                 tutorielBuilder.setView(tutorielView);
                 final AlertDialog dialogTutoriel = tutorielBuilder.create();
+
+                // création de l'annimation de anime_setting
+                AnimationDrawable tutorielAnimeSetting;
+                ImageView tutoSetting = tutorielView.findViewById(R.id.imageTutorielSetting);
+                tutoSetting.setBackgroundResource(R.drawable.anime_setting);
+                tutorielAnimeSetting = (AnimationDrawable) tutoSetting.getBackground();
+
+                tutorielAnimeSetting.start();
+                //ferme si on touche l'image
+                tutoSetting.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                       dialogTutoriel.dismiss();
+                    }
+                });
                 dialogTutoriel.show();
                 break;
         }

@@ -86,6 +86,10 @@ public class PancarteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pancarte);
 
+        // commencer le tutoriel
+        Intent tutoIntent = new Intent(this, TutorielPancarte.class);
+        startActivity(tutoIntent);
+
         //changer le titre de l'activité
         ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setTitle("Création d'une pancarte");
