@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -84,6 +85,10 @@ public class PancarteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pancarte);
+
+        //changer le titre de l'activité
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Création d'une pancarte");
 
         Intent intent = getIntent();
         numero = intent.getIntExtra("NUMPANCARTE", numero);

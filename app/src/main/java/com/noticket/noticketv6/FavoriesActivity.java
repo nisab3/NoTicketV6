@@ -3,6 +3,7 @@ package com.noticket.noticketv6;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,6 +42,11 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favories);
+
+        //changer le titre de l'activité
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Favorie");
+
 
         // faire la liste de tout les files favorie
         rechercheFavorie();

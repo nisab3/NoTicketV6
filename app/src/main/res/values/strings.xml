@@ -42,4 +42,6 @@
     <string name="avertissement">Avertissement</string>
     <string name="tutoriel">Tutoriel</string>
     <string name="text_tutoriel_debut">TOUCHER POUR CONTINUER</string>
+    <string name="desc_tutoriel_debut">tutoriel du début</string>
+    <string name="tirte_favorie">Favories</string>
 </resources>
