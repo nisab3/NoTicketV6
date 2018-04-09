@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.SystemClock;
@@ -34,7 +35,16 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     public Poteau poteau;
-    int[] analyse;
+
+    //analyse [heure, min, int(non(0), oui(1)), int(aujourdhui(0), demain(1))]
+    int[] analyse = {0, 0, 0, 0};
+
+    float[] geoPosition = {0, 0};
+
+    int delai = 15;
+
+
+
     //variable utilisé pour identifier PancarteActivité a son retour
     private static final int PANCARTE_ACTIVITY_REQUEST_CODE = 0;
     private static final int GEOLOCALISATION_ACTIVITY_REQUEST_CODE = 1;
@@ -43,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //commencer le tutoriel
+        Intent tutoIntent = new  Intent(this, TutorielDebut.class);
+        startActivity(tutoIntent);
+
 
         poteau = new Poteau();
         //créer les imageButton pour leur donner la fonction onclicklistener

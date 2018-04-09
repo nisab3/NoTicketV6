@@ -9,7 +9,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -47,8 +47,11 @@
         <activity
             android:name=".Geolocalisation"
             android:label="@string/title_activity_geolocalisation" />
-        <activity android:name=".FavoriesActivity"></activity>
+        <activity android:name=".FavoriesActivity" />
+
         <receiver android:name=".NotificationPublisher" />
+
+        <activity android:name=".TutorielDebut"></activity>
     </application>
 
 </manifest>

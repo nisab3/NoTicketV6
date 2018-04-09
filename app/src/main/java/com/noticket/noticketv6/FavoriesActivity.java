@@ -33,11 +33,29 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     String[] favlist;
     String[] favbonlist;
 
+    Button ok;
+    Button cancel;
+    Button supprimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favories);
 
+        // faire la liste de tout les files favorie
+        rechercheFavorie();
+
+        list = (ListView) findViewById((R.id.list_fav));
+
+        // call pour faire le boucle et ajouter tout les files
+        adapter = new MyAdapter();
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(FavoriesActivity.this);
+
+
+    }
+
+    private void rechercheFavorie(){
         // prendre la liste de tout les favories
         favlist = fileList();
         // chercher juste les files qui sont des favories
@@ -50,31 +68,50 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
             }
         }
         // tranfere dans une liste sans null a la fin
-        if (favbonlisttemp.length > 0) {
+        if (favbonlisttemp.length >= 0) {
             favbonlist = new String[indexbonfav + 1];
             for (int i = 0; i < indexbonfav ; i++) {
                 favbonlist[i] = favbonlisttemp[i];
             }
         }
-        list = (ListView) findViewById((R.id.list_fav));
-
-        // call pour faire le boucle et ajouter tout les files
-        adapter = new MyAdapter();
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(FavoriesActivity.this);
-
-
     }
-
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(final AdapterView<?> adapterView, final View view1, final int i, long l) {
 
         //TODO faire que le click sur le delete soit différent du reste(popup ok cancel delete
         AlertDialog.Builder positionBuilder = new AlertDialog.Builder(FavoriesActivity.this);
-        final View positionView = getLayoutInflater().inflate(R.layout.pop_favorie, null);
-        positionBuilder.setView(positionView);
-        final AlertDialog dialogPosition = positionBuilder.create();
-        dialogPosition.show();
+        final View fView = getLayoutInflater().inflate(R.layout.pop_favorie, null);
+        positionBuilder.setView(fView);
+        final AlertDialog dialog = positionBuilder.create();
+
+        //initialiser les boutons
+        ok = fView.findViewById(R.id.boutFavOk);
+        cancel = fView.findViewById(R.id.boutFavAnnuler);
+        supprimer = fView.findViewById(R.id.boutFavSup);
+
+         //fonction pour les clicks sur les bouton Cancel, supprimer, ok du fragment popFavorie
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fermeture(i);
+                dialog.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        supprimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                suprimeItemFavorie(adapterView, view1, i);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
         //si clicker ok on fait ca
         // call avec j qui est le bonne index pour favlist
 
@@ -89,6 +126,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     }
 
 
+
     public class MyAdapter extends BaseAdapter{
 
         LayoutInflater inflater;
@@ -99,6 +137,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
 
         @Override
         public int getCount() {
+
             return favbonlist.length -1;
         }
 
@@ -200,12 +239,22 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     //in : le adapterView pour enlever la ligne
     //      int i = place dans le view liste
     //      int index = place dans la favlist des nom de fichier
-    private void suprimeItemFavorie(AdapterView adapterView, int i, int index){
-        adapterView.removeViewAt(i);
-        String name = favlist[index];
+    private void suprimeItemFavorie(AdapterView adapterView, View view, int index){
+        //enleve la view et reset la page
+
+
+        String name = favbonlist[index];
         try{
+            // delete la file
             File file = new File(getFilesDir(), name);
             file.delete();
+
+            // refait la liste de favorie
+            rechercheFavorie();
+
+            //refait la liste de view
+            list.setAdapter(adapter);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

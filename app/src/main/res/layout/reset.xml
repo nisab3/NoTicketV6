@@ -11,7 +11,7 @@
         android:layout_height="101dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Voulez-vous effacer toutes les pancartes?"
+        android:text="@string/message_reset"
         android:textAlignment="center"
         android:textSize="25dp" />
 
