@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageTutorielSetting"
         android:layout_centerHorizontal="true"
-        android:text="Appuyez sur la position correspondant votre voiture"
+        android:text="@string/choisirVoiture"
         android:textAlignment="center"
         android:textSize="20sp" />
 </RelativeLayout>

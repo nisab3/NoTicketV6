@@ -136,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-
-
-
         return true;
     }
 
@@ -523,7 +520,7 @@ public class MainActivity extends AppCompatActivity {
         Button boutonAlarme = (Button) analyseView.findViewById(R.id.boutonFavAnuler);
         Button boutonRetour = (Button) analyseView.findViewById(R.id.boutonFavSup);
 
-        TextView reponse = (TextView) analyseView.findViewById(R.id.titre);
+        TextView reponse = (TextView) analyseView.findViewById(R.id.titreAvertissement);
         TextView momentDisponible = (TextView) analyseView.findViewById(R.id.momentDisponible);
         TextView tempsDisponible = (TextView) analyseView.findViewById(R.id.tempsRestant);
 

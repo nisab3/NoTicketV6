@@ -6,21 +6,21 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/titre"
+        android:id="@+id/titreAvertissement"
         android:layout_width="263dp"
         android:layout_height="46dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Avertissement"
+        android:text="@string/avertissement"
         android:textAlignment="center"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/textAvertissement"
+        android:id="@+id/texteAvertissement"
         android:layout_width="303dp"
         android:layout_height="365dp"
-        android:layout_below="@+id/titre"
+        android:layout_below="@+id/titreAvertissement"
         android:layout_centerHorizontal="true"
-        android:text="loremIpsum" />
+        android:text="@string/texteAvertissement" />
 
 </RelativeLayout>
