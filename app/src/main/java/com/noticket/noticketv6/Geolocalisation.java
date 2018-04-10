@@ -101,15 +101,14 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
             }
         });
 
-        // mettre la bonne valeur sur le seekbar de l'alarme active ou non 
+        // mettre la bonne valeur sur le seekbar de l'alarme active ou non
         if (alarmeActive){
             seekActif.setProgress(1);
         }
         else{
             seekActif.setProgress(0);
         }
-//        seekActif.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
-//        seekActif.getThumb().setColorFilter(Color.DKGRAY, PorterDuff.Mode.SRC_IN);
+
 
         boutonPoubelle = findViewById(R.id.boutonPoubelle);
         boutonPoubelle.setOnClickListener(new View.OnClickListener() {

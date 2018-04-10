@@ -23,13 +23,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.format.Time;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
 import java.util.Date;
+
+import static android.text.format.Time.getCurrentTimezone;
 
 /**
  * Created by Nicolas Sabourin 1068459
@@ -498,9 +502,29 @@ public class MainActivity extends AppCompatActivity {
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, faireNotif(temps, delai));
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //TODO calculer le timer a partir de int donné
         // calcul du timer
-        long timer = SystemClock.elapsedRealtime() + 15000;
+
+        Calendar calendar = Calendar.getInstance();
+        int heureActuel = calendar.get(Calendar.HOUR_OF_DAY);
+        int minActuel = calendar.get(Calendar.MINUTE);
+        int heureTimer;
+        int minTimer;
+        if (temps[3]==0){
+            heureTimer = temps[0] - heureActuel;
+            minTimer = temps[1] -  minActuel;
+
+        }
+        else{
+            heureTimer = 23 - heureActuel + temps[0];
+            minTimer = 59 - minActuel + temps[1];
+        }
+
+        long tempsTotal = ((heureTimer * 60) + minTimer + (delai*5)) * 60 * 1000;
+        if (tempsTotal < 0) {
+            tempsTotal = 0;
+        }
+
+        long timer = calendar.getTimeInMillis() + tempsTotal;
         AlarmManager alarme = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarme.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timer, pendingIntent);
     }
