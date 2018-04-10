@@ -21,7 +21,7 @@ public class TutorielDebut extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        ImageView tutoimage = findViewById(R.id.imageTutoriel);
+        final ImageView tutoimage = findViewById(R.id.imageTutoriel);
         tutoimage.setBackgroundResource(R.drawable.anime_debut);
         tutorielAnime = (AnimationDrawable) tutoimage.getBackground();
 
@@ -30,6 +30,7 @@ public class TutorielDebut extends AppCompatActivity {
         tutoimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tutoimage.destroyDrawingCache();
                 finish();
             }
         });

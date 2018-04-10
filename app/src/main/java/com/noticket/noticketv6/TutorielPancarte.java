@@ -1,5 +1,6 @@
 package com.noticket.noticketv6;
 
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,10 @@ public class TutorielPancarte extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inSampleSize = 8;
+//
+//        mBitmapInsurance = BitmapFactory.decodeFile(mCurrentPhotoPath,options);
         // créer l'animation de l'image et la fin si touché
         ImageView tutoimage = findViewById(R.id.imageTutorielPanc);
         tutoimage.setBackgroundResource(R.drawable.anime_pancarte);
