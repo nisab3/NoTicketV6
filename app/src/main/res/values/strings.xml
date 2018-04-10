@@ -46,9 +46,10 @@
     <string name="tirte_favorie">Favories</string>
     <string name="text_alarme">Minutes avant de devoir déplacer votre voiture</string>
     <string name="text_alarme_actif">Activation de l\'alarme</string>
-    <string name="texteAvertissement"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse porttitor dapibus risus blandit vulputate. Morbi nec urna in velit fermentum blandit eget sit amet tellus. Cras viverra ac dui sit amet elementum. Aliquam eleifend magna ac viverra pharetra. Ut elementum porttitor suscipit. Donec euismod lorem dapibus egestas vehicula. Duis a dictum tellus.
-
-Praesent eget sem ligula. Ut pellentesque tellus eget magna auctor, in convallis orci semper. Vestibulum sollicitudin, massa sed egestas cursus, sem magna egestas neque, sed scelerisque ante nibh vitae urna. Ut elit purus, consectetur sed fringilla sit amet, suscipit quis augue. Fusce a pellentesque enim, sit amet facilisis eros. Duis posuere felis in metus dictum, ac fermentum orci feugiat. Vestibulum non nibh ligula. Curabitur luctus turpis rhoncus tortor egestas, a hendrerit lectus sollicitudin. Donec tempor volutpat ex vitae aliquet. Ut non arcu diam. Nam fermentum arcu sed mi eleifend sollicitudin et dictum lectus. Praesent ac ante sed eros efficitur luctus. Proin et urna vitae turpis laoreet lobortis. Nam bibendum turpis vel enim rutrum dictum. Aenean quis ex sit amet urna auctor viverra. </string>
+    <string name="texteAvertissement"> NOticket ne fait qu’analyser les pancartes pour vous. Vous devez vous assurer de ne pas bloquer d’intersections, de traverses piétonnières,
+                                       de bornes fontaines, d’entrées de stationnement ainsi que de ne pas interférer avec une zone de construction ou une intervention
+                                       des services d’urgence en cours. NOticket ne considère pas les vignettes ainsi que les stationnements
+                                       permis pour une durée limitée. \n\nLes conclusions tirées par l’application ne sont valables que pour les 24 prochaines heures.</string>
     <string name="Non">Non</string>
     <string name="Oui">Oui</string>
     <string name="messagePoubelle">Voulez-vous vraiment effacer votre alarme et votre géolocalisation?</string>

@@ -18,7 +18,7 @@
     <TextView
         android:id="@+id/texteAvertissement"
         android:layout_width="303dp"
-        android:layout_height="365dp"
+        android:layout_height="221dp"
         android:layout_below="@+id/titreAvertissement"
         android:layout_centerHorizontal="true"
         android:text="@string/texteAvertissement" />
