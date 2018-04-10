@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/titre"
+        android:id="@+id/titreAvertissement"
         android:layout_width="109dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,9 +21,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/boutonFavAnuler"
-        android:layout_toStartOf="@+id/titre"
+        android:layout_toStartOf="@+id/titreAvertissement"
         android:backgroundTint="@android:color/holo_red_dark"
-        android:text="Retour" />
+        android:text="@string/string_retour" />
 
     <Button
         android:id="@+id/boutonOk"
@@ -31,9 +31,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/boutonFavSup"
-        android:layout_toEndOf="@+id/titre"
+        android:layout_toEndOf="@+id/titreAvertissement"
         android:backgroundTint="@android:color/holo_green_dark"
-        android:text="OK" />
+        android:text="@android:string/ok" />
 
     <Button
         android:id="@+id/boutonFavAnuler"
@@ -44,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="171dp"
         android:backgroundTint="@android:color/holo_orange_dark"
-        android:text="Alarme" />
+        android:text="@string/string_alarm" />
 
     <TextView
         android:id="@+id/tempsRestant"
@@ -60,7 +60,7 @@
         android:id="@+id/momentDisponible"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:layout_below="@+id/titre"
+        android:layout_below="@+id/titreAvertissement"
         android:layout_centerHorizontal="true"
         android:text="vous pouvez vous stationner jusqu'à:"
         android:textAlignment="center" />
