@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     float[] geoPosition = {0, 0};
 
-    int delai = 15;
+    int delai = 3;
 
     boolean alarmeActive = false;
 
@@ -110,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
         cloche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // Démarre l'activité Geolocalisation
+                Intent intent = geoIntent();
+                startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
             }
         });
         // Listener du bouton Analyse
@@ -326,15 +328,26 @@ public class MainActivity extends AppCompatActivity {
                geoPosition = data.getFloatArrayExtra("POSITION");
                delai = data.getIntExtra("DELAI", 15);
                alarmeActive = data.getBooleanExtra("ALARMEACTIVE", false);
+               boolean supprimer = data.getBooleanExtra("SUPPRIMER", false);
+
                FloatingActionButton cloche = findViewById(R.id.boutonCloche);
-                if (alarmeActive){
-                    cloche.setVisibility(View.VISIBLE);
-                }
-                else{
+                if (supprimer){
                     cloche.setVisibility(View.GONE);
-                    delai = 15;
+                    cancelNotif();
+                    delai = 3;
                     geoPosition[0] = 0;
                     geoPosition[1] = 0;
+                    alarmeActive = false;
+                }
+                else{
+                    if (alarmeActive){
+                        cancelNotif();
+                        mettreNotif(analyse, delai);
+                    }
+                    else{
+                        cancelNotif();
+                    }
+                    cloche.setVisibility(View.VISIBLE);
                 }
             }
         }
@@ -471,7 +484,7 @@ public class MainActivity extends AppCompatActivity {
     */
 
     // annuler tout les nofications qui sont en actives
-    public void cancelNot(){
+    public void cancelNotif(){
         NotificationManager mNotificationManager =
 
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -479,12 +492,13 @@ public class MainActivity extends AppCompatActivity {
     }
     // la fonction qu'on call pour mettre la notification
     // créer le intent pour le donner a l'alarme manager et calculer le temps délais
-    // in: int[] = [min, heure, délais]
-    public void mettreNotif(int[] temps){
+    // in: int[] = [min, heure, (oui/non), jour]
+    //     int = delai
+    public void mettreNotif(int[] temps, int delai){
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 567);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, faireNotif(temps));
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, faireNotif(temps, delai));
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //TODO calculer le timer a partir de int donné
@@ -496,17 +510,18 @@ public class MainActivity extends AppCompatActivity {
 
     // fonction qui cree la notification
     // c'est ici qu'on lui passe les textes et alarme
-    // in: in: int[] = [min, heure, délais]
+    // in: int[] = [min, heure, (oui/non), jour]
+    //     int = delai
     // out: une Notification
-    private Notification faireNotif(int[] temps){
+    private Notification faireNotif(int[] temps, int delai){
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        long[] pattern = {0, 100, 1000};
+        long[] pattern = {0, 100, 1000, 100, 1000, 100, 1000, 100, 1000};
 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_launcher_foreground);
-        //TODO entrer le text de la notification avec le temps
-        builder.setContentTitle("My notification");
-        builder.setContentText("Hello World!");
+
+        builder.setContentTitle("Alarme NoTicket");
+        builder.setContentText("Il faut déplacer votre voiture avant " + delai*5 + " minutes");
         builder.setSound(uri);
         builder.setVibrate(pattern);
 

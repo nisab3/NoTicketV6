@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,17 +39,25 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
     private int REQUEST_FINE_LOCATION;
     private NumberPicker alerte;
     private TextView minRestantes;
-    private int[] analyse;
     private FloatingActionButton boutonOk;
     private FloatingActionButton boutonPoubelle;
+    private SeekBar seekActif;
+    // variable pour prendre les infos du intent
+    private int[] analyse;
+    private boolean alarmeActive;
+    private int delai;
+    private float[] geoPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geolocalisation);
 
-        Intent intent = getIntent();
-        analyse = intent.getIntArrayExtra("INFO_ANALYSE");
+        final Intent intent = getIntent();
+        analyse = intent.getIntArrayExtra("ANALYSE");
+        alarmeActive = intent.getBooleanExtra("ALARMEACTIVE", false);
+        delai = intent.getIntExtra("DELAI", 15);
+        geoPosition = intent.getFloatArrayExtra("POSITION");
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -57,15 +68,48 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         boutonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO décider comment revenir au main
-                // Démarre l'activité Geolocalisation
-//                Intent intent = new Intent(Geolocalisation.this, MainActivity.class);
-//                intent.putExtra("INFO_ANALYSE", analyse);
-//                startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
-//                startActivity(intent);
+                // sauvegarder les données dans le intent et retourner RESULT_OK
+                intent.putExtra("ALARMEACTIVE", alarmeActive);
+                intent.putExtra("DELAI", delai);
+                intent.putExtra("POSITION", geoPosition);
+                intent.putExtra("SUPPRIMER",false);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
+
+        seekActif = findViewById(R.id.seekBarAlarme);
+        seekActif.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (i == 0){
+                    alarmeActive = false;
+                }
+                else{
+                    alarmeActive = true;
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        // mettre la bonne valeur sur le seekbar de l'alarme active ou non 
+        if (alarmeActive){
+            seekActif.setProgress(1);
+        }
+        else{
+            seekActif.setProgress(0);
+        }
+//        seekActif.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+//        seekActif.getThumb().setColorFilter(Color.DKGRAY, PorterDuff.Mode.SRC_IN);
 
         boutonPoubelle = findViewById(R.id.boutonPoubelle);
         boutonPoubelle.setOnClickListener(new View.OnClickListener() {
@@ -76,12 +120,17 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         });
 
         alerte = findViewById(R.id.numPickerAlerte);
-//        alerte.setOnValueChangedListener(n);
+        alerte.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                delai = i;
+            }
+        });
         alerte.setWrapSelectorWheel(true);                                   //pour que la roue tourne sur elle meme
         alerte.setMinValue(0);                                               //valeur minimal
-        alerte.setMaxValue(8);                                              //valeur maximal//mets la valeur de la pancarte
+        alerte.setMaxValue(8);                                              //valeur maximal
+        alerte.setValue(delai);                                                     // mets la valeur de la pancarte
         alerte.setDisplayedValues(getResources().getStringArray(R.array.alerte)); //changer tout les valeurs affichées
-        alerte.setValue(3);
 
         minRestantes = findViewById(R.id.minRestantes);
 //        minRestantes.setText();
@@ -137,7 +186,12 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         boutonOui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO doit effacer l'alarme et la géolocalisation
+                Intent intent = getIntent();
+                intent.putExtra("ALARMEACTIVE", false);
+                intent.putExtra("DELAI",delai);
+                intent.putExtra("POSITION", geoPosition);
+                intent.putExtra("SUPPRIMER", true);
+                setResult(RESULT_OK, intent);
                 dialogPoubelle.dismiss();
                 finish();
             }

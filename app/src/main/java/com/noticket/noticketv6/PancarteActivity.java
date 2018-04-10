@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -187,6 +188,7 @@ public class PancarteActivity extends AppCompatActivity {
         public void onClick(View view) {
 
             if (view.getId() == R.id.boutAjoutFavorie){
+                //TODO vérifier si l'éoile est deja jaune pour pas resauver
                 sauvegardeFavorie();
                 ajoutFav.setImageResource(R.drawable.icon_etoile_jaune);
             }
@@ -942,6 +944,7 @@ public class PancarteActivity extends AppCompatActivity {
             //fermer le tout
             os.close();
             outputStream.close();
+            Toast.makeText(getApplicationContext(),"Sauvegardé dans vos favories", Toast.LENGTH_SHORT);
         }catch (Exception e){
             e.printStackTrace();
         }
