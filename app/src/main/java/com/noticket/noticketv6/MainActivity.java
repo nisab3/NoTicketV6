@@ -1,18 +1,24 @@
 package com.noticket.noticketv6;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -53,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
     int delai = 3;
 
     boolean alarmeActive = false;
+
+
+    // TODO les coordonnées EN DOUBLE, pas en FLOAT
+    private static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
+    Double latitude, longitude;
 
 
 
@@ -605,7 +617,6 @@ public class MainActivity extends AppCompatActivity {
         analyseBuilder.setView(analyseView);
         final AlertDialog dialogAnalyse = analyseBuilder.create();
         dialogAnalyse.show();
-//                                dialogAnalyse.getWindow().setLayout(1000, 1000);
 
         boutonOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -618,6 +629,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialogAnalyse.dismiss();
+
+                // Demande la permission pour utilier le GPS
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    //TODO Fait popup pour dire que le gps n'est pas allumé
+                } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    getPosition();
+                }
+
+                // TODO Prendre les float latitude et longitude et les mettre dans le file
                 // Démarre l'activité Geolocalisation
                 Intent intent = geoIntent();
                 startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
@@ -627,7 +649,7 @@ public class MainActivity extends AppCompatActivity {
         boutonRetour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (poteau.get_oneWay()==true) {
+                if (poteau.get_oneWay()) {
                     dialogAnalyse.dismiss();
                     popUpOneway();
                 } else {
@@ -636,6 +658,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Fonction qui trouve les coordonnées du téléphone
+    private void getPosition() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "La permission est requise pour pouvoir vous localiser par rapport à votre automobile.", Toast.LENGTH_SHORT).show();
+            // Demande la permission pour utiliser la localisation fine
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        } else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            if (location!=null) {
+                latitude=location.getLatitude();
+                longitude=location.getLongitude();
+
+                Toast.makeText(this, "longitude"+longitude+" \nlatitude "+latitude, Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "Incapable de trouver votre localisation", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     // Calcule la différence entre un temps donné et le temps actuel
