@@ -18,8 +18,9 @@
         style="@android:style/Widget.Holo.Button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/titreAvertissement"
-        android:layout_below="@+id/titreAvertissement"
+        android:layout_marginTop="109dp"
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="@string/Non" />
 
@@ -28,8 +29,9 @@
         style="@android:style/Widget.Holo.Button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/titreAvertissement"
-        android:layout_below="@+id/titreAvertissement"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="109dp"
+        android:layout_toEndOf="@+id/boutonNon"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="@string/Oui" />
 </RelativeLayout>

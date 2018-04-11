@@ -704,7 +704,6 @@ public class MainActivity extends AppCompatActivity {
                     getPosition();
                 }
 
-                // TODO Prendre les double latitude et longitude et les mettre dans le file
                 // Démarre l'activité Geolocalisation
                 Intent intent = geoIntent();
                 startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
@@ -737,6 +736,8 @@ public class MainActivity extends AppCompatActivity {
             if (location!=null) {
                 latitude=location.getLatitude();
                 longitude=location.getLongitude();
+
+
 
                 Toast.makeText(this, "longitude"+longitude+" \nlatitude "+latitude, Toast.LENGTH_SHORT).show();
 
