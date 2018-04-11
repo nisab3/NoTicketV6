@@ -10,4 +10,8 @@
         android:title="@string/tutoriel"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/desactivation_tutoriel"
+        android:title="@string/desactivation_tutoriel"
+        app:showAsAction="never"/>
+
 </menu>

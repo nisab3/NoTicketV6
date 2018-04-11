@@ -151,14 +151,18 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
             mMap.setMyLocationEnabled(true);
         }
 
-        // TODO Mettre les 2 variables lat et long à la place de sYdney
         // Met un marqueur sur la position de la voiture
-        LatLng maVoiture = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(maVoiture).title("Ma voiture"));
+        LatLng maVoiture = new LatLng(geoPosition[0], geoPosition[1]);
+        String nomMarqueur;
+        // Si la géolocalisation n'a pas fonctionnée, la position par défaut est l'UdeM
+        if (geoPosition[0]==45.5016946599 && geoPosition[1]==-73.6171625313) {
+            nomMarqueur="UdeM";
+        } else {
+            nomMarqueur="Ma voiture";
+        }
+        // Place le marqueur sur la map
+        mMap.addMarker(new MarkerOptions().position(maVoiture).title(nomMarqueur));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(maVoiture));
-
-
-
     }
 
     @Override

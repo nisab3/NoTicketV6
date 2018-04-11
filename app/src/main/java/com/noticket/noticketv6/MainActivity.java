@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,12 +65,17 @@ public class MainActivity extends AppCompatActivity {
 
     boolean tutorielPanc = true;
 
+    private SeekBar seekTutoDebut;
+    private SeekBar seekTutoPancarte;
+
 
     // TODO les coordonnées EN DOUBLE, pas en FLOAT (FAITE)*********************
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     Double latitude, longitude;
 
+    // Coordonnées de udem. Données de base dans le file
+    // 45.5016946599 -73.6171625313
 
 
 
@@ -197,6 +203,64 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 dialogTutoriel.show();
+                break;
+            case R.id.desactivation_tutoriel:
+                AlertDialog.Builder desactivationBuilder = new AlertDialog.Builder(MainActivity.this);
+                final View desactivationView = getLayoutInflater().inflate(R.layout.desactivation_tutoriel, null);
+                desactivationBuilder.setView(desactivationView);
+
+//                seekTutoDebut = findViewById(R.id.seekBarTutorielDebut);
+//                seekTutoDebut.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//                    @Override
+//                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//                        if (i == 0){
+//                            tutorielDebut = false;
+//                        }
+//                        else{
+//                            tutorielDebut = true;
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//                    }
+//                    @Override
+//                    public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//                    }
+//                });
+//
+//                // mettre la bonne valeur sur le seekbar de l'alarme active ou non
+//                if (tutorielDebut){
+//                    seekTutoDebut.setProgress(1);
+//                }
+//                else{
+//                    seekTutoDebut.setProgress(0);
+//                }
+//
+//                seekTutoPancarte = findViewById(R.id.seekBarTutorielPancarte);
+//                seekTutoPancarte.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//                    @Override
+//                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//                        tutorielPanc=(i!=0);
+//                    }
+//                    @Override
+//                    public void onStartTrackingTouch(SeekBar seekBar) { }
+//                    @Override
+//                    public void onStopTrackingTouch(SeekBar seekBar) { }
+//                });
+//
+//                // mettre la bonne valeur sur le seekbar de l'alarme active ou non
+//                if (tutorielPanc){
+//                    seekTutoPancarte.setProgress(1);
+//                }
+//                else{
+//                    seekTutoPancarte.setProgress(0);
+//                }
+
+                final AlertDialog dialogDesactivation = desactivationBuilder.create();
+                dialogDesactivation.show();
                 break;
         }
         return true;
