@@ -186,7 +186,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         final AlertDialog dialogPoubelle = poubelleBuilder.create();
         dialogPoubelle.show();
 
-        Button boutonOui = (Button) poubelleView.findViewById(R.id.boutonOui);
+        Button boutonOui = poubelleView.findViewById(R.id.boutonOui);
         boutonOui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

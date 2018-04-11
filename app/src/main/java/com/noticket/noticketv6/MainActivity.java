@@ -55,29 +55,19 @@ public class MainActivity extends AppCompatActivity {
     //analyse [heure, min, int(non(0), oui(1)), int(aujourdhui(0), demain(1))]
     int[] analyse = {0, 0, 0, 0};
 
-    double[] geoPosition = {0, 0};
-
+    double[] geoPosition = {45.5016946599, -73.6171625313};
     int delai = 3;
-
     boolean alarmeActive = false;
-
     boolean tutorielDebut = true;
-
     boolean tutorielPanc = true;
-
     private SeekBar seekTutoDebut;
     private SeekBar seekTutoPancarte;
-
-
-    // TODO les coordonnées EN DOUBLE, pas en FLOAT (FAITE)*********************
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     Double latitude, longitude;
 
     // Coordonnées de udem. Données de base dans le file
     // 45.5016946599 -73.6171625313
-
-
 
     //variable utilisé pour identifier PancarteActivité a son retour
     private static final int PANCARTE_ACTIVITY_REQUEST_CODE = 0;
