@@ -81,6 +81,8 @@ public class PancarteActivity extends AppCompatActivity {
     // l'objet pancarte traité
     public Pancarte pancarte;
 
+    // numero de favorie ou on est rendu
+    int trouver;
     // bool pour savoir si on commence avec le Tutoriel
     boolean tutorielPanc;
     // bool si la pancarte est un favorie
@@ -96,9 +98,7 @@ public class PancarteActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setTitle("Création d'une pancarte");
 
-        Intent intent = getIntent();
-        numero = intent.getIntExtra("NUMPANCARTE", numero);
-        tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
+
 
         pancarte = new Pancarte();
 
@@ -159,6 +159,7 @@ public class PancarteActivity extends AppCompatActivity {
         ajoutFav.setOnClickListener(b);
 
         //va chercher tout les infos recu de l'activité main
+        Intent intent = getIntent();
         setInfoStart(intent);
 
         // commencer le tutoriel
@@ -537,6 +538,7 @@ public class PancarteActivity extends AppCompatActivity {
             int no = paquet.getInt("numero", 0);
             int type = paquet.getInt("type", 0);
 
+
             if(type == 1){
                 //verifie la validité de l'entrée et fait un popup
                 if (!verifieValide(type, nouvelinfo)){
@@ -772,6 +774,7 @@ public class PancarteActivity extends AppCompatActivity {
         pancarte.moisSetActive(actif[6]);
 
         tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
+        trouver = intent.getIntExtra("TROUVER", 0);
 
         // mettre les info de la pancarte dans les boutons
         ecrireBoutonHeure(1);
@@ -950,61 +953,47 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.moisIsActive()};
         intent.putExtra("ACTIVE", actif);
         intent.putExtra("TUTORIELPANC", tutorielPanc);
+        intent.putExtra("TROUVER", trouver);
         setResult(RESULT_OK, intent);
         finish();
     }
     // le bouton cancel fait comme le bouton back
     private void cancel(){
+        Intent intent = getIntent();
+        intent.putExtra("TUTORIELPANC", tutorielPanc);
+        intent.putExtra("TROUVER", trouver);
+        setResult(RESULT_CANCELED, intent);
         finish();
     }
 
     //fonction pour sauvegarger un nouveau favorie
-    //TODO ne pas sauvegarder une files qui existe deja
-    private void sauvegardeFavorie(){
+
+    private void sauvegardeFavorie() {
         // donne la liste des files
-        String [] liste = fileList();
+        String[] liste = fileList();
         // je vais choisir le prochain nom disponible
 
-        String name = "com.noticket.numero" ;  // jai enregistrer le numero de la derniere files sauvgarde ici
-        int trouver = 0;
-        // recherche et prend le fichier numero
-        for ( String n: liste){
-            if (n.equals(name)){
-
-                try {
-                    FileInputStream fis = openFileInput(name);
-                    ObjectInputStream is = new ObjectInputStream(fis);
-                    trouver = (int) is.readObject();
-                    is.close();
-                    fis.close();
-                    FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
-                    ObjectOutputStream os = new ObjectOutputStream(fos);
-                    trouver++;
-                    os.writeObject(trouver);
-                    os.close();
-                    fos.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        // si pas trouver fichier numero alors on le creer et on y mets 1
-        if (trouver == 0){
-            try {
-                File file = new File(getFilesDir(),name );
-                FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
-                ObjectOutputStream os = new ObjectOutputStream(fos);
-                trouver++;
-                os.writeObject(trouver);
-                os.close();
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        String name = "com.noticket.numero";  // jai enregistrer le numero de la derniere files sauvgarde ici
+//        int trouver= 0;
+//        // recherche et prend le fichier numero
+//        try {
+//            FileInputStream fis = openFileInput(name);
+//            ObjectInputStream is = new ObjectInputStream(fis);
+//            trouver = (int) is.readObject();
+//            is.close();
+//            fis.close();
+//            FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
+//            ObjectOutputStream os = new ObjectOutputStream(fos);
+//            trouver++;
+//            os.writeObject(trouver);
+//            os.close();
+//            fos.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         // nom de la prochaine file de favorie
-        name = "com.noticket.sauvegarde" + trouver;
+        String name = "com.noticket.sauvegarde" + trouver;
 
         //ouvrire la file
         try {

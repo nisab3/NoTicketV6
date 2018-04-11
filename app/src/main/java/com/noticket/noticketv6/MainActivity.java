@@ -200,57 +200,57 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder desactivationBuilder = new AlertDialog.Builder(MainActivity.this);
                 final View desactivationView = getLayoutInflater().inflate(R.layout.desactivation_tutoriel, null);
                 desactivationBuilder.setView(desactivationView);
+                
+                seekTutoDebut = desactivationView.findViewById(R.id.seekBarTutorielDebut);
+                seekTutoDebut.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                        if (i == 0){
+                            tutorielDebut = false;
+                        }
+                        else{
+                            tutorielDebut = true;
+                        }
+                        miseAJourFichierNumero();
+                    }
 
-                // TODO faire marcher les seekBar
-//                seekTutoDebut = findViewById(R.id.seekBarTutorielDebut);
-//                seekTutoDebut.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//                    @Override
-//                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//                        if (i == 0){
-//                            tutorielDebut = false;
-//                        }
-//                        else{
-//                            tutorielDebut = true;
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//                    }
-//                    @Override
-//                    public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//                    }
-//                });
-//
-//                // mettre la bonne valeur sur le seekbar de l'alarme active ou non
-//                if (tutorielDebut){
-//                    seekTutoDebut.setProgress(1);
-//                }
-//                else{
-//                    seekTutoDebut.setProgress(0);
-//                }
-//
-//                seekTutoPancarte = findViewById(R.id.seekBarTutorielPancarte);
-//                seekTutoPancarte.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//                    @Override
-//                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//                        tutorielPanc=(i!=0);
-//                    }
-//                    @Override
-//                    public void onStartTrackingTouch(SeekBar seekBar) { }
-//                    @Override
-//                    public void onStopTrackingTouch(SeekBar seekBar) { }
-//                });
-//
-//                // mettre la bonne valeur sur le seekbar de l'alarme active ou non
-//                if (tutorielPanc){
-//                    seekTutoPancarte.setProgress(1);
-//                }
-//                else{
-//                    seekTutoPancarte.setProgress(0);
-//                }
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+                // mettre la bonne valeur sur le seekbar de l'alarme active ou non
+                if (tutorielDebut){
+                    seekTutoDebut.setProgress(1);
+                }
+                else{
+                    seekTutoDebut.setProgress(0);
+                }
+
+                seekTutoPancarte = desactivationView.findViewById(R.id.seekBarTutorielPancarte);
+                seekTutoPancarte.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                        tutorielPanc=(i!=0);
+                    }
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) { }
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) { }
+                });
+
+                // mettre la bonne valeur sur le seekbar de l'alarme active ou non
+                if (tutorielPanc){
+                    seekTutoPancarte.setProgress(1);
+                }
+                else{
+                    seekTutoPancarte.setProgress(0);
+                }
 
                 final AlertDialog dialogDesactivation = desactivationBuilder.create();
                 dialogDesactivation.show();
@@ -377,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
                             pancarteUtile.moisIsActive()};
         intent.putExtra("ACTIVE", actif);
         intent.putExtra("TUTORIELPANC", tutorielPanc);
+        intent.putExtra("TROUVER", trouver);
 
         startActivityForResult(intent, PANCARTE_ACTIVITY_REQUEST_CODE);
     }
@@ -400,6 +401,10 @@ public class MainActivity extends AppCompatActivity {
         if ( requestCode == PANCARTE_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
                 prendreInfo(data);
+            }
+            if(resultCode == RESULT_CANCELED){
+                tutorielPanc = data.getBooleanExtra("TUTORIELPANC", true);
+                trouver = data.getIntExtra("TROUVER", 0);
             }
         }
         if ( requestCode == GEOLOCALISATION_ACTIVITY_REQUEST_CODE){
@@ -469,6 +474,8 @@ public class MainActivity extends AppCompatActivity {
         pancarteRetour.moisSetActive(actif[6]);
 
         tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
+
+        trouver = intent.getIntExtra("TROUVER", 0);
 
         // ici je dois appeler a réecrire le texte sur les pancartes
         String resutatText = formateText(pancarteRetour);
@@ -970,16 +977,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void miseAJourFichierNumero(){
         try {
-            FileInputStream fis = openFileInput("com.noticket.numero");
-            ObjectInputStream is = new ObjectInputStream(fis);
-            trouver = (int) is.readObject(); // juste bon pour favorie. donc je le mets nulpart
-            analyse = (int[]) is.readObject();
-            geoPosition = (double[]) is.readObject();
-            delai = (int) is.readObject();
-            tutorielDebut = (boolean) is.readObject();
-            tutorielPanc = (boolean) is.readObject();
-            is.close();
-            fis.close();
+            FileOutputStream fos = openFileOutput("com.noticket.numero", MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(trouver);
+            os.writeObject(analyse);
+            os.writeObject(geoPosition);
+            os.writeObject(delai);
+            os.writeObject(tutorielDebut);
+            os.writeObject(tutorielPanc);
+            os.close();
+            fos.close();
 
         }catch (Exception e){
             e.printStackTrace();
