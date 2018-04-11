@@ -299,7 +299,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
         Intent intent = new Intent();
         try{
 
-            FileInputStream fis = openFileInput(favlist[i]);
+            FileInputStream fis = openFileInput(favbonlist[i]);
             ObjectInputStream is = new ObjectInputStream(fis);
             //aller chercher les objets
             int[] heure1 = (int[]) is.readObject();
