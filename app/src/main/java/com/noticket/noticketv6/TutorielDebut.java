@@ -7,32 +7,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 public class TutorielDebut extends AppCompatActivity {
 
-    //animation pour le tutoriel
-    AnimationDrawable tutorielAnime;
+    int numeroTuto = 1;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutoriel_debut);
 
-        //enlever la bar en haut
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar = getSupportActionBar();
+        //changer le titre
+        actionBar.setTitle("TUTORIEL 1/3");
+
 
         final ImageView tutoimage = findViewById(R.id.imageTutoriel);
-        tutoimage.setBackgroundResource(R.drawable.anime_debut);
-        tutorielAnime = (AnimationDrawable) tutoimage.getBackground();
-
-        tutorielAnime.start();
+        Picasso.with(getApplicationContext()).load(R.drawable.imagedebut1).into(tutoimage);
 
         tutoimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tutoimage.destroyDrawingCache();
-                finish();
+                if(numeroTuto == 1){
+                    Picasso.with(getApplicationContext()).load(R.drawable.imagedebut2).into(tutoimage);
+                    numeroTuto = 2;
+                    actionBar.setTitle("TUTORIEL 2/3");
+                }
+                else{
+                    if(numeroTuto == 2){
+                        Picasso.with(getApplicationContext()).load(R.drawable.imagedebut3).into(tutoimage);
+                        numeroTuto = 3;
+                        actionBar.setTitle("TUTORIEL 3/3");
+                    }
+                    else{
+                        finish();
+                    }
+                }
             }
         });
+
+
     }
 }
+

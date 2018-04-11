@@ -8,10 +8,12 @@
 
     <ImageView
         android:id="@+id/imageTutorielPanc"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/common_google_signin_btn_text_light_focused"
         android:contentDescription="@string/desc_tutoriel_debut"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

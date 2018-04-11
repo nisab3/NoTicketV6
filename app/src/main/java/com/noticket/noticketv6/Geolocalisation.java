@@ -46,7 +46,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
     private int[] analyse;
     private boolean alarmeActive;
     private int delai;
-    private float[] geoPosition;
+    private double[] geoPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         analyse = intent.getIntArrayExtra("ANALYSE");
         alarmeActive = intent.getBooleanExtra("ALARMEACTIVE", false);
         delai = intent.getIntExtra("DELAI", 15);
-        geoPosition = intent.getFloatArrayExtra("POSITION");
+        geoPosition = intent.getDoubleArrayExtra("POSITION");
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

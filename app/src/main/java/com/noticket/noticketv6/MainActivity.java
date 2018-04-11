@@ -16,7 +16,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +28,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.text.format.Time;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,7 +37,7 @@ import java.io.ObjectOutputStream;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.text.format.Time.getCurrentTimezone;
+
 
 /**
  * Created by Nicolas Sabourin 1068459
@@ -51,17 +49,23 @@ public class MainActivity extends AppCompatActivity {
 
     public Poteau poteau;
 
+    //donnée pour savoir quel est le numero du prochain favorie
+    int trouver = 0;
     //analyse [heure, min, int(non(0), oui(1)), int(aujourdhui(0), demain(1))]
     int[] analyse = {0, 0, 0, 0};
 
-    float[] geoPosition = {0, 0};
+    double[] geoPosition = {0, 0};
 
     int delai = 3;
 
     boolean alarmeActive = false;
 
+    boolean tutorielDebut = true;
 
-    // TODO les coordonnées EN DOUBLE, pas en FLOAT
+    boolean tutorielPanc = true;
+
+
+    // TODO les coordonnées EN DOUBLE, pas en FLOAT (FAITE)*********************
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     Double latitude, longitude;
@@ -79,9 +83,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //commencer le tutoriel
-        Intent tutoIntent = new  Intent(this, TutorielDebut.class);
-        startActivity(tutoIntent);
-
+        if (tutorielDebut) {
+            Intent tutoIntent = new Intent(this, TutorielDebut.class);
+            // pour ne pas le jouer une autre fois
+            tutorielDebut = false;
+            startActivity(tutoIntent);
+        }
 
         poteau = new Poteau();
         //créer les imageButton pour leur donner la fonction onclicklistener
@@ -115,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
 
         // bouton float alarme
         FloatingActionButton cloche = findViewById(R.id.boutonCloche);
+        // va cherche les info dans le fichier numero pour mettre a jours tout les variables
         rechercheFichierNumero();
+
         if (alarmeActive){
             cloche.setVisibility(View.VISIBLE);
         }
@@ -310,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
                             pancarteUtile.jourIsActive(1), pancarteUtile.jourIsActive(2), pancarteUtile.jourIsActive(3),
                             pancarteUtile.moisIsActive()};
         intent.putExtra("ACTIVE", actif);
+        intent.putExtra("TUTORIELPANC", tutorielPanc);
 
         startActivityForResult(intent, PANCARTE_ACTIVITY_REQUEST_CODE);
     }
@@ -338,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
         if ( requestCode == GEOLOCALISATION_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
 
-               geoPosition = data.getFloatArrayExtra("POSITION");
+               geoPosition = data.getDoubleArrayExtra("POSITION");
                delai = data.getIntExtra("DELAI", 15);
                alarmeActive = data.getBooleanExtra("ALARMEACTIVE", false);
                boolean supprimer = data.getBooleanExtra("SUPPRIMER", false);
@@ -362,6 +372,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     cloche.setVisibility(View.VISIBLE);
                 }
+                //mettre a jour le fichier de sauvegarde
+                miseAJourFichierNumero();
             }
         }
     }
@@ -399,6 +411,8 @@ public class MainActivity extends AppCompatActivity {
         pancarteRetour.jourSetActive(actif[5], 3);
         pancarteRetour.moisSetActive(actif[6]);
 
+        tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
+
         // ici je dois appeler a réecrire le texte sur les pancartes
         String resutatText = formateText(pancarteRetour);
         TextView t = findViewById(R.id.textImPanc1 +(numero -1));
@@ -434,6 +448,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.boutPanc1 + (numero -1) ).setVisibility(View.VISIBLE);
         // cacher le bouton ajouterPancarte si il y a maintenant 5 pancarte
         cacheBoutAjoute();
+
+        //mettre a jours la sauvegarde fichier
+        miseAJourFichierNumero();
     }
 
     // fonction pour faire le text complet de la pancarte
@@ -515,28 +532,16 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // calcul du timer
-
         Calendar calendar = Calendar.getInstance();
-        int heureActuel = calendar.get(Calendar.HOUR_OF_DAY);
-        int minActuel = calendar.get(Calendar.MINUTE);
-        int heureTimer;
-        int minTimer;
-        if (temps[3]==0){
-            heureTimer = temps[0] - heureActuel;
-            minTimer = temps[1] -  minActuel;
 
-        }
-        else{
-            heureTimer = 23 - heureActuel + temps[0];
-            minTimer = 59 - minActuel + temps[1];
-        }
-
-        long tempsTotal = ((heureTimer * 60) + minTimer + (delai*5)) * 60 * 1000;
+        int[] tempsdiff = diffTemps(temps[0],temps[1], temps[3]);
+        long tempsTotal = ((tempsdiff[0] * 60) + tempsdiff[1] + (delai*5)) * 60 * 1000;
         if (tempsTotal < 0) {
             tempsTotal = 0;
         }
 
         long timer = calendar.getTimeInMillis() + tempsTotal;
+
         AlarmManager alarme = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarme.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timer, pendingIntent);
     }
@@ -577,6 +582,9 @@ public class MainActivity extends AppCompatActivity {
 
         // analyse return int[heure, min, peutMaintenant=>(0=non et 1=Oui), jour=>(0=aujourdhui et 1=demain)]
         analyse = poteau.analyse();
+
+        //enregistrer analyse dans le fichier de sauvegarde
+        miseAJourFichierNumero();
 
         // Formattage
         String heure = "" + analyse[0];
@@ -639,7 +647,7 @@ public class MainActivity extends AppCompatActivity {
                     getPosition();
                 }
 
-                // TODO Prendre les float latitude et longitude et les mettre dans le file
+                // TODO Prendre les double latitude et longitude et les mettre dans le file
                 // Démarre l'activité Geolocalisation
                 Intent intent = geoIntent();
                 startActivityForResult(intent, GEOLOCALISATION_ACTIVITY_REQUEST_CODE);
@@ -860,7 +868,6 @@ public class MainActivity extends AppCompatActivity {
         // je vais choisir le prochain nom disponible
 
         String name = "com.noticket.numero" ;  // jai enregistrer le numero de la derniere files sauvgarde ici
-        int trouver = 0;
         // recherche et prend le fichier numero
         for ( String n: liste){
             if (n.equals(name)){
@@ -870,8 +877,10 @@ public class MainActivity extends AppCompatActivity {
                     ObjectInputStream is = new ObjectInputStream(fis);
                     trouver = (int) is.readObject(); // juste bon pour favorie. donc je le mets nulpart
                     analyse = (int[]) is.readObject();
-                    geoPosition = (float[]) is.readObject();
+                    geoPosition = (double[]) is.readObject();
                     delai = (int) is.readObject();
+                    tutorielDebut = (boolean) is.readObject();
+                    tutorielPanc = (boolean) is.readObject();
                     is.close();
                     fis.close();
 
@@ -891,11 +900,31 @@ public class MainActivity extends AppCompatActivity {
                 os.writeObject(analyse);
                 os.writeObject(geoPosition);
                 os.writeObject(delai);
+                os.writeObject(tutorielDebut);
+                os.writeObject(tutorielPanc);
                 os.close();
                 fos.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void miseAJourFichierNumero(){
+        try {
+            FileInputStream fis = openFileInput("com.noticket.numero");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            trouver = (int) is.readObject(); // juste bon pour favorie. donc je le mets nulpart
+            analyse = (int[]) is.readObject();
+            geoPosition = (double[]) is.readObject();
+            delai = (int) is.readObject();
+            tutorielDebut = (boolean) is.readObject();
+            tutorielPanc = (boolean) is.readObject();
+            is.close();
+            fis.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

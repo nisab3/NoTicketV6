@@ -80,16 +80,16 @@ public class PancarteActivity extends AppCompatActivity {
     // l'objet pancarte traité
     public Pancarte pancarte;
 
-
+    // bool pour savoir si on commence avec le Tutoriel
+    boolean tutorielPanc;
+    // bool si la pancarte est un favorie
+    boolean etoile = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pancarte);
 
-        // commencer le tutoriel
-        Intent tutoIntent = new Intent(this, TutorielPancarte.class);
-        startActivity(tutoIntent);
 
         //changer le titre de l'activité
         ActionBar actionBar = getSupportActionBar();
@@ -97,6 +97,15 @@ public class PancarteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         numero = intent.getIntExtra("NUMPANCARTE", numero);
+        tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
+
+        // commencer le tutoriel
+        if(tutorielPanc) {
+            Intent tutoIntent = new Intent(this, TutorielPancarte.class);
+            //pour ne pas qu'il passe une deuxième fois
+            tutorielPanc = false;
+            startActivity(tutoIntent);
+        }
 
         pancarte = new Pancarte();
 
@@ -177,6 +186,7 @@ public class PancarteActivity extends AppCompatActivity {
         if ( requestCode == FAVORIE_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
                 ajoutFav.setImageResource(R.drawable.icon_etoile_jaune);
+                etoile = true;
                 setInfoStart(data);
             }
         }
@@ -188,9 +198,11 @@ public class PancarteActivity extends AppCompatActivity {
         public void onClick(View view) {
 
             if (view.getId() == R.id.boutAjoutFavorie){
-                //TODO vérifier si l'éoile est deja jaune pour pas resauver
-                sauvegardeFavorie();
-                ajoutFav.setImageResource(R.drawable.icon_etoile_jaune);
+                if (!etoile) {
+                    sauvegardeFavorie();
+                    ajoutFav.setImageResource(R.drawable.icon_etoile_jaune);
+                    etoile = true;
+                }
             }
 
             if (view.getId() == R.id.boutFavorie){
@@ -211,6 +223,7 @@ public class PancarteActivity extends AppCompatActivity {
                 }
                 setImageParking(noImageP);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
 
             }
             // bouton gauche pour changer l'image pancarte
@@ -223,6 +236,7 @@ public class PancarteActivity extends AppCompatActivity {
                 }
                 setImageParking(noImageP);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             // bouton droite pour changer la fleche
             if (view.getId() == R.id.boutFlecheD){
@@ -234,6 +248,7 @@ public class PancarteActivity extends AppCompatActivity {
                 }
                 setFleche(noFleche);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             // bouton gauche pour changer la fleche
             if (view.getId() == R.id.boutFlecheG){
@@ -245,6 +260,7 @@ public class PancarteActivity extends AppCompatActivity {
                 }
                 setFleche(noFleche);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             // bouton ajouter ligne heure
             // trouve une ligne non-active
@@ -350,6 +366,7 @@ public class PancarteActivity extends AppCompatActivity {
                 findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
                 pancarte.heureSetActive(false, 1);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             // delete ligne heure 2
             if (view.getId() == R.id.boutDeleteH2){
@@ -357,6 +374,7 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.heureSetActive(false, 2);
                 findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             //delete ligne heure 3
             if (view.getId() == R.id.boutDeleteH3){
@@ -364,6 +382,7 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.heureSetActive(false, 3);
                 findViewById(R.id.boutAjoutHeure).setVisibility(View.VISIBLE);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             //delete ligne jour1
             if (view.getId() == R.id.boutDeleteJ1){
@@ -371,6 +390,7 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.jourSetActive(false, 1);
                 findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             //delete ligne jour 2
             if (view.getId() == R.id.boutDeleteJ2){
@@ -378,6 +398,7 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.jourSetActive(false, 2);
                 findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             //delete ligne jour 3
             if (view.getId() == R.id.boutDeleteJ3){
@@ -385,6 +406,7 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.jourSetActive(false, 3);
                 findViewById(R.id.boutAjoutJour).setVisibility(View.VISIBLE);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
             //delete ligne mois 1
             if (view.getId() == R.id.boutDeleteM1){
@@ -392,6 +414,7 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.moisSetActive(false);
                 findViewById(R.id.boutAjoutMois).setVisibility(View.VISIBLE);
                 ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                etoile = false;
             }
         }
     };
@@ -689,6 +712,8 @@ public class PancarteActivity extends AppCompatActivity {
         pancarte.jourSetActive(actif[5], 3);
         pancarte.moisSetActive(actif[6]);
 
+        tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
+
         // mettre les info de la pancarte dans les boutons
         ecrireBoutonHeure(1);
         ecrireBoutonHeure(2);
@@ -865,6 +890,7 @@ public class PancarteActivity extends AppCompatActivity {
                 pancarte.jourIsActive(1), pancarte.jourIsActive(2), pancarte.jourIsActive(3),
                 pancarte.moisIsActive()};
         intent.putExtra("ACTIVE", actif);
+        intent.putExtra("TUTORIELPANC", tutorielPanc);
         setResult(RESULT_OK, intent);
         finish();
     }
