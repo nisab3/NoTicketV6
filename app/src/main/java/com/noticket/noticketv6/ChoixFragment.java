@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -116,6 +117,7 @@ public class ChoixFragment extends Fragment {
                 resultat[1] = min1.getValue();
                 resultat[2] = heure2.getValue();
                 resultat[3] = min2.getValue();
+
                 sauveBundle();
             }
             else {
@@ -123,6 +125,7 @@ public class ChoixFragment extends Fragment {
                     resultat[0] = jour1.getValue();
                     resultat[1] = jour3.getValue();
                     resultat[2] = jour2.getValue();
+
                     sauveBundle();
                 }
                 else {
@@ -131,6 +134,7 @@ public class ChoixFragment extends Fragment {
                         resultat[1] = mois1.getValue();
                         resultat[2] = moisNum2.getValue();
                         resultat[3] = mois2.getValue();
+
                         sauveBundle();
                         ajutementMois();
                     }
@@ -151,6 +155,7 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeHeureFrag(int[] info){
+        Toast.makeText(getContext(), info[0] +","+info[1]+","+info[2]+","+info[3],Toast.LENGTH_SHORT) ;
         TextView t = getActivity().findViewById(R.id.textMessagePicker);
         t.setText(R.string.text_heure_frag);
         // formate number picker de l'heure 1
@@ -204,6 +209,7 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeJourFrag(int[] info){
+
         TextView t = getActivity().findViewById(R.id.textMessagePicker);
         t.setText(R.string.text_jour_frag);
         // formate number picker du premier jour
@@ -256,6 +262,7 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeMoisFrag(int[] info){
+        Toast.makeText(getContext(), info[0] +","+info[1]+","+info[2]+","+info[3],Toast.LENGTH_SHORT) ;
         TextView t = getActivity().findViewById(R.id.textMessagePicker);
         t.setText(R.string.text_mois_frag);
         // formate number picker du numéro du mois 1

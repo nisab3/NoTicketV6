@@ -78,12 +78,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //commencer le tutoriel
-        if (tutorielDebut) {
-            Intent tutoIntent = new Intent(this, TutorielDebut.class);
-            startActivity(tutoIntent);
-        }
-
         poteau = new Poteau();
         //créer les imageButton pour leur donner la fonction onclicklistener
         ImageView bp1 = findViewById(R.id.boutImPanc1);
@@ -116,8 +110,15 @@ public class MainActivity extends AppCompatActivity {
 
         // bouton float alarme
         FloatingActionButton cloche = findViewById(R.id.boutonCloche);
+
         // va cherche les info dans le fichier numero pour mettre a jours tout les variables
         rechercheFichierNumero();
+
+        //commencer le tutoriel
+        if (tutorielDebut) {
+            Intent tutoIntent = new Intent(this, TutorielDebut.class);
+            startActivity(tutoIntent);
+        }
         //change le tutoriel pourpas qu'il recommence
         tutorielDebut = false;
         miseAJourFichierNumero();
@@ -918,10 +919,9 @@ public class MainActivity extends AppCompatActivity {
     // fonction pour chercher le fichier de base numero pour sortir les info sauvegardé
     // ou le créer
     private void rechercheFichierNumero(){
-
+        boolean faite = false;
         // donne la liste des files
         String [] liste = fileList();
-        // je vais choisir le prochain nom disponible
 
         String name = "com.noticket.numero" ;  // jai enregistrer le numero de la derniere files sauvgarde ici
         // recherche et prend le fichier numero
@@ -931,7 +931,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     FileInputStream fis = openFileInput(name);
                     ObjectInputStream is = new ObjectInputStream(fis);
-                    trouver = (int) is.readObject(); // juste bon pour favorie. donc je le mets nulpart
+                    trouver = (int) is.readObject();
                     analyse = (int[]) is.readObject();
                     geoPosition = (double[]) is.readObject();
                     delai = (int) is.readObject();
@@ -939,20 +939,21 @@ public class MainActivity extends AppCompatActivity {
                     tutorielPanc = (boolean) is.readObject();
                     is.close();
                     fis.close();
+                    faite = true;
 
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         }
-        // si pas trouver fichier numero alors on le creer et on y mets 1
-        if (trouver == 0){
+        // si pas trouver fichier numero alors on le creer
+        if (!faite){
             try {
 
                 File file = new File(getFilesDir(),name );
                 FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
-                os.writeObject(trouver); // pour analyse
+                os.writeObject(trouver);
                 os.writeObject(analyse);
                 os.writeObject(geoPosition);
                 os.writeObject(delai);

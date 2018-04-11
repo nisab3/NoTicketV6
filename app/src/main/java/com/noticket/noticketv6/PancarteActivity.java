@@ -100,12 +100,6 @@ public class PancarteActivity extends AppCompatActivity {
         numero = intent.getIntExtra("NUMPANCARTE", numero);
         tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
 
-        // commencer le tutoriel
-        if(tutorielPanc) {
-            Intent tutoIntent = new Intent(this, TutorielPancarte.class);
-            startActivity(tutoIntent);
-        }
-
         pancarte = new Pancarte();
 
         //listener pour les boutons
@@ -166,6 +160,12 @@ public class PancarteActivity extends AppCompatActivity {
 
         //va chercher tout les infos recu de l'activité main
         setInfoStart(intent);
+
+        // commencer le tutoriel
+        if(tutorielPanc) {
+            Intent tutoIntent = new Intent(this, TutorielPancarte.class);
+            startActivity(tutoIntent);
+        }
         //pour ne pas qu'il passe une deuxième fois
         tutorielPanc = false;
 
@@ -469,7 +469,7 @@ public class PancarteActivity extends AppCompatActivity {
         // si le fragemnt est jour = les 2 jours ne peuvent etre pareille
         if (type == 2) {
             int jour1 = info[0];
-            int jour2 = info[2];
+            int jour2 = info[1];
             if (jour1 == jour2) {
                 reponse = false;
             }
@@ -521,7 +521,7 @@ public class PancarteActivity extends AppCompatActivity {
     public void clickFermerFrag(View view){
 
 
-        //enlever et détruire le fragment
+        //prépaprer le fragment manager le fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment frag = fragmentManager.findFragmentById(R.id.layoutPourChoixFrag);
@@ -580,6 +580,7 @@ public class PancarteActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    //enlever et détruire le fragment
                     ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
                     fragmentTransaction.remove(frag);
                     fragmentTransaction.commit();
@@ -633,6 +634,7 @@ public class PancarteActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        //enlever et détruire le fragment
                         ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
                         fragmentTransaction.remove(frag);
                         fragmentTransaction.commit();
@@ -653,6 +655,7 @@ public class PancarteActivity extends AppCompatActivity {
                             findViewById(R.id.layoutMois1).setVisibility(View.VISIBLE);
                             // efface je bouton ajout
                             findViewById(R.id.boutAjoutMois).setVisibility(View.GONE);
+                            //enlever et détruire le fragment
                             ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
                             fragmentTransaction.remove(frag);
                             fragmentTransaction.commit();
@@ -663,6 +666,12 @@ public class PancarteActivity extends AppCompatActivity {
                 }
             }
 
+        }
+        else{
+            fragmentTransaction.remove(frag);
+            fragmentTransaction.commit();
+            //reactivation des boutons de pancarte activity
+            activationBouton();
         }
     }
 
