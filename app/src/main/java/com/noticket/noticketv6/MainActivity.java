@@ -647,6 +647,10 @@ public class MainActivity extends AppCompatActivity {
         // analyse return int[heure, min, peutMaintenant=>(0=non et 1=Oui), jour=>(0=aujourdhui et 1=demain)]
         analyse = poteau.analyse();
 
+        // Si l'analyse conclut que l'on ne peut pas se stationner, le bouton alarme est invisible
+        if (analyse[2]==0)
+            boutonAlarme.setVisibility(View.INVISIBLE);
+
         //enregistrer analyse dans le fichier de sauvegarde
         miseAJourFichierNumero();
 
@@ -696,17 +700,16 @@ public class MainActivity extends AppCompatActivity {
                 dialogAnalyse.dismiss();
             }
         });
-
         boutonAlarme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogAnalyse.dismiss();
-
                 // Demande la permission pour utilier le GPS
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    //TODO Fait popup pour dire que le gps n'est pas allumé
+                    //TODO demander d'ouvri le gps
+                    noGPS();
                 } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     getPosition();
                 }
@@ -744,7 +747,7 @@ public class MainActivity extends AppCompatActivity {
                 latitude=location.getLatitude();
                 longitude=location.getLongitude();
 
-
+                // TODO cleaner cette partie.
 
                 Toast.makeText(this, "longitude"+longitude+" \nlatitude "+latitude, Toast.LENGTH_SHORT).show();
 
@@ -752,6 +755,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Incapable de trouver votre localisation", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    //
+    private void noGPS() {
+        Toast.makeText(this, "Votre GPS n'est pas activé", Toast.LENGTH_SHORT).show();
     }
 
     // Calcule la différence entre un temps donné et le temps actuel
