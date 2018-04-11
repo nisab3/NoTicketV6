@@ -775,6 +775,7 @@ public class PancarteActivity extends AppCompatActivity {
 
         tutorielPanc = intent.getBooleanExtra("TUTORIELPANC", true);
         trouver = intent.getIntExtra("TROUVER", 0);
+        numero = intent.getIntExtra("NUMPANCARTE", 1);
 
         // mettre les info de la pancarte dans les boutons
         ecrireBoutonHeure(1);
