@@ -1,5 +1,6 @@
 package com.noticket.noticketv6;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.design.widget.FloatingActionButton;
@@ -484,8 +485,41 @@ public class PancarteActivity extends AppCompatActivity {
         return reponse;
     }
 
+    // création du popUp validation
+    // in: le type du fragment
+    private void popValidation(int type){
+        final AlertDialog.Builder valBuilder = new AlertDialog.Builder(PancarteActivity.this);
+        final View valView = getLayoutInflater().inflate(R.layout.pop_validation_donnee_panc, null);
+        valBuilder.setView(valView);
+        final AlertDialog dialogVal = valBuilder.create();
+
+        TextView textVal = dialogVal.findViewById(R.id.textValidation);
+        if (type == 1){
+            textVal.setText(R.string.text_validation_heure);
+        }
+        else{
+            if (type == 2){
+                textVal.setText(R.string.text_validation_jour);
+            }
+            else{
+                textVal.setText(R.string.text_validation_mois);
+            }
+        }
+
+        dialogVal.show();
+
+        Button bok = dialogVal.findViewById(R.id.boutOkValidation);
+        bok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogVal.dismiss();
+            }
+        });
+    }
+
     // faire le néssecaire pour fermer le fragment
     public void clickFermerFrag(View view){
+
         //reactivation des boutons de pancarte activity
         activationBouton();
 
@@ -506,114 +540,126 @@ public class PancarteActivity extends AppCompatActivity {
             int type = paquet.getInt("type", 0);
 
             if(type == 1){
+                //verifie la validité de l'entrée et fait un popup
                 if (!verifieValide(type, nouvelinfo)){
-                    //TODO cancel la fermeture en mettant le popup
+                    popValidation(1);
                 }
-                String[] min = res.getStringArray(R.array.min);
-                String s_heure = nouvelinfo[0] + "h" + min[nouvelinfo[1]] + " - " + nouvelinfo[2] + "h" + min[nouvelinfo[3]];
-                // ligne heure 3
-                if (no == 1){
-                    bh1.setText(s_heure);
-                    pancarte.setHeure(nouvelinfo, no);
-                    pancarte.heureSetActive(true, no);
-                    findViewById(R.id.layoutHeure1).setVisibility(View.VISIBLE);
-                    // efface je bouton ajout si les 3 lignes sont activés
-                    if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)){
-                        findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
-                    }
-                }
-                else{
-                    // ligne heure 2
-                    if (no == 2){
-                        bh2.setText(s_heure);
-                        pancarte.setHeure(nouvelinfo, no);
-                        pancarte.heureSetActive(true, no);
-                        findViewById(R.id.layoutHeure2).setVisibility(View.VISIBLE);
-                        // efface je bouton ajout si les 3 lignes sont activés
-                        if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)){
-                            findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
-                        }
-
-                    }
+                else {
+                    String[] min = res.getStringArray(R.array.min);
+                    String s_heure = nouvelinfo[0] + "h" + min[nouvelinfo[1]] + " - " + nouvelinfo[2] + "h" + min[nouvelinfo[3]];
                     // ligne heure 3
-                    if(no == 3){
-                        bh3.setText(s_heure);
+                    if (no == 1) {
+                        bh1.setText(s_heure);
                         pancarte.setHeure(nouvelinfo, no);
                         pancarte.heureSetActive(true, no);
-                        findViewById(R.id.layoutHeure3).setVisibility(View.VISIBLE);
+                        findViewById(R.id.layoutHeure1).setVisibility(View.VISIBLE);
                         // efface je bouton ajout si les 3 lignes sont activés
-                        if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)){
+                        if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)) {
                             findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
                         }
+                    } else {
+                        // ligne heure 2
+                        if (no == 2) {
+                            bh2.setText(s_heure);
+                            pancarte.setHeure(nouvelinfo, no);
+                            pancarte.heureSetActive(true, no);
+                            findViewById(R.id.layoutHeure2).setVisibility(View.VISIBLE);
+                            // efface je bouton ajout si les 3 lignes sont activés
+                            if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)) {
+                                findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
+                            }
+
+                        }
+                        // ligne heure 3
+                        if (no == 3) {
+                            bh3.setText(s_heure);
+                            pancarte.setHeure(nouvelinfo, no);
+                            pancarte.heureSetActive(true, no);
+                            findViewById(R.id.layoutHeure3).setVisibility(View.VISIBLE);
+                            // efface je bouton ajout si les 3 lignes sont activés
+                            if (pancarte.heureIsActive(1) && pancarte.heureIsActive(2) && pancarte.heureIsActive(3)) {
+                                findViewById(R.id.boutAjoutHeure).setVisibility(View.GONE);
+                            }
+                        }
                     }
+                    ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                    fragmentTransaction.remove(frag);
+                    fragmentTransaction.commit();
                 }
 
             }
             else{
                 if (type == 2){
+                    //verifie la validité de l'entrée et fait un popup
                     if (!verifieValide(type, nouvelinfo)){
-                        //TODO cancel la fermeture en mettant le popup
+                        popValidation(2);
                     }
-                    String[] eta = res.getStringArray(R.array.eta);
-                    String ligneJour = quelJour(nouvelinfo[0]) + " " + eta[nouvelinfo[2]] + " " + quelJour(nouvelinfo[1]);
-                    // ligne heure 1
-                    if (no == 1){
-                        bj1.setText(ligneJour);
-                        pancarte.setJour(nouvelinfo, no);
-                        pancarte.jourSetActive(true, no);
-                        findViewById(R.id.layoutJour1).setVisibility(View.VISIBLE);
-                        // efface je bouton ajout si les 3 lignes sont activés
-                        if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)){
-                            findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
-                        }
-                    }
-                    else{
-                        // ligne heure 2
-                        if (no ==2){
-                            bj2.setText(ligneJour);
+                    else {
+                        String[] eta = res.getStringArray(R.array.eta);
+                        String ligneJour = quelJour(nouvelinfo[0]) + " " + eta[nouvelinfo[2]] + " " + quelJour(nouvelinfo[1]);
+                        // ligne heure 1
+                        if (no == 1) {
+                            bj1.setText(ligneJour);
                             pancarte.setJour(nouvelinfo, no);
                             pancarte.jourSetActive(true, no);
-                            findViewById(R.id.layoutJour2).setVisibility(View.VISIBLE);
+                            findViewById(R.id.layoutJour1).setVisibility(View.VISIBLE);
                             // efface je bouton ajout si les 3 lignes sont activés
-                            if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)){
+                            if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)) {
                                 findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
                             }
-                        }
-                        else{
-                            // ligne heure 3
-                            if (no == 3){
-                                bj3.setText(ligneJour);
+                        } else {
+                            // ligne heure 2
+                            if (no == 2) {
+                                bj2.setText(ligneJour);
                                 pancarte.setJour(nouvelinfo, no);
                                 pancarte.jourSetActive(true, no);
-                                findViewById(R.id.layoutJour3).setVisibility(View.VISIBLE);
+                                findViewById(R.id.layoutJour2).setVisibility(View.VISIBLE);
                                 // efface je bouton ajout si les 3 lignes sont activés
-                                if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)){
+                                if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)) {
                                     findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
+                                }
+                            } else {
+                                // ligne heure 3
+                                if (no == 3) {
+                                    bj3.setText(ligneJour);
+                                    pancarte.setJour(nouvelinfo, no);
+                                    pancarte.jourSetActive(true, no);
+                                    findViewById(R.id.layoutJour3).setVisibility(View.VISIBLE);
+                                    // efface je bouton ajout si les 3 lignes sont activés
+                                    if (pancarte.jourIsActive(1) && pancarte.jourIsActive(2) && pancarte.jourIsActive(3)) {
+                                        findViewById(R.id.boutAjoutJour).setVisibility(View.GONE);
+
+                                    }
                                 }
                             }
                         }
+                        ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                        fragmentTransaction.remove(frag);
+                        fragmentTransaction.commit();
                     }
                 }
                 else {
                     if (type == 3) {
-                        if (!verifieValide(type, nouvelinfo)){
-                            //TODO cancel la fermeture en mettant le popup
+                        //verifie la validité de l'entrée et fait un popup
+                        if (!verifieValide(type, nouvelinfo)) {
+                            popValidation(3);
+                        } else {
+                            String ligneMois = nouvelinfo[0] + " " + quelMois(nouvelinfo[1]) + " - " + nouvelinfo[2] + " " + quelMois(nouvelinfo[3]);
+                            bm1.setText(ligneMois);
+                            pancarte.setmois(nouvelinfo);
+                            pancarte.moisSetActive(true);
+                            findViewById(R.id.layoutMois1).setVisibility(View.VISIBLE);
+                            // efface je bouton ajout
+                            findViewById(R.id.boutAjoutMois).setVisibility(View.GONE);
+                            ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
+                            fragmentTransaction.remove(frag);
+                            fragmentTransaction.commit();
                         }
-                        String ligneMois = nouvelinfo[0] + " " + quelMois(nouvelinfo[1]) + " - " + nouvelinfo[2] + " " + quelMois(nouvelinfo[3]);
-                        bm1.setText(ligneMois);
-                        pancarte.setmois(nouvelinfo);
-                        pancarte.moisSetActive(true);
-                        findViewById(R.id.layoutMois1).setVisibility(View.VISIBLE);
-                        // efface je bouton ajout
-                        findViewById(R.id.boutAjoutMois).setVisibility(View.GONE);
                     }
                 }
             }
 
         }
-        ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
-        fragmentTransaction.remove(frag);
-        fragmentTransaction.commit();
     }
 
     // désactive tout les boutons de l'activity pancarte lorsque nous somme dans le fragment

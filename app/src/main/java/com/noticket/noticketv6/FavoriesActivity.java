@@ -84,7 +84,6 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemClick(final AdapterView<?> adapterView, final View view1, final int i, long l) {
 
-        //TODO faire que le click sur le delete soit différent du reste(popup ok cancel delete
         AlertDialog.Builder positionBuilder = new AlertDialog.Builder(FavoriesActivity.this);
         final View fView = getLayoutInflater().inflate(R.layout.pop_favorie, null);
         positionBuilder.setView(fView);

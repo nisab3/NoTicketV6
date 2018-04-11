@@ -57,4 +57,7 @@
     <string name="messageAvertissement">Etes-vous dans un sens unique?</string>
     <string name="string_alarm">Alarme</string>
     <string name="string_retour">Retour</string>
+    <string name="text_validation_heure">Les heures de début et de fin ne peuvent être les mêmes</string>
+    <string name="text_validation_jour">Les jours de début et de fin ne peuvent être les mêmes</string>
+    <string name="text_validation_mois">Les mois de début et de fin ne peuvent être les mêmes</string>
 </resources>
