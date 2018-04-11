@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">No-Ticket</string>
+    <string name="app_name">NOticket</string>
     <string name="string_h_picker">h</string>
     <string name="string_trait_picker">-</string>
     <string name="string_annuler">ANNULER</string>
@@ -41,15 +41,16 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="avertissement">Avertissement</string>
     <string name="tutoriel">Tutoriel</string>
+    <string name="desactivation_tutoriel">Désactivation des tutoriels</string>
     <string name="text_tutoriel_debut">TOUCHER POUR CONTINUER</string>
     <string name="desc_tutoriel_debut">tutoriel du début</string>
     <string name="tirte_favorie">Favories</string>
     <string name="text_alarme">Minutes avant de devoir déplacer votre voiture</string>
     <string name="text_alarme_actif">Activation de l\'alarme</string>
-    <string name="texteAvertissement"> NOticket ne fait qu’analyser les pancartes pour vous. Vous devez vous assurer de ne pas bloquer d’intersections, de traverses piétonnières,
-                                       de bornes fontaines, d’entrées de stationnement ainsi que de ne pas interférer avec une zone de construction ou une intervention
-                                       des services d’urgence en cours. NOticket ne considère pas les vignettes ainsi que les stationnements
-                                       permis pour une durée limitée. \n\nLes conclusions tirées par l’application ne sont valables que pour les 24 prochaines heures.</string>
+    <string name="texteAvertissement"> NOticket ne fait qu\’analyser les pancartes pour vous. Vous devez vous assurer de ne pas bloquer d\’intersections, de traverses piétonnières,
+                                       de bornes fontaines, d\’entrées de stationnement ainsi que de ne pas interférer avec une zone de construction ou une intervention
+                                       des services d\’urgence en cours. NOticket ne considère pas les vignettes ainsi que les stationnements
+                                       permis pour une durée limitée. \n\nLes conclusions tirées par l\’application ne sont valables que pour les 24 prochaines heures.</string>
     <string name="Non">Non</string>
     <string name="Oui">Oui</string>
     <string name="messagePoubelle">Voulez-vous vraiment effacer votre alarme et votre géolocalisation?</string>
@@ -57,6 +58,8 @@
     <string name="messageAvertissement">Etes-vous dans un sens unique?</string>
     <string name="string_alarm">Alarme</string>
     <string name="string_retour">Retour</string>
+    <string name="tutorielPancarte">Désactiver le tutoriel de création de pancarte</string>
+    <string name="tutorielDebut">Désactiver le tutoriel d\'introduction</string>
     <string name="text_validation_heure">Les heures de début et de fin ne peuvent être les mêmes</string>
     <string name="text_validation_jour">Les jours de début et de fin ne peuvent être les mêmes</string>
     <string name="text_validation_mois">Les mois de début et de fin ne peuvent être les mêmes</string>
