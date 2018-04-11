@@ -30,6 +30,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApi;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -155,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 popUpReset();
             }
         });
+
 
     }
 
@@ -742,7 +745,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
+            //TODO ci haut le location est toujours null pour nicolas
             if (location!=null) {
                 latitude=location.getLatitude();
                 longitude=location.getLongitude();

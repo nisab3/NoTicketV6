@@ -140,7 +140,7 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         mMap = googleMap;
         // Vérifie si l'utilisation de la localisation fine est autorisée
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "La permission est requise pour pouvoir vous localiser par rapport à votre automobile.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "La permission est requise pour pouvoir vous localiser par rapport à votre automobile.", Toast.LENGTH_LONG).show();
             // Demande la permission pour utiliser la localisation fine
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
 
