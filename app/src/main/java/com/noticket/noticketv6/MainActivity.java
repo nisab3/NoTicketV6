@@ -868,7 +868,7 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
-        dialog.getWindow().setLayout(800, 500);
+//        dialog.getWindow().setLayout(800, 500);
 
         boutonOui.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -900,7 +900,7 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
-        dialog.getWindow().setLayout(800, 550);
+//        dialog.getWindow().setLayout(800, 550);
 
         boutonOui.setOnClickListener(new View.OnClickListener() {
             @Override

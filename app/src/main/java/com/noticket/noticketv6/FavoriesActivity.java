@@ -45,7 +45,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
 
         //changer le titre de l'activité
         ActionBar actionBar = getSupportActionBar();
-        getSupportActionBar().setTitle("Favorie");
+        getSupportActionBar().setTitle("Favoris");
 
 
         // faire la liste de tout les files favorie
@@ -64,7 +64,7 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     private void rechercheFavorie(){
         // prendre la liste de tout les favories
         favlist = fileList();
-        // chercher juste les files qui sont des favories
+        // chercher juste les files qui sont des favoris
         String[] favbonlisttemp = new String[favlist.length];
         int indexbonfav = 0;
         for(int indexfav = 0; indexfav < favlist.length; indexfav++){

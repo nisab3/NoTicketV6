@@ -32,8 +32,8 @@
     <string name="text_jour_frag">Entrer le/les jours</string>
     <string name="text_mois_frag">Entrer les dates</string>
     <string name="text_bout_supprimer">SUPPRIMER</string>
-    <string name="text_supprimer_fav">Supprimer \n ce favorie</string>
-    <string name="text_pop_fav">Voulez-vous importer\nce favorie ?</string>
+    <string name="text_supprimer_fav">Supprimer \n ce <favori></favori></string>
+    <string name="text_pop_fav">Voulez-vous importer\nce favori ?</string>
     <string name="message_reset">Voulez-vous effacer toutes les pancartes?</string>
 
     <string name="title_activity_fullscreen_debut">FullscreenDebutActivity</string>

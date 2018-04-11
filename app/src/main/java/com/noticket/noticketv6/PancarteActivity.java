@@ -1018,7 +1018,7 @@ public class PancarteActivity extends AppCompatActivity {
             //fermer le tout
             os.close();
             outputStream.close();
-            Toast.makeText(getApplicationContext(),"Sauvegardé dans vos favories", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(),"Sauvegardé dans vos favoris", Toast.LENGTH_SHORT);
         }catch (Exception e){
             e.printStackTrace();
         }
