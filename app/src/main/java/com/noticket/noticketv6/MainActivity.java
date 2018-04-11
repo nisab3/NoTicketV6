@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 final View desactivationView = getLayoutInflater().inflate(R.layout.desactivation_tutoriel, null);
                 desactivationBuilder.setView(desactivationView);
 
+                // TODO faire marcher les seekBar
 //                seekTutoDebut = findViewById(R.id.seekBarTutorielDebut);
 //                seekTutoDebut.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 //                    @Override

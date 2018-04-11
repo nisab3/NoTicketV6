@@ -1,13 +1,6 @@
 package com.noticket.noticketv6;
-import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * Created by Nicolas Sabourin 1068459
@@ -163,11 +156,6 @@ public class Poteau {
         int[] tomorrow = {mois, jour+1, heure, minute};
         int[] resultat = {24, 0, 0, 1};
 
-//        // Array de 48h en bloc de 30min initialisé à true
-//        boolean[] horaire = new boolean[96];
-//        for(int i=0;i<horaire.length;i++)
-//            horaire[i] = true;
-
         // 2 Arrays de 24h en bloc de 30min initialisé à true
         boolean[] jour1 = new boolean[48];
         boolean[] jour2 = new boolean[48];
@@ -196,8 +184,8 @@ public class Poteau {
         int i = horaireNow;
 
         // Si le stationnement est actuellement possible
-        if (horaire[horaireNow] == true) {
-            while (horaire[i] == true) {
+        if (horaire[horaireNow]) {
+            while (horaire[i]) {
                 i++;
                 if (i==horaire.length) {
                     resultat[0] = 24;
@@ -221,7 +209,7 @@ public class Poteau {
             return resultat;
         } else
         // Si le stationnement est impossible actuellement
-            while (horaire[i] == false) {
+            while (!horaire[i]) {
                 i++;
                 if (i==horaire.length) {
                     resultat[0] = 24;
@@ -251,7 +239,7 @@ public class Poteau {
     //                 2 <->
     //                 3 ->
     private boolean applicable(Pancarte p, boolean p_active, int pos) {
-        if (p_active==false){
+        if (!p_active){
             return false;
         }
         if (pos==1 && p.getFleche()!=3) {
@@ -274,23 +262,15 @@ public class Poteau {
         // Si il y a des mois sur la pancarte
         if (p.moisIsActive()) {
             if (p.getMois()[3] >= p.getMois()[1]) {
-                if (n[0] >= p.getMois()[1]
+                return n[0] >= p.getMois()[1]
                         && n[0] <= p.getMois()[3]
                         && n[1] >= p.getMois()[0]
-                        && n[1] <= p.getMois()[2]) {
-                    return true;
-                }else {
-                    return false;
-                }
+                        && n[1] <= p.getMois()[2];
             }else {
-                if ((n[0] <= p.getMois()[1]
+                return (n[0] <= p.getMois()[1]
                         || n[0] >= p.getMois()[3])
                         && (n[1] <= p.getMois()[0]
-                        || n[1] >= p.getMois()[2])) {
-                    return true;
-                }else {
-                    return false;
-                }
+                        || n[1] >= p.getMois()[2]);
             }
         }
         // Sinon
@@ -306,30 +286,22 @@ public class Poteau {
             // S'il y a un seul jour sur la ligne
             if (p.getJour(j)[1]==0) {
                 // Est-ce que ce jour est le jour actuel?
-                if (p.getJour(j)[0]==n[1]) {
-                    return true;
-                } else return false;
+                return p.getJour(j)[0]==n[1];
             }
 
             // Si on a jour1 à jour2
             if (p.getJour(j)[2]==1) {
                 if (p.getJour(j)[0] <= p.getJour(j)[1]) {
-                    if (n[1] >= p.getJour(j)[0] && n[1] <= p.getJour(j)[1]) {
-                        return true;
-                    } else return false;
+                    return n[1] >= p.getJour(j)[0] && n[1] <= p.getJour(j)[1];
                 } else {
-                    if (n[1] <= p.getJour(j)[0] || n[1] >= p.getJour(j)[1]) {
-                        return true;
-                    } else return false;
+                    return n[1] <= p.getJour(j)[0] || n[1] >= p.getJour(j)[1];
                 }
             }
 
             // Si on a jour1 et jour2
             if (p.getJour(j)[2]==2 || p.getJour(j)[2]==0) {
                 // Est-ce qu'un de ces 2 jours est le jour actuel?
-                if (p.getJour(j)[0]==n[1] || p.getJour(j)[1]==n[1]) {
-                    return true;
-                } else return false;
+                return p.getJour(j)[0]==n[1] || p.getJour(j)[1]==n[1];
             }
 
             // Si rien ne s'applique
@@ -341,16 +313,23 @@ public class Poteau {
         }
     }
 
-    // Fait les modification dans horaire
+    // Fait les modifications dans horaire
     private void traitement(Pancarte p, boolean p_active, int pos, boolean[] h, int[] n) {
+        // Si la flèche et les mois sur la pancarte s'applique
         if (applicable(p, p_active, pos) && applicableMois(p, n)){
-
-            if ((p.jourIsActive(1)==false && p.jourIsActive(2)==false && p.jourIsActive(3)==false) ||
+            // Si les jours sur la pancarte s'apliquent
+            if ((!p.jourIsActive(1) && !p.jourIsActive(2) && !p.jourIsActive(3)) ||
                 (applicableJour(p, n, 1) || applicableJour(p, n, 2) || applicableJour(p, n, 3))){
                 // Met les valeurs à false dans le tableau horaire pour les heures sur le panneau
                 traitementHeure(p, h, 1);
                 traitementHeure(p, h, 2);
                 traitementHeure(p, h, 3);
+                // S'il n'y a pas d'heures sur la pancarte, l'interdiction s'applique tout le temps
+                if (!p.heureIsActive(1) && !p.heureIsActive(2) && !p.heureIsActive(3)) {
+                    for(int i=0;i<h.length;i++) {
+                        h[i] = false;
+                    }
+                }
             }
         }
     }
