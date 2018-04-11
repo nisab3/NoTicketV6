@@ -103,8 +103,6 @@ public class PancarteActivity extends AppCompatActivity {
         // commencer le tutoriel
         if(tutorielPanc) {
             Intent tutoIntent = new Intent(this, TutorielPancarte.class);
-            //pour ne pas qu'il passe une deuxième fois
-            tutorielPanc = false;
             startActivity(tutoIntent);
         }
 
@@ -168,6 +166,8 @@ public class PancarteActivity extends AppCompatActivity {
 
         //va chercher tout les infos recu de l'activité main
         setInfoStart(intent);
+        //pour ne pas qu'il passe une deuxième fois
+        tutorielPanc = false;
 
     }
 
@@ -452,7 +452,7 @@ public class PancarteActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    //TODO ou on verifie avec le if pour faire un popup avant de fermer le fragment(dans le pancarte activity?)
+
     // fonction qui verifie l'entré quand on appuis sur ok pour s'assurer que l'entré est valide
     // in: le type de fragement a verifier
     // out: oui ou non
@@ -461,7 +461,7 @@ public class PancarteActivity extends AppCompatActivity {
         // si le fragemnt est heure = les 2 heures ne peuvent etre pareille
         if (type == 1) {
             int heure1 = info[0];
-            int heure2 = info[3];
+            int heure2 = info[2];
             if (heure1 == heure2) {
                 reponse = false;
             }
@@ -493,7 +493,7 @@ public class PancarteActivity extends AppCompatActivity {
         valBuilder.setView(valView);
         final AlertDialog dialogVal = valBuilder.create();
 
-        TextView textVal = dialogVal.findViewById(R.id.textValidation);
+        TextView textVal = valView.findViewById(R.id.textValidation);
         if (type == 1){
             textVal.setText(R.string.text_validation_heure);
         }
@@ -508,7 +508,7 @@ public class PancarteActivity extends AppCompatActivity {
 
         dialogVal.show();
 
-        Button bok = dialogVal.findViewById(R.id.boutOkValidation);
+        Button bok = valView.findViewById(R.id.boutOkValidation);
         bok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -520,8 +520,6 @@ public class PancarteActivity extends AppCompatActivity {
     // faire le néssecaire pour fermer le fragment
     public void clickFermerFrag(View view){
 
-        //reactivation des boutons de pancarte activity
-        activationBouton();
 
         //enlever et détruire le fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -585,6 +583,8 @@ public class PancarteActivity extends AppCompatActivity {
                     ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
                     fragmentTransaction.remove(frag);
                     fragmentTransaction.commit();
+                    //reactivation des boutons de pancarte activity
+                    activationBouton();
                 }
 
             }
@@ -636,6 +636,8 @@ public class PancarteActivity extends AppCompatActivity {
                         ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
                         fragmentTransaction.remove(frag);
                         fragmentTransaction.commit();
+                        //reactivation des boutons de pancarte activity
+                        activationBouton();
                     }
                 }
                 else {
@@ -654,6 +656,8 @@ public class PancarteActivity extends AppCompatActivity {
                             ajoutFav.setImageResource(R.drawable.icon_etoile_vide);
                             fragmentTransaction.remove(frag);
                             fragmentTransaction.commit();
+                            //reactivation des boutons de pancarte activity
+                            activationBouton();
                         }
                     }
                 }

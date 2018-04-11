@@ -85,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
         //commencer le tutoriel
         if (tutorielDebut) {
             Intent tutoIntent = new Intent(this, TutorielDebut.class);
-            // pour ne pas le jouer une autre fois
-            tutorielDebut = false;
             startActivity(tutoIntent);
         }
 
@@ -124,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton cloche = findViewById(R.id.boutonCloche);
         // va cherche les info dans le fichier numero pour mettre a jours tout les variables
         rechercheFichierNumero();
+        //change le tutoriel pourpas qu'il recommence
+        tutorielDebut = false;
+        miseAJourFichierNumero();
 
         if (alarmeActive){
             cloche.setVisibility(View.VISIBLE);
