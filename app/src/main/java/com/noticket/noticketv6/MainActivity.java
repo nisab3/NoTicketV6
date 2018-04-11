@@ -708,6 +708,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    //TODO demander d'ouvri le gps
                     noGPS();
                 } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     getPosition();
