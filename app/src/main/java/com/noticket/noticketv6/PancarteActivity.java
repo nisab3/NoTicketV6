@@ -960,7 +960,7 @@ public class PancarteActivity extends AppCompatActivity {
     }
     // le bouton cancel fait comme le bouton back
     private void cancel(){
-        Intent intent = getIntent();
+        Intent intent = new Intent();
         intent.putExtra("TUTORIELPANC", tutorielPanc);
         intent.putExtra("TROUVER", trouver);
         setResult(RESULT_CANCELED, intent);

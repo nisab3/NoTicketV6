@@ -415,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
         if ( requestCode == GEOLOCALISATION_ACTIVITY_REQUEST_CODE){
             if (resultCode == RESULT_OK){
 
-               geoPosition = data.getDoubleArrayExtra("POSITION");
+//               geoPosition = data.getDoubleArrayExtra("POSITION");
                delai = data.getIntExtra("DELAI", 15);
                alarmeActive = data.getBooleanExtra("ALARMEACTIVE", false);
                boolean supprimer = data.getBooleanExtra("SUPPRIMER", false);
@@ -425,8 +425,9 @@ public class MainActivity extends AppCompatActivity {
                     cloche.setVisibility(View.GONE);
                     cancelNotif();
                     delai = 3;
-                    geoPosition[0] = 0;
-                    geoPosition[1] = 0;
+                    //45.5016946599 -73.6171625313 de base
+                    geoPosition[0] = 45.5016946599;
+                    geoPosition[1] = -73.6171625313;
                     alarmeActive = false;
                 }
                 else{
@@ -747,11 +748,14 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            //TODO ci haut le location est toujours null pour nicolas
+            //TODO ci haut le location est toujours null pour nicolas 
             if (location!=null) {
                 latitude=location.getLatitude();
                 longitude=location.getLongitude();
 
+                geoPosition[0] = latitude;
+                geoPosition[1] = longitude;
+                miseAJourFichierNumero();
                 // TODO cleaner cette partie.
 
                 Toast.makeText(this, "longitude"+longitude+" \nlatitude "+latitude, Toast.LENGTH_SHORT).show();
