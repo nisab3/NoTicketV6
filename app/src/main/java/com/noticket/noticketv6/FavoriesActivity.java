@@ -117,17 +117,6 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
         });
 
         dialog.show();
-        //si clicker ok on fait ca
-        // call avec j qui est le bonne index pour favlist
-
-        //fermeture(i);
-
-
-
-        // si on suprime il faut appeler ca
-        //suprimeItemFavorie(adapterView, i, j);
-
-        //si cancel on fait rien
     }
 
 
@@ -240,10 +229,12 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
     }
 
 
-    //suprimer un ligne de la liste view et le files qui vient avec
-    //in : le adapterView pour enlever la ligne
-    //      int i = place dans le view liste
-    //      int index = place dans la favlist des nom de fichier
+    /*
+    suprimer un ligne de la liste view et le files qui vient avec
+    in : le adapterView pour enlever la ligne
+    int i = place dans le view liste
+    int index = place dans la favlist des nom de fichier
+    */
     private void suprimeItemFavorie(AdapterView adapterView, View view, int index){
         //enleve la view et reset la page
 
@@ -292,9 +283,11 @@ public class FavoriesActivity extends AppCompatActivity implements AdapterView.O
         return result;
     }
 
-    // remet tout les infos dans le intent pour les retourner a main par un intent
-    // in: numero ou se trouve le nom de file dans la liste favlist
-    // out: rien
+    /*
+    remet tout les infos dans le intent pour les retourner a main par un intent
+    in: numero ou se trouve le nom de file dans la liste favlist
+    out: rien
+    */
     private void fermeture( int i){
         Intent intent = new Intent();
         try{

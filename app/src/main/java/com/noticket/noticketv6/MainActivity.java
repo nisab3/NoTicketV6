@@ -32,7 +32,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApi;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -326,9 +325,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    // quand le bouton de nouvelle pancarte est clicker
-    // on crée un intent et lance la nouvelle activitée en
-    // vérifiant quel est la prochaine pancarte pas active
+    /*
+    quand le bouton de nouvelle pancarte est clicker
+    on crée un intent et lance la nouvelle activitée en
+    vérifiant quel est la prochaine pancarte pas active
+    */
     private void actionBoutNouveau(View view){
         int numero = 1;
         boolean trouve = false;
@@ -357,11 +358,13 @@ public class MainActivity extends AppCompatActivity {
         creeIntent(view, numero);
     }
 
-    // fonction pour cree le intent pour activity pancarte et
-    // joindre le numero de la pancarte concerné
-    // in: View view,
-    //     int numero de la pancarte
-    // out: rien
+    /*
+    fonction pour cree le intent pour activity pancarte et
+    joindre le numero de la pancarte concerné
+    in: View view,
+    int numero de la pancarte
+    out: rien
+    */
     private void creeIntent(View view, int numero){
         Pancarte pancarteUtile = poteau.get_pancarte(numero);
         Intent intent = new Intent(this, PancarteActivity.class);
@@ -590,10 +593,13 @@ public class MainActivity extends AppCompatActivity {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotificationManager.cancelAll();
     }
-    // la fonction qu'on call pour mettre la notification
-    // créer le intent pour le donner a l'alarme manager et calculer le temps délais
-    // in: int[] = [min, heure, (oui/non), jour]
-    //     int = delai
+
+    /*
+    la fonction qu'on call pour mettre la notification
+    créer le intent pour le donner a l'alarme manager et calculer le temps délais
+    in: int[] = [min, heure, (oui/non), jour]
+    int = delai
+    */
     public void mettreNotif(int[] temps, int delai){
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
@@ -616,11 +622,13 @@ public class MainActivity extends AppCompatActivity {
         alarme.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timer, pendingIntent);
     }
 
-    // fonction qui cree la notification
-    // c'est ici qu'on lui passe les textes et alarme
-    // in: int[] = [min, heure, (oui/non), jour]
-    //     int = delai
-    // out: une Notification
+    /*
+    fonction qui cree la notification
+    c'est ici qu'on lui passe les textes et alarme
+    in: int[] = [min, heure, (oui/non), jour]
+    int = delai
+    out: une Notification
+    */
     private Notification faireNotif(int[] temps, int delai){
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         long[] pattern = {0, 100, 1000, 100, 1000, 100, 1000, 100, 1000};
@@ -714,7 +722,6 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    //TODO demander d'ouvri le gps
                     noGPS();
                 } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     getPosition();
@@ -748,15 +755,13 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            //TODO ci haut le location est toujours null pour nicolas 
             if (location!=null) {
-                latitude=location.getLatitude();
+                 latitude=location.getLatitude();
                 longitude=location.getLongitude();
 
                 geoPosition[0] = latitude;
                 geoPosition[1] = longitude;
                 miseAJourFichierNumero();
-                // TODO cleaner cette partie.
 
                 Toast.makeText(this, "longitude"+longitude+" \nlatitude "+latitude, Toast.LENGTH_SHORT).show();
 
@@ -885,7 +890,6 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
-//        dialog.getWindow().setLayout(800, 500);
 
         boutonOui.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -917,7 +921,6 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
-//        dialog.getWindow().setLayout(800, 550);
 
         boutonOui.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -941,8 +944,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // fonction pour chercher le fichier de base numero pour sortir les info sauvegardé
-    // ou le créer
+    /*
+    fonction pour chercher le fichier de base numero pour sortir les info sauvegardé
+    ou le créer
+    */
     private void rechercheFichierNumero(){
         boolean faite = false;
         // donne la liste des files
@@ -1010,7 +1015,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //TODO TEMPORAIRE
     public void showSettingAlert()
     {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -1020,7 +1024,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                this.startActivity(intent);
             }
         });
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

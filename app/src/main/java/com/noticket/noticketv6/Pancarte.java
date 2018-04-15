@@ -64,25 +64,32 @@ public class Pancarte {
             min2 = 0;
         }
     }
-    // set si la ligne est active
-    // in: bool true/false
-    //     int numero ligne
-    // out: rien
+
+    /*
+    set si la ligne est active
+    in: bool true/false
+    int numero ligne
+    out: rien
+    */
     public void heureSetActive(boolean etat, int ligne){
         heure[ligne-1].active = etat;
     }
 
-    // demande si la ligne est active
-    // in: int numero ligne
-    // out: true/false
+    /*
+    demande si la ligne est active
+    in: int numero ligne
+    out: true/false
+    */
     public boolean heureIsActive(int ligne){
         return heure[ligne-1].active;
     }
 
-    // mettre l'heure a la ligne donner
-    // in: int [heure1, min1, heure2, min2]
-    //     int ligne
-    // out: rien
+    /*
+    mettre l'heure a la ligne donner
+    in: int [heure1, min1, heure2, min2]
+    int ligne
+    out: rien
+    */
     public void setHeure (int[] h, int ligne){
         heure[ligne-1].heure1 = h[0];
         heure[ligne-1].heure2 = h[2];
@@ -90,9 +97,11 @@ public class Pancarte {
         heure[ligne-1].min2 = h[3];
     }
 
-    // demander l'heure a la ligne donner
-    // in: numero de la ligne
-    // out: int[heure1, min1, heure2, min2]
+    /*
+    demander l'heure a la ligne donner
+    in: numero de la ligne
+    out: int[heure1, min1, heure2, min2]
+    */
     public int[] getHeure(int ligne){
         int[] result = {heure[ligne-1].heure1, heure[ligne-1].min1, heure[ligne-1].heure2, heure[ligne-1].min2};
         return result;
@@ -114,34 +123,42 @@ public class Pancarte {
         }
     }
 
-    // demande si le jour est active
-    // in: int numero ligne
-    // out: true/false
+    /*
+    demande si le jour est active
+    in: int numero ligne
+    out: true/false
+    */
     public boolean jourIsActive(int ligne){
         return jour[ligne-1].active;
     }
 
-    // set si le jour est active
-    // in: bool true/false
-    //     int numero ligne
-    // out: rien
+    /*
+    set si le jour est active
+    in: bool true/false
+    int numero ligne
+    out: rien
+    */
     public void jourSetActive(boolean etat, int ligne){
         jour[ligne-1].active = etat;
     }
 
-    // mettre le jour a la ligne donner
-    // in: int [jour1, jour2, et/a]
-    //     int numero ligne
-    // out: rien
+    /*
+    mettre le jour a la ligne donner
+    in: int [jour1, jour2, et/a]
+    int numero ligne
+    out: rien
+    */
     public void setJour(int[] j, int ligne){
         jour[ligne-1].jour1 = j[0];
         jour[ligne-1].jour2 = j[1];
         jour[ligne-1].eta = j[2];
     }
 
-    // demander le jour a la ligne donner
-    // in: numero de la ligne
-    // out: int[jour1, jour2, eta]
+    /*
+    demander le jour a la ligne donner
+    in: numero de la ligne
+    out: int[jour1, jour2, eta]
+    */
     public int[] getJour(int ligne){
         int[] result = {jour[ligne-1].jour1, jour[ligne-1].jour2, jour[ligne-1].eta};
         return result;
@@ -166,23 +183,29 @@ public class Pancarte {
         }
     }
 
-    // demande si le mois est active
-    // in: rien
-    // out: true/false
+    /*
+    demande si le mois est active
+    in: rien
+    out: true/false
+    */
     public boolean moisIsActive(){
         return mois.active;
     }
 
-    // set si le mois est active
-    // in: bool true/false
-    // out: rien
+    /*
+    set si le mois est active
+    in: bool true/false
+    out: rien
+    */
     public void moisSetActive(boolean etat){
         mois.active = etat;
     }
 
-    // mettre le mois
-    // in: int [date1, mois1, date2, mois2]
-    // out: rien
+    /*
+    mettre le mois
+    in: int [date1, mois1, date2, mois2]
+    out: rien
+    */
     public void setmois (int[] m){
         mois.date1 = m[0];
         mois.mois1 = m[1];
@@ -190,38 +213,48 @@ public class Pancarte {
         mois.mois2 = m[3];
     }
 
-    // demander le mois
-    // in: rien
-    // out: int[date1, mois1, date2, mois2]
+    /*
+    demander le mois
+    in: rien
+    out: int[date1, mois1, date2, mois2]
+    */
     public int[] getMois(){
         int[] result = {mois.date1, mois.mois1, mois.date2, mois.mois2};
         return result;
     }
 
-    // mettre fleche
-    // in: int fleche
-    // out: rien
+    /*
+    mettre fleche
+    in: int fleche
+    out: rien
+    */
     public void setFleche(int f){
         fleche = f;
     }
 
-    // demander fleche
-    // in: rien
-    // out: int fleche
+    /*
+    demander fleche
+    in: rien
+    out: int fleche
+    */
     public int getFleche(){
         return fleche;
     }
 
-    // mettre image
-    // in: int image
-    // out: rien
+    /*
+    mettre image
+    in: int image
+    out: rien
+    */
     public void setImage(int i){
         image = i;
     }
 
-    // demander image
-    // in: rien
-    // out: int image
+    /*
+    demander image
+    in: rien
+    out: int image
+    */
     public int getImage(){
         return image;
     }

@@ -130,18 +130,20 @@ public class Poteau {
         }
     }
 
-    // Analyse les 5 pancartes
-    // et retourne:  [-1,-1] si impossible de se stationner
-    //               [heure, minute] l'heure de départ pour éviter une
-    //                               contravention, à partir de minuit le jour actuel
-    //
-    // Les jour vont de 1=lun à 7=dim  0 =aucune journée
-    // et=2   à=1  0=rien
-    // correspondance entre jour 1à3 et heure 1à3 Toutes les heures s'appilquent à toutes les journées
-    // type de flèche: 0 pas de flèche
-    //                 1 <-
-    //                 2 ->
-    //                 3 <->
+    /*
+    Analyse les 5 pancartes
+    et retourne:  [-1,-1] si impossible de se stationner
+    [heure, minute] l'heure de départ pour éviter une
+    contravention, à partir de minuit le jour actuel
+
+    Les jour vont de 1=lun à 7=dim  0 =aucune journée
+    et=2   à=1  0=rien
+    correspondance entre jour 1à3 et heure 1à3 Toutes les heures s'appilquent à toutes les journées
+    type de flèche: 0 pas de flèche
+    1 <-
+    2 ->
+    3 <->
+    */
     public int[] analyse() {
         Date dateActuelle = new Date();
         String maintenant = dateActuelle.toString();
@@ -152,7 +154,7 @@ public class Poteau {
         int heure = Integer.parseInt(maintenant.substring(11, 13));
         int minute = Integer.parseInt(maintenant.substring(14, 16));
         int[] now = {mois, jour, heure, minute};
-        // TODO vérifier le changement de mois
+
         int[] tomorrow = {mois, jour+1, heure, minute};
         int[] resultat = {24, 0, 0, 1};
 
@@ -232,12 +234,14 @@ public class Poteau {
             return resultat;
     }
 
-    // Retourne booléen vrai si la pancarte s'applique dans ce contexte,
-    //                          considérant la position de la voiture.
-    // type de flèche: 0 pas de flèche
-    //                 1 <-
-    //                 2 <->
-    //                 3 ->
+    /*
+    Retourne booléen vrai si la pancarte s'applique dans ce contexte,
+    considérant la position de la voiture.
+    type de flèche: 0 pas de flèche
+    1 <-
+    2 <->
+    3 ->
+    */
     private boolean applicable(Pancarte p, boolean p_active, int pos) {
         if (!p_active){
             return false;

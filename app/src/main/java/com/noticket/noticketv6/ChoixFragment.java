@@ -155,7 +155,7 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeHeureFrag(int[] info){
-        Toast.makeText(getContext(), info[0] +","+info[1]+","+info[2]+","+info[3],Toast.LENGTH_SHORT) ;
+
         TextView t = getActivity().findViewById(R.id.textMessagePicker);
         t.setText(R.string.text_heure_frag);
         // formate number picker de l'heure 1
@@ -262,7 +262,7 @@ public class ChoixFragment extends Fragment {
     in: les informations de la ligne de la pancarte
     */
     private void makeMoisFrag(int[] info){
-        Toast.makeText(getContext(), info[0] +","+info[1]+","+info[2]+","+info[3],Toast.LENGTH_SHORT) ;
+
         TextView t = getActivity().findViewById(R.id.textMessagePicker);
         t.setText(R.string.text_mois_frag);
         // formate number picker du numéro du mois 1

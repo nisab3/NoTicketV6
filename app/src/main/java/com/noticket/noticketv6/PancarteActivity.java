@@ -19,10 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
@@ -173,8 +170,10 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
 
-    // que faire si le bouton back est clicker
-    // je dois la overrider car sinon ca repars une nouvelle MainActivity et perds tout les pancarte déja fait
+    /*
+    que faire si le bouton back est clicker
+    je dois la overrider car sinon ca repars une nouvelle MainActivity et perds tout les pancarte déja fait
+    */
     @Override
     public void onBackPressed() {
         finish();
@@ -454,9 +453,11 @@ public class PancarteActivity extends AppCompatActivity {
     }
 
 
-    // fonction qui verifie l'entré quand on appuis sur ok pour s'assurer que l'entré est valide
-    // in: le type de fragement a verifier
-    // out: oui ou non
+    /*
+    fonction qui verifie l'entré quand on appuis sur ok pour s'assurer que l'entré est valide
+    in: le type de fragement a verifier
+    out: oui ou non
+    */
     public boolean verifieValide(int type, int[] info){
         boolean reponse = true;
         // si le fragemnt est heure = les 2 heures ne peuvent etre pareille
@@ -972,26 +973,6 @@ public class PancarteActivity extends AppCompatActivity {
     private void sauvegardeFavorie() {
         // donne la liste des files
         String[] liste = fileList();
-        // je vais choisir le prochain nom disponible
-
-//        String name = "com.noticket.numero";  // jai enregistrer le numero de la derniere files sauvgarde ici
-//        int trouver= 0;
-//        // recherche et prend le fichier numero
-//        try {
-//            FileInputStream fis = openFileInput(name);
-//            ObjectInputStream is = new ObjectInputStream(fis);
-//            trouver = (int) is.readObject();
-//            is.close();
-//            fis.close();
-//            FileOutputStream fos = openFileOutput(name, MODE_PRIVATE);
-//            ObjectOutputStream os = new ObjectOutputStream(fos);
-//            trouver++;
-//            os.writeObject(trouver);
-//            os.close();
-//            fos.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         // nom de la prochaine file de favorie
         String name = "com.noticket.sauvegarde" + trouver;
